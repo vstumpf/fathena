@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `acc_reg_num` (
   `value` bigint(11) NOT NULL default '0',
   PRIMARY KEY (`account_id`,`key`,`index`),
   KEY `account_id` (`account_id`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `acc_reg_str`
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `acc_reg_str` (
   `value` varchar(254) NOT NULL default '0',
   PRIMARY KEY (`account_id`,`key`,`index`),
   KEY `account_id` (`account_id`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `achievement`
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `achievement` (
   `rewarded` datetime,
   PRIMARY KEY (`char_id`,`id`),
   KEY `char_id` (`char_id`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `auction`
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `auction` (
   `unique_id` bigint(20) unsigned NOT NULL default '0',
   `enchantgrade` tinyint unsigned NOT NULL default '0',
   PRIMARY KEY  (`auction_id`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table `barter` for barter shop persistency
@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `barter` (
   `index` SMALLINT(5) UNSIGNED NOT NULL,
   `amount` SMALLINT(5) UNSIGNED NOT NULL,
   PRIMARY KEY  (`name`,`index`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for `db_roulette`
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `db_roulette` (
   `amount` smallint(5) unsigned NOT NULL DEFAULT '1',
   `flag` smallint(5) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`index`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `bonus_script`
@@ -139,7 +139,7 @@ CREATE TABLE IF NOT EXISTS `buyingstore_items` (
   `amount` smallint(5) unsigned NOT NULL,
   `price` int(10) unsigned NOT NULL,
   PRIMARY KEY (`buyingstore_id`, `index`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `buyingstores`
@@ -160,7 +160,7 @@ CREATE TABLE IF NOT EXISTS `buyingstores` (
   `sit` CHAR( 1 ) NOT NULL DEFAULT '1',
   `autotrade` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `cart_inventory`
@@ -200,7 +200,7 @@ CREATE TABLE IF NOT EXISTS `cart_inventory` (
   `enchantgrade` tinyint unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `char_id` (`char_id`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `char`
@@ -293,7 +293,7 @@ CREATE TABLE IF NOT EXISTS `char` (
   KEY `party_id` (`party_id`),
   KEY `guild_id` (`guild_id`),
   KEY `online` (`online`)
-) ENGINE=MyISAM AUTO_INCREMENT=150000; 
+) AUTO_INCREMENT=150000; 
 
 --
 -- Table structure for table `char_reg_num`
@@ -306,7 +306,7 @@ CREATE TABLE IF NOT EXISTS `char_reg_num` (
   `value` bigint(11) NOT NULL default '0',
   PRIMARY KEY (`char_id`,`key`,`index`),
   KEY `char_id` (`char_id`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `char_reg_str`
@@ -319,7 +319,7 @@ CREATE TABLE IF NOT EXISTS `char_reg_str` (
   `value` varchar(254) NOT NULL default '0',
   PRIMARY KEY (`char_id`,`key`,`index`),
   KEY `char_id` (`char_id`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `charlog`
@@ -342,7 +342,7 @@ CREATE TABLE IF NOT EXISTS `charlog` (
   `hair_color` int(11) NOT NULL default '0',
   PRIMARY KEY (`id`),
   KEY `account_id` (`account_id`)
-) ENGINE=MyISAM; 
+); 
 
 --
 -- Table structure for table `clan`
@@ -355,7 +355,7 @@ CREATE TABLE IF NOT EXISTS `clan` (
   `mapname` varchar(24) NOT NULL DEFAULT '',
   `max_member` smallint(6) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`clan_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5;
+) AUTO_INCREMENT=5;
 
 -- ----------------------------
 -- Records of clan
@@ -377,7 +377,7 @@ CREATE TABLE IF NOT EXISTS `clan_alliance` (
   `name` varchar(24) NOT NULL DEFAULT '',
   PRIMARY KEY (`clan_id`,`alliance_id`),
   KEY `alliance_id` (`alliance_id`)
-) ENGINE=MyISAM;
+);
 
 -- ----------------------------
 -- Records of clan_alliance
@@ -415,7 +415,7 @@ CREATE TABLE IF NOT EXISTS `elemental` (
   `hit` smallint(4) unsigned NOT NULL default '0',
   `life_time` bigint(20) NOT NULL default '0',
   PRIMARY KEY  (`ele_id`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `friends`
@@ -425,7 +425,7 @@ CREATE TABLE IF NOT EXISTS `friends` (
   `char_id` int(11) NOT NULL default '0',
   `friend_id` int(11) NOT NULL default '0',
   PRIMARY KEY (`char_id`, `friend_id`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `global_acc_reg_num`
@@ -438,7 +438,7 @@ CREATE TABLE IF NOT EXISTS `global_acc_reg_num` (
   `value` bigint(11) NOT NULL default '0',
   PRIMARY KEY (`account_id`,`key`,`index`),
   KEY `account_id` (`account_id`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `global_acc_reg_str`
@@ -451,7 +451,7 @@ CREATE TABLE IF NOT EXISTS `global_acc_reg_str` (
   `value` varchar(254) NOT NULL default '0',
   PRIMARY KEY (`account_id`,`key`,`index`),
   KEY `account_id` (`account_id`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `guild`
@@ -478,7 +478,7 @@ CREATE TABLE IF NOT EXISTS `guild` (
   PRIMARY KEY  (`guild_id`,`char_id`),
   UNIQUE KEY `guild_id` (`guild_id`),
   KEY `char_id` (`char_id`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `guild_alliance`
@@ -491,7 +491,7 @@ CREATE TABLE IF NOT EXISTS `guild_alliance` (
   `name` varchar(24) NOT NULL default '',
   PRIMARY KEY  (`guild_id`,`alliance_id`),
   KEY `alliance_id` (`alliance_id`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `guild_castle`
@@ -518,7 +518,7 @@ CREATE TABLE IF NOT EXISTS `guild_castle` (
   `visibleG7` int(11) unsigned NOT NULL default '0',
   PRIMARY KEY  (`castle_id`),
   KEY `guild_id` (`guild_id`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `guild_expulsion`
@@ -531,7 +531,7 @@ CREATE TABLE IF NOT EXISTS `guild_expulsion` (
   `mes` varchar(40) NOT NULL default '',
   `char_id` int(11) unsigned NOT NULL default '0',
   PRIMARY KEY  (`guild_id`,`name`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `guild_member`
@@ -544,7 +544,7 @@ CREATE TABLE IF NOT EXISTS `guild_member` (
   `position` tinyint(6) unsigned NOT NULL default '0',
   PRIMARY KEY  (`guild_id`,`char_id`),
   KEY `char_id` (`char_id`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `guild_position`
@@ -557,7 +557,7 @@ CREATE TABLE IF NOT EXISTS `guild_position` (
   `mode` smallint(11) unsigned NOT NULL default '0',
   `exp_mode` tinyint(11) unsigned NOT NULL default '0',
   PRIMARY KEY  (`guild_id`,`position`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `guild_skill`
@@ -568,7 +568,7 @@ CREATE TABLE IF NOT EXISTS `guild_skill` (
   `id` smallint(11) unsigned NOT NULL default '0',
   `lv` tinyint(11) unsigned NOT NULL default '0',
   PRIMARY KEY  (`guild_id`,`id`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `guild_storage`
@@ -608,7 +608,7 @@ CREATE TABLE IF NOT EXISTS `guild_storage` (
   `enchantgrade` tinyint unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `guild_id` (`guild_id`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `guild_storage_log`
@@ -650,7 +650,7 @@ CREATE TABLE IF NOT EXISTS `guild_storage_log` (
   `enchantgrade` tinyint unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`),
   INDEX (`guild_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1;
+) AUTO_INCREMENT=1;
 
 --
 -- Table structure for table `homunculus`
@@ -682,7 +682,7 @@ CREATE TABLE IF NOT EXISTS `homunculus` (
   `vaporize` tinyint(2) NOT NULL default '0',
   `autofeed` tinyint(2) NOT NULL default '0',
   PRIMARY KEY  (`homun_id`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `hotkey`
@@ -695,7 +695,7 @@ CREATE TABLE IF NOT EXISTS `hotkey` (
   `itemskill_id` INT(11) unsigned NOT NULL default '0',
   `skill_lvl` TINYINT(4) unsigned NOT NULL default '0',
   PRIMARY KEY (`char_id`,`hotkey`)
-) ENGINE=MyISAM;
+);
 
 -- 
 -- Table structure for table `interlog`
@@ -707,7 +707,7 @@ CREATE TABLE IF NOT EXISTS `interlog` (
   `log` varchar(255) NOT NULL default '',
   PRIMARY KEY (`id`),
   INDEX `time` (`time`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `inventory`
@@ -749,7 +749,7 @@ CREATE TABLE IF NOT EXISTS `inventory` (
   `enchantgrade` tinyint unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `char_id` (`char_id`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `ipbanlist`
@@ -761,7 +761,7 @@ CREATE TABLE IF NOT EXISTS `ipbanlist` (
   `rtime` datetime NOT NULL,
   `reason` varchar(255) NOT NULL default '',
   PRIMARY KEY (`list`, `btime`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `login`
@@ -791,7 +791,7 @@ CREATE TABLE IF NOT EXISTS `login` (
   PRIMARY KEY  (`account_id`),
   KEY `name` (`userid`),
   UNIQUE KEY `web_auth_token_key` (`web_auth_token`)
-) ENGINE=MyISAM AUTO_INCREMENT=2000000; 
+) AUTO_INCREMENT=2000000; 
 
 -- added standard accounts for servers, VERY INSECURE!!!
 -- inserted into the table called login which is above
@@ -815,7 +815,7 @@ CREATE TABLE IF NOT EXISTS `mail` (
   `zeny` int(11) unsigned NOT NULL default '0',
   `type` smallint(5) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM;
+);
 
 -- ----------------------------
 -- Table structure for `mail_attachments`
@@ -852,7 +852,7 @@ CREATE TABLE IF NOT EXISTS `mail_attachments` (
   `bound` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `enchantgrade` tinyint unsigned NOT NULL default '0',
     PRIMARY KEY (`id`,`index`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `mapreg`
@@ -863,7 +863,7 @@ CREATE TABLE IF NOT EXISTS `mapreg` (
   `index` int(11) unsigned NOT NULL default '0',
   `value` varchar(255) NOT NULL,
   PRIMARY KEY (`varname`,`index`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table `market` for market shop persistency
@@ -890,7 +890,7 @@ CREATE TABLE IF NOT EXISTS `memo` (
   `y` smallint(4) unsigned NOT NULL default '0',
   PRIMARY KEY  (`memo_id`),
   KEY `char_id` (`char_id`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `mercenary`
@@ -905,7 +905,7 @@ CREATE TABLE IF NOT EXISTS `mercenary` (
   `kill_counter` int(11) NOT NULL,
   `life_time` bigint(20) NOT NULL default '0',
   PRIMARY KEY  (`mer_id`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `mercenary_owner`
@@ -921,7 +921,7 @@ CREATE TABLE IF NOT EXISTS `mercenary_owner` (
   `sword_calls` int(11) NOT NULL default '0',
   `sword_faith` int(11) NOT NULL default '0',
   PRIMARY KEY  (`char_id`)
-) ENGINE=MyISAM;
+);
 
 -- ----------------------------
 -- Table structure for `sales`
@@ -933,7 +933,7 @@ CREATE TABLE IF NOT EXISTS `sales` (
   `end` datetime NOT NULL,
   `amount` int(11) NOT NULL,
   PRIMARY KEY (`nameid`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `sc_data`
@@ -949,7 +949,7 @@ CREATE TABLE IF NOT EXISTS `sc_data` (
   `val3` int(11) NOT NULL default '0',
   `val4` int(11) NOT NULL default '0',
   PRIMARY KEY (`char_id`, `type`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `skillcooldown`
@@ -961,7 +961,7 @@ CREATE TABLE IF NOT EXISTS `skillcooldown` (
   `skill` smallint(11) unsigned NOT NULL DEFAULT '0',
   `tick` bigint(20) NOT NULL,
   PRIMARY KEY (`char_id`, `skill`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `party`
@@ -975,7 +975,7 @@ CREATE TABLE IF NOT EXISTS `party` (
   `leader_id` int(11) unsigned NOT NULL default '0',
   `leader_char` int(11) unsigned NOT NULL default '0',
   PRIMARY KEY  (`party_id`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `party_bookings`
@@ -996,7 +996,7 @@ CREATE TABLE IF NOT EXISTS `party_bookings` (
   `comment` varchar(255) NOT NULL DEFAULT '',
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`world_name`, `account_id`, `char_id`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `pet`
@@ -1017,7 +1017,7 @@ CREATE TABLE IF NOT EXISTS `pet` (
   `incubate` int(11) unsigned NOT NULL default '0',
   `autofeed` tinyint(2) NOT NULL default '0',
   PRIMARY KEY  (`pet_id`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `quest`
@@ -1032,7 +1032,7 @@ CREATE TABLE IF NOT EXISTS `quest` (
   `count2` mediumint(8) unsigned NOT NULL default '0',
   `count3` mediumint(8) unsigned NOT NULL default '0',
   PRIMARY KEY  (`char_id`,`quest_id`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `skill`
@@ -1044,7 +1044,7 @@ CREATE TABLE IF NOT EXISTS `skill` (
   `lv` tinyint(4) unsigned NOT NULL default '0',
   `flag` TINYINT(1) UNSIGNED NOT NULL default 0,
   PRIMARY KEY  (`char_id`,`id`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `skill_homunculus`
@@ -1055,7 +1055,7 @@ CREATE TABLE IF NOT EXISTS `skill_homunculus` (
   `id` int(11) NOT NULL,
   `lv` smallint(6) NOT NULL,
   PRIMARY KEY  (`homun_id`,`id`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `skillcooldown_homunculus`
@@ -1066,7 +1066,7 @@ CREATE TABLE IF NOT EXISTS `skillcooldown_homunculus` (
   `skill` smallint(11) unsigned NOT NULL DEFAULT '0',
   `tick` bigint(20) NOT NULL,
   PRIMARY KEY (`homun_id`,`skill`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `skillcooldown_mercenary`
@@ -1077,7 +1077,7 @@ CREATE TABLE IF NOT EXISTS `skillcooldown_mercenary` (
   `skill` smallint(11) unsigned NOT NULL DEFAULT '0',
   `tick` bigint(20) NOT NULL,
   PRIMARY KEY (`mer_id`,`skill`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `storage`
@@ -1117,7 +1117,7 @@ CREATE TABLE IF NOT EXISTS `storage` (
   `enchantgrade` tinyint unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `account_id` (`account_id`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `vending_items`
@@ -1130,7 +1130,7 @@ CREATE TABLE IF NOT EXISTS `vending_items` (
   `amount` smallint(5) unsigned NOT NULL,
   `price` int(10) unsigned NOT NULL,
   PRIMARY KEY (`vending_id`, `index`)
-) ENGINE=MyISAM;
+);
 
 --
 -- Table structure for table `vendings`
@@ -1150,4 +1150,4 @@ CREATE TABLE IF NOT EXISTS `vendings` (
   `sit` CHAR( 1 ) NOT NULL DEFAULT '1',
   `autotrade` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM;
+);
