@@ -1151,3 +1151,9 @@ CREATE TABLE IF NOT EXISTS `vendings` (
   `autotrade` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
 );
+
+CREATE TABLE IF NOT EXISTS `sql_updates` (
+  `timestamp` INT UNSIGNED NOT NULL,
+  `ignored` BOOL NOT NULL DEFAULT 0,
+  PRIMARY KEY (`timestamp`)
+);
