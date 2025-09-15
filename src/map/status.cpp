@@ -9519,18 +9519,37 @@ void status_set_viewdata(struct block_list *bl, int32 class_)
  * @param bl: Object whose sc data to get [PC|MOB|HOM|MER|ELEM|NPC]
  * @return status change data structure bl->sc
  */
-status_change* status_get_sc(const block_list* bl){
+const status_change* status_get_sc(const block_list* bl){
 	if( bl )
 	switch (bl->type) {
-		case BL_PC:  return &((TBL_PC*)bl)->sc;
-		case BL_MOB: return &((TBL_MOB*)bl)->sc;
-		case BL_NPC: return &((TBL_NPC*)bl)->sc;
-		case BL_HOM: return &((TBL_HOM*)bl)->sc;
-		case BL_MER: return &((TBL_MER*)bl)->sc;
-		case BL_ELEM: return &((TBL_ELEM*)bl)->sc;
+		case BL_PC:  return &static_cast<const TBL_PC*>(bl)->sc;
+		case BL_MOB: return &static_cast<const TBL_MOB*>(bl)->sc;
+		case BL_NPC: return &static_cast<const TBL_NPC*>(bl)->sc;
+		case BL_HOM: return &static_cast<const TBL_HOM*>(bl)->sc;
+		case BL_MER: return &static_cast<const TBL_MER*>(bl)->sc;
+		case BL_ELEM: return &static_cast<const TBL_ELEM*>(bl)->sc;
 	}
 	return nullptr;
 }
+
+/**
+ * Get status change data of an object
+ * @param bl: Object whose sc data to get [PC|MOB|HOM|MER|ELEM|NPC]
+ * @return status change data structure bl->sc
+ */
+status_change* status_get_sc(block_list* bl){
+	if( bl )
+	switch (bl->type) {
+		case BL_PC:  return &static_cast<TBL_PC*>(bl)->sc;
+		case BL_MOB: return &static_cast<TBL_MOB*>(bl)->sc;
+		case BL_NPC: return &static_cast<TBL_NPC*>(bl)->sc;
+		case BL_HOM: return &static_cast<TBL_HOM*>(bl)->sc;
+		case BL_MER: return &static_cast<TBL_MER*>(bl)->sc;
+		case BL_ELEM: return &static_cast<TBL_ELEM*>(bl)->sc;
+	}
+	return nullptr;
+}
+
 
 /*========================================== [Playtester]
 * Returns the interval for status changes that iterate multiple times
