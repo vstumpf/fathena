@@ -22,6 +22,10 @@ on:
 
 jobs:
   analyze:
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
     # Github Actions checks for '[ci skip]', '[skip ci]', '[no ci]', '[skip actions]', or '[actions skip]' but not a hyphenated version.
     # It's a catch-all incase a Pull Request has been opened and someone is on auto-pilot.
     if: "!contains(github.event.head_commit.message, 'ci-skip')"
