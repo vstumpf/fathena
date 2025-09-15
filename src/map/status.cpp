@@ -8977,13 +8977,13 @@ int32 status_get_lv(const block_list *bl)
 {
 	nullpo_ret(bl);
 	switch (bl->type) {
-		case BL_PC:	return ((TBL_PC*)bl)->status.base_level;
-		case BL_MOB:	return ((TBL_MOB*)bl)->level;
-		case BL_PET:	return ((TBL_PET*)bl)->pet.level;
-		case BL_HOM:	return ((TBL_HOM*)bl)->homunculus.level;
-		case BL_MER:	return ((TBL_MER*)bl)->db->lv;
-		case BL_ELEM:	return ((TBL_ELEM*)bl)->db->lv;
-		case BL_NPC:	return ((TBL_NPC*)bl)->level;
+		case BL_PC:	return static_cast<const TBL_PC*>(bl)->status.base_level;
+		case BL_MOB:	return static_cast<const TBL_MOB*>(bl)->level;
+		case BL_PET:	return static_cast<const TBL_PET*>(bl)->pet.level;
+		case BL_HOM:	return static_cast<const TBL_HOM*>(bl)->homunculus.level;
+		case BL_MER:	return static_cast<const TBL_MER*>(bl)->db->lv;
+		case BL_ELEM:	return static_cast<const TBL_ELEM*>(bl)->db->lv;
+		case BL_NPC:	return static_cast<const TBL_NPC*>(bl)->level;
 	}
 	return 1;
 }
