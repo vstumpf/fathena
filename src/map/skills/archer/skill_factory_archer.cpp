@@ -10,7 +10,7 @@
 #include "makingarrow.hpp"
 
 std::unique_ptr<const SkillImpl> SkillFactoryArcher::create(const e_skill skill_id) const {
-	switch( skill_id ){
+	switch (skill_id) {
 		case AC_CHARGEARROW:
 			return std::make_unique<SkillChargeArrow>();
 		case AC_CONCENTRATION:

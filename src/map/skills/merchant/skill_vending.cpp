@@ -9,12 +9,14 @@
 SkillVending::SkillVending() : SkillImpl(MC_VENDING) {
 }
 
-void SkillVending::castendNoDamageId(block_list *src, block_list *target, uint16 skill_lv, t_tick tick, int32& flag) const {
+void SkillVending::castendNoDamageId(
+	block_list *src, block_list *target, uint16 skill_lv, t_tick tick, int32 &flag) const {
 	map_session_data *sd = BL_CAST(BL_PC, src);
 	if (sd) {
 		// Prevent vending of GMs with unnecessary Level to trade/drop. [Skotlex]
-		if (!pc_can_give_items(sd))
+		if (!pc_can_give_items(sd)) {
 			clif_skill_fail(*sd, MC_VENDING);
+		}
 		else {
 			int32 i = 0;
 			sd->state.prevend = 1;
@@ -25,7 +27,8 @@ void SkillVending::castendNoDamageId(block_list *src, block_list *target, uint16
 				// Save the cart before opening the vending UI
 				sd->state.pending_vending_ui = true;
 				intif_storage_save(sd, &sd->cart);
-			} else {
+			}
+			else {
 				// Instantly open the vending UI
 				sd->state.pending_vending_ui = false;
 				clif_openvendingreq(*sd, 2 + skill_lv);
