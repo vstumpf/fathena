@@ -14,9 +14,8 @@
 #include "incagi.hpp"
 #include "ruwach.hpp"
 
-
 std::unique_ptr<const SkillImpl> SkillFactoryAcolyte::create(const e_skill skill_id) const {
-	switch( skill_id ){
+	switch (skill_id) {
 		case AL_ANGELUS:
 			return std::make_unique<SkillAngelus>();
 		case AL_BLESSING:

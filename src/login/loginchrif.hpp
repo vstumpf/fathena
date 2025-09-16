@@ -25,7 +25,7 @@ int32 logchrif_parse(int32 fd);
  */
 int32 logchrif_sendallwos(int32 sfd, uint8* buf, size_t len);
 
-int32 logchrif_sendvipdata( int32 fd, struct mmo_account* acc, unsigned char flag, int32 mapfd );
+int32 logchrif_sendvipdata(int32 fd, struct mmo_account* acc, unsigned char flag, int32 mapfd);
 
 /**
  * loginchrif constructor
@@ -44,4 +44,4 @@ void do_shutdown_loginchrif(void);
  */
 void do_final_loginchrif(void);
 
-#endif	/* LOGINCHRIF_HPP */
+#endif /* LOGINCHRIF_HPP */

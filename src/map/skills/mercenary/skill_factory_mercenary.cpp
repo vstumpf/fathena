@@ -6,7 +6,7 @@
 #include "mercenary_bash.hpp"
 
 std::unique_ptr<const SkillImpl> SkillFactoryMercenary::create(const e_skill skill_id) const {
-	switch( skill_id ){
+	switch (skill_id) {
 		case MS_BASH:
 			return std::make_unique<SkillMercenaryBash>();
 

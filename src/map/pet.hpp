@@ -4,6 +4,8 @@
 #ifndef PET_HPP
 #define PET_HPP
 
+#include <unordered_map>
+
 #include <common/cbasetypes.hpp>
 #include <common/database.hpp>
 #include <common/mmo.hpp>
@@ -16,9 +18,7 @@
 #include "status.hpp"
 #include "unit.hpp"
 
-#include <unordered_map>
-
-#define MAX_PETLOOT_SIZE	30
+#define MAX_PETLOOT_SIZE 30
 
 struct s_pet_evo_data {
 	uint16 target_mob_id;
@@ -43,27 +43,31 @@ struct s_pet_db {
 	uint16 capture; ///< Capture success rate 10000 = 100%
 	bool s_perfor; ///< Special performance
 	uint16 attack_rate; ///< Rate of which the pet will attack (requires at least pet_support_min_friendly intimacy).
-	uint16 defence_attack_rate; ///< Rate of which the pet will retaliate when master is being attacked (requires at least pet_support_min_friendly intimacy).
+	uint16 defence_attack_rate; ///< Rate of which the pet will retaliate when master is being attacked (requires at
+								///< least pet_support_min_friendly intimacy).
 	uint16 change_target_rate; ///< Rate of which the pet will change its attack target.
 	bool allow_autofeed; ///< Can this pet use auto feeding mechanic.
 	std::unordered_map<uint16, std::shared_ptr<s_pet_evo_data>> evolution_data; ///< Data for evolving the pet.
-	struct script_code
-		*pet_support_script, ///< Script since pet hatched. For pet* script commands only.
+	struct script_code *pet_support_script, ///< Script since pet hatched. For pet* script commands only.
 		*pet_bonus_script; ///< Bonus script for this pet.
 
-	~s_pet_db()
-	{
-		if( this->pet_support_script ){
+	~s_pet_db() {
+		if (this->pet_support_script) {
 			script_free_code(this->pet_support_script);
 		}
 
-		if( this->pet_bonus_script ){
+		if (this->pet_bonus_script) {
 			script_free_code(this->pet_bonus_script);
 		}
 	}
 };
 
-enum e_pet_itemtype : uint8 { PET_CATCH,PET_EGG,PET_EQUIP,PET_FOOD };
+enum e_pet_itemtype : uint8 {
+	PET_CATCH,
+	PET_EGG,
+	PET_EQUIP,
+	PET_FOOD
+};
 
 enum e_pet_catch_flag : uint8 {
 	PET_CATCH_NORMAL = 0,
@@ -91,35 +95,35 @@ enum e_pet_hungry : uint16 {
 	PET_HUNGRY_STUFFED = 100
 };
 
-struct pet_recovery { //Stat recovery
-	enum sc_type type;	//Status Change id
-	uint16 delay; //How long before curing (secs).
+struct pet_recovery { // Stat recovery
+	enum sc_type type; // Status Change id
+	uint16 delay; // How long before curing (secs).
 	int32 timer;
 };
 
 struct pet_bonus {
-	uint16 type; //bStr, bVit?
-	uint16 val;	//value
-	uint16 duration; //in seconds
-	uint16 delay;	//Time before re-effect the bonus in seconds
+	uint16 type; // bStr, bVit?
+	uint16 val; // value
+	uint16 duration; // in seconds
+	uint16 delay; // Time before re-effect the bonus in seconds
 	int32 timer;
 };
 
-struct pet_skill_attack { //Attack Skill
+struct pet_skill_attack { // Attack Skill
 	uint16 id;
 	uint16 lv; // Skill level
 	uint16 damage; // Fixed damage value of petskillattack2
-	uint16 div_; //0 = Normal skill. >0 = Fixed damage (lv), fixed div_.
-	uint16 rate; //Base chance of skill ocurrance (10 = 10% of attacks)
-	uint16 bonusrate; //How being 100% loyal affects cast rate (10 = At 1000 intimacy->rate+10%
+	uint16 div_; // 0 = Normal skill. >0 = Fixed damage (lv), fixed div_.
+	uint16 rate; // Base chance of skill ocurrance (10 = 10% of attacks)
+	uint16 bonusrate; // How being 100% loyal affects cast rate (10 = At 1000 intimacy->rate+10%
 };
 
-struct pet_skill_support { //Support Skill
+struct pet_skill_support { // Support Skill
 	uint16 id;
 	uint16 lv;
-	uint16 hp; //Max HP% for skill to trigger (50 -> 50% for Magnificat)
-	uint16 sp; //Max SP% for skill to trigger (100 = no check)
-	uint16 delay; //Time (secs) between being able to recast.
+	uint16 hp; // Max HP% for skill to trigger (50 -> 50% for Magnificat)
+	uint16 sp; // Max SP% for skill to trigger (100 = no check)
+	uint16 delay; // Time (secs) between being able to recast.
 	int32 timer;
 };
 
@@ -130,14 +134,13 @@ struct pet_loot {
 	uint16 max;
 };
 
-class PetDatabase : public TypesafeYamlDatabase<uint16,s_pet_db>{
+class PetDatabase : public TypesafeYamlDatabase<uint16, s_pet_db> {
 public:
-	PetDatabase() : TypesafeYamlDatabase( "PET_DB", 1 ){
-
+	PetDatabase() : TypesafeYamlDatabase("PET_DB", 1) {
 	}
 
 	const std::string getDefaultLocation() override;
-	uint64 parseBodyNode( const ryml::NodeRef& node ) override;
+	uint64 parseBodyNode(const ryml::NodeRef &node) override;
 
 	// Additional
 	bool reload();
@@ -164,7 +167,6 @@ struct s_petautobonus {
 		this->bonus_script.clear();
 		this->other_script.clear();
 	}
-
 };
 
 /// Pet Autobonus database wrapper
@@ -193,14 +195,14 @@ struct pet_data : public block_list {
 		unsigned skillbonus : 1;
 	} state;
 	int32 move_fail_count;
-	t_tick next_walktime,last_thinktime;
-	uint16 rate_fix;	//Support rate as modified by intimacy (1000 = 100%) [Skotlex]
+	t_tick next_walktime, last_thinktime;
+	uint16 rate_fix; // Support rate as modified by intimacy (1000 = 100%) [Skotlex]
 
-	struct pet_recovery* recovery;
-	struct pet_bonus* bonus;
-	struct pet_skill_attack* a_skill;
-	struct pet_skill_support* s_skill;
-	struct pet_loot* loot;
+	struct pet_recovery *recovery;
+	struct pet_bonus *bonus;
+	struct pet_skill_attack *a_skill;
+	struct pet_skill_support *s_skill;
+	struct pet_loot *loot;
 	std::vector<std::shared_ptr<s_petautobonus>> autobonus, autobonus2, autobonus3;
 
 	int32 masterteleport_timer;
@@ -226,24 +228,24 @@ struct pet_data : public block_list {
 bool pet_create_egg(map_session_data *sd, t_itemid item_id);
 int32 pet_hungry_val(struct pet_data *pd);
 void pet_set_intimate(struct pet_data *pd, int32 value);
-int32 pet_target_check(struct pet_data *pd,struct block_list *bl,int32 type);
+int32 pet_target_check(struct pet_data *pd, struct block_list *bl, int32 type);
 void pet_unlocktarget(struct pet_data *pd);
-int32 pet_sc_check(map_session_data *sd, int32 type); //Skotlex
+int32 pet_sc_check(map_session_data *sd, int32 type); // Skotlex
 std::shared_ptr<s_pet_db> pet_db_search(int32 key, enum e_pet_itemtype type);
 int32 pet_hungry_timer_delete(struct pet_data *pd);
 bool pet_data_init(map_session_data *sd, struct s_pet *pet);
-bool pet_return_egg( map_session_data *sd, struct pet_data *pd );
+bool pet_return_egg(map_session_data *sd, struct pet_data *pd);
 int32 pet_birth_process(map_session_data *sd, struct s_pet *pet);
-int32 pet_recv_petdata(uint32 account_id,struct s_pet *p,int32 flag);
-int32 pet_select_egg(map_session_data *sd,int16 egg_index);
-void pet_catch_process_start( map_session_data& sd, t_itemid item_id, e_pet_catch_flag flag );
-void pet_catch_process_end( map_session_data& sd, int32 target_id );
+int32 pet_recv_petdata(uint32 account_id, struct s_pet *p, int32 flag);
+int32 pet_select_egg(map_session_data *sd, int16 egg_index);
+void pet_catch_process_start(map_session_data &sd, t_itemid item_id, e_pet_catch_flag flag);
+void pet_catch_process_end(map_session_data &sd, int32 target_id);
 bool pet_get_egg(uint32 account_id, int16 pet_class, int32 pet_id);
-int32 pet_menu(map_session_data *sd,int32 menunum);
-int32 pet_change_name(map_session_data *sd,char *name);
-int32 pet_change_name_ack(map_session_data *sd, char* name, int32 flag);
-int32 pet_equipitem(map_session_data *sd,int32 index);
-void pet_lootitem_drop( pet_data& pd, map_session_data* sd );
+int32 pet_menu(map_session_data *sd, int32 menunum);
+int32 pet_change_name(map_session_data *sd, char *name);
+int32 pet_change_name_ack(map_session_data *sd, char *name, int32 flag);
+int32 pet_equipitem(map_session_data *sd, int32 index);
+void pet_lootitem_drop(pet_data &pd, map_session_data *sd);
 int32 pet_attackskill(struct pet_data *pd, int32 target_id);
 TIMER_FUNC(pet_skill_support_timer); // [Skotlex]
 TIMER_FUNC(pet_skill_bonus_timer); // [Valaris]
@@ -254,8 +256,16 @@ void pet_evolution(map_session_data *sd, int16 pet_id);
 int32 pet_food(map_session_data *sd, struct pet_data *pd);
 void pet_clear_support_bonuses(map_session_data *sd);
 
-bool pet_addautobonus(std::vector<std::shared_ptr<s_petautobonus>> &bonus, const std::string &script, int16 rate, uint32 dur, uint16 atk_type, const std::string &other_script, bool onskill);
-void pet_exeautobonus(map_session_data &sd, std::vector<std::shared_ptr<s_petautobonus>> *bonus, std::shared_ptr<s_petautobonus> &autobonus);
+bool pet_addautobonus(std::vector<std::shared_ptr<s_petautobonus>> &bonus,
+					  const std::string &script,
+					  int16 rate,
+					  uint32 dur,
+					  uint16 atk_type,
+					  const std::string &other_script,
+					  bool onskill);
+void pet_exeautobonus(map_session_data &sd,
+					  std::vector<std::shared_ptr<s_petautobonus>> *bonus,
+					  std::shared_ptr<s_petautobonus> &autobonus);
 void pet_delautobonus(map_session_data &sd, std::vector<std::shared_ptr<s_petautobonus>> &bonus, bool restore);
 
 void do_init_pet(void);

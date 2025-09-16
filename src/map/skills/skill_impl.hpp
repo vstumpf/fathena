@@ -15,7 +15,8 @@ public:
 	/**
 	 * Effect of the skill - replaces switch statements in skill_castend_nodamage_id
 	 */
-	virtual void castendNoDamageId(block_list* src, block_list* target, uint16 skill_lv, t_tick tick, int32& flag) const;
+	virtual void castendNoDamageId(
+		block_list* src, block_list* target, uint16 skill_lv, t_tick tick, int32& flag) const;
 
 	/**
 	 * Effect of the skill - replaces switch statements in skill_castend_damage_id
@@ -30,7 +31,11 @@ public:
 	/**
 	 * Calculate skill damage ratio - replaces battle_calc_attack_skill_ratio() switch
 	 */
-	virtual void calculateSkillRatio(const Damage* wd, const block_list* src, const block_list* target, uint16 skill_lv, int32& base_skillratio) const;
+	virtual void calculateSkillRatio(const Damage* wd,
+									 const block_list* src,
+									 const block_list* target,
+									 uint16 skill_lv,
+									 int32& base_skillratio) const;
 
 	/**
 	 * Modify hit rate for this skill - replaces hit rate switch statements
@@ -40,19 +45,26 @@ public:
 	/**
 	 * Apply additional effects after damage - called from skill_additional_effect
 	 */
-	virtual void applyAdditionalEffects(block_list* src, block_list* target, uint16 skill_lv, t_tick tick, int32 attack_type, enum damage_lv dmg_lv) const;
+	virtual void applyAdditionalEffects(block_list* src,
+										block_list* target,
+										uint16 skill_lv,
+										t_tick tick,
+										int32 attack_type,
+										enum damage_lv dmg_lv) const;
 
 protected:
 	e_skill skill_id_;
 };
 
-class SkillImplRecursiveDamageSplash : public SkillImpl{
+class SkillImplRecursiveDamageSplash : public SkillImpl {
 public:
 	explicit SkillImplRecursiveDamageSplash(e_skill skill_id);
 
-	virtual void castendDamageId(block_list* src, block_list* target, uint16 skill_lv, t_tick tick, int32& flag) const override;
+	virtual void castendDamageId(
+		block_list* src, block_list* target, uint16 skill_lv, t_tick tick, int32& flag) const override;
 
-	virtual void castendPos2(block_list* src, int32 x, int32 y, uint16 skill_lv, t_tick tick, int32& flag) const override;
+	virtual void castendPos2(
+		block_list* src, int32 x, int32 y, uint16 skill_lv, t_tick tick, int32& flag) const override;
 
 	virtual int16 getSearchSize(uint16 skill_lv) const;
 

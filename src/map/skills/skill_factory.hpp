@@ -11,12 +11,12 @@
 /**
  * Factory class for creating and managing Skill instances
  */
-class SkillFactory{
+class SkillFactory {
 public:
 	// Destructor
 	virtual ~SkillFactory() = default;
 
-	virtual std::unique_ptr<const SkillImpl> create( const e_skill skill_id ) const = 0;
+	virtual std::unique_ptr<const SkillImpl> create(const e_skill skill_id) const = 0;
 };
 
 class SkillFactoryImpl : public SkillFactory, public rathena::util::Singleton<SkillFactoryImpl, SkillFactory> {

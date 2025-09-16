@@ -21,8 +21,12 @@ std::unique_ptr<const SkillImpl> SkillFactoryCustom::create(const e_skill skill_
 	return nullptr;
 }
 
-class SkillCustomBash : public SkillBash{
-	void calculateSkillRatio(const Damage* wd, const block_list* src, const block_list* target, uint16 skill_lv, int32& base_skillratio) const override{
+class SkillCustomBash : public SkillBash {
+	void calculateSkillRatio(const Damage* wd,
+							 const block_list* src,
+							 const block_list* target,
+							 uint16 skill_lv,
+							 int32& base_skillratio) const override {
 		// Normal Bash:
 		// Base 100% + 30% per level
 		// base_skillratio += 30 * skill_lv;
