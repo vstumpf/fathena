@@ -14,14 +14,12 @@ endfunction()
 if(WIN32)
     set(WIN_FILES_TO_COPY
         "charserv.bat"
-        "csv2yaml.bat"
         "logserv.bat"
         "mapcache.bat"
         "mapserv.bat"
         "runserver.bat"
         "serv.bat"
         "webserv.bat"
-        "yaml2sql.bat"
         "yamlupgrade.bat"
         "navigenerator.bat"
     )
