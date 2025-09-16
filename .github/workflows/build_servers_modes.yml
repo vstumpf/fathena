@@ -61,10 +61,10 @@ jobs:
         run: ./tools/ci/sql.sh
 
       - name: Configure CMake
-        run: cmake -B build -DENABLE_PRERE=${{env.PRERE}} -DENABLE_BUILDBOT=ON
+        run: cmake -B build -DENABLE_PRERE=${{env.PRERE}} -DENABLE_BUILDBOT=ON -DENABLE_TESTS=ON
 
       - name: Build
-        run: cmake --build build -j $(nproc) --target server
+        run: cmake --build build -j $(nproc) --target server tests
 
       - name: Run Once - login-server
         run: ./login-server --run-once
@@ -74,3 +74,6 @@ jobs:
 
       - name: Run Once - map-server
         run: ./map-server --run-once
+
+      - name: Run tests
+        run: cmake --build build --target test

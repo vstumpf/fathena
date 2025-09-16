@@ -40,7 +40,10 @@ jobs:
           sudo apt install zlib1g-dev libpcre3-dev gcc-${{matrix.gcc}} g++-${{matrix.gcc}}
 
       - name: Configure CMake
-        run: CXX=g++-${{matrix.gcc}} CC=gcc-${{matrix.gcc}} cmake -B build
+        run: CXX=g++-${{matrix.gcc}} CC=gcc-${{matrix.gcc}} cmake -B build -DENABLE_TESTS=ON
 
       - name: Build
         run: cmake --build build -j $(nproc) --target all
+
+      - name: Run tests
+        run: cmake --build build --target test
