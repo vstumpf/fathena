@@ -2354,7 +2354,7 @@ mob_data * map_id2md(int32 id){
 	return (mob_data*)idb_get(mobid_db,id);
 }
 
-struct npc_data * map_id2nd(int32 id){
+npc_data * map_id2nd(int32 id){
 	block_list* bl = map_id2bl(id);
 	return BL_CAST(BL_NPC, bl);
 }
@@ -2379,7 +2379,7 @@ struct s_elemental_data* map_id2ed(int32 id) {
 	return BL_CAST(BL_ELEM, bl);
 }
 
-struct chat_data* map_id2cd(int32 id){
+chat_data* map_id2cd(int32 id){
 	block_list* bl = map_id2bl(id);
 	return BL_CAST(BL_CHAT, bl);
 }
@@ -2549,7 +2549,7 @@ void map_foreachmob(int32 (*func)(mob_data* md, va_list args), ...)
 
 /// Applies func to all the npcs in the db.
 /// Stops iterating if func returns -1.
-void map_foreachnpc(int32 (*func)(struct npc_data* nd, va_list args), ...)
+void map_foreachnpc(int32 (*func)(npc_data* nd, va_list args), ...)
 {
 	DBIterator* iter;
 	block_list* bl;
@@ -2559,7 +2559,7 @@ void map_foreachnpc(int32 (*func)(struct npc_data* nd, va_list args), ...)
 	{
 		if( bl->type == BL_NPC )
 		{
-			struct npc_data* nd = (struct npc_data*)bl;
+			npc_data* nd = (npc_data*)bl;
 			va_list args;
 			int32 ret;
 
@@ -2766,7 +2766,7 @@ bool mapit_exists(struct s_mapiterator* mapit)
 /*==========================================
  * Add npc-bl to id_db, basically register npc to map
  *------------------------------------------*/
-bool map_addnpc(int16 m,struct npc_data *nd)
+bool map_addnpc(int16 m,npc_data *nd)
 {
 	nullpo_ret(nd);
 
@@ -2929,7 +2929,7 @@ static int32 map_instancemap_clean(block_list *bl, va_list ap)
 			map_quit((map_session_data *) bl);
 			break;*/
 		case BL_NPC:
-			npc_unload((struct npc_data *)bl,true);
+			npc_unload((npc_data *)bl,true);
 			break;
 		case BL_MOB:
 			unit_free(bl,CLR_OUTSIGHT);
@@ -4472,7 +4472,7 @@ int32 log_sql_init(void)
 	return 0;
 }
 
-void map_remove_questinfo(int32 m, struct npc_data *nd) {
+void map_remove_questinfo(int32 m, npc_data *nd) {
 	struct map_data *mapdata = map_getmapdata(m);
 
 	nullpo_retv(nd);
@@ -4486,7 +4486,7 @@ static void map_free_questinfo(struct map_data *mapdata) {
 	nullpo_retv(mapdata);
 
 	for (const auto &it : mapdata->qi_npc) {
-		struct npc_data *nd = map_id2nd(it);
+		npc_data *nd = map_id2nd(it);
 
 		if (!nd || nd->qi_data.empty())
 			continue;
@@ -4537,7 +4537,7 @@ int32 cleanup_sub(block_list *bl, va_list ap)
 			map_quit((map_session_data *) bl);
 			break;
 		case BL_NPC:
-			npc_unload((struct npc_data *)bl,false);
+			npc_unload((npc_data *)bl,false);
 			break;
 		case BL_MOB:
 			unit_free(bl,CLR_OUTSIGHT);
