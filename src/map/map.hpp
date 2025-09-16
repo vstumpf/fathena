@@ -1102,7 +1102,7 @@ public:
 	FreeBlockLock(const FreeBlockLock&) = delete;
 	FreeBlockLock& operator=(const FreeBlockLock&) = delete;
 private:
-	bool locked;
+	bool locked{false};
 };
 
 
