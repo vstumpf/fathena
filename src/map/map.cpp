@@ -346,32 +346,30 @@ TIMER_FUNC(map_freeblock_timer){
 }
 
 FreeBlockLock::FreeBlockLock(bool startLocked) {
-	this->locked = false;
-
 	if (startLocked) {
-		this->lock();
+		lock();
 	}
 }
 
 FreeBlockLock::~FreeBlockLock() {
-	if (this->locked) {
-		this->unlock();
+	if (locked) {
+		unlock();
 	}
 }
 
 void FreeBlockLock::lock() {
-	if (!this->locked) {
+	if (!locked) {
 		map_freeblock_lock();
-		this->locked = true;
+		locked = true;
 	} else {
 		ShowWarning("FreeBlockLock is already locked.\n");
 	}
 }
 
 void FreeBlockLock::unlock() {
-	if (this->locked) {
+	if (locked) {
 		map_freeblock_unlock();
-		this->locked = false;
+		locked = false;
 	} else {
 		ShowWarning("FreeBlockLock is not locked.\n");
 	}
