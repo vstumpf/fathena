@@ -99,7 +99,15 @@ set(MAP_SOURCES
 	"skills/swordman/selfprovoke.cpp"
 	"skills/swordman/skill_factory_swordman.cpp"
 	
+	"skills/thief/backslide.cpp"
+	"skills/thief/detoxify.cpp"
+	"skills/thief/envenom.cpp"
+	"skills/thief/findstone.cpp"
+	"skills/thief/hiding.cpp"
+	"skills/thief/sandattack.cpp"
 	"skills/thief/skill_factory_thief.cpp"
+	"skills/thief/steal.cpp"
+	"skills/thief/stonefling.cpp"
 )
 
 set(MAP_HEADERS
@@ -208,7 +216,15 @@ set(MAP_HEADERS
 	"skills/swordman/selfprovoke.hpp"
 	"skills/swordman/skill_factory_swordman.hpp"
 	
+	"skills/thief/backslide.hpp"
+	"skills/thief/detoxify.hpp"
+	"skills/thief/envenom.hpp"
+	"skills/thief/findstone.hpp"
+	"skills/thief/hiding.hpp"
+	"skills/thief/sandattack.hpp"
 	"skills/thief/skill_factory_thief.hpp"
+	"skills/thief/steal.hpp"
+	"skills/thief/stonefling.hpp"
 )
 
 add_executable(map-server)
