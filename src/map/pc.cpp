@@ -6149,7 +6149,7 @@ bool pc_dropitem(map_session_data *sd,int32 n,int32 amount)
  * @param fitem Item that will be picked
  * @return False = fail; True = success
  *------------------------------------------*/
-bool pc_takeitem(map_session_data *sd,struct flooritem_data *fitem)
+bool pc_takeitem(map_session_data *sd,flooritem_data *fitem)
 {
 	int32 flag = 0;
 	t_tick tick = gettick();
@@ -15307,7 +15307,7 @@ void pc_show_questinfo(map_session_data *sd) {
 		return; // init was not called yet
 
 	for (int32 i = 0; i < mapdata->qi_npc.size(); i++) {
-		struct npc_data *nd = map_id2nd(mapdata->qi_npc[i]);
+		npc_data *nd = map_id2nd(mapdata->qi_npc[i]);
 
 		if (!nd || nd->qi_data.empty())
 			continue;
