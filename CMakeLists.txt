@@ -22,6 +22,7 @@ option(ENABLE_PROFILER "Enable profiler (default=OFF)" OFF)
 option(ENABLE_BUILDBOT "Enable extra buildbot code (default=OFF)" OFF)
 option(ENABLE_SOCKET_EPOLL "Use epoll instead of select (default=OFF)" OFF)
 option(ENABLE_VIP "Enable VIP system (default=OFF)" OFF)
+option(ENABLE_TESTS "Enable tests (default=OFF)" OFF)
 
 
 
@@ -101,3 +102,8 @@ add_subdirectory(tools)
 add_custom_target(server
     DEPENDS login-server char-server map-server web-server scripts
 )
+
+if(ENABLE_TESTS)
+    enable_testing()
+    add_subdirectory(test)
+endif()
