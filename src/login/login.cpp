@@ -24,12 +24,12 @@
 #include <common/utils.hpp>
 #include <config/core.hpp>
 
-#include "account.hpp"
 #include "ipban.hpp"
 #include "loginchrif.hpp"
 #include "loginclif.hpp"
 #include "logincnslif.hpp"
 #include "loginlog.hpp"
+#include "accountdb/AccountDbSql.hpp"
 
 using namespace rathena;
 using namespace rathena::server_login;
@@ -43,8 +43,6 @@ struct Login_Config login_config;				/// Configuration of login-serv
 std::unordered_map<uint32,struct online_login_data> online_db;
 std::unordered_map<uint32,struct auth_node> auth_db;
 
-// account database
-AccountDB* accounts = nullptr;
 // Advanced subnet check [LuzZza]
 struct s_subnet {
 	uint32 mask;
@@ -56,11 +54,16 @@ int32 subnet_count = 0; //number of subnet config
 int32 login_fd; // login server file descriptor socket
 
 //early declaration
-bool login_check_password( struct login_session_data& sd, struct mmo_account& acc );
+bool login_check_password(struct login_session_data& sd, MmoAccount& acc);
+TIMER_FUNC(login_vip_timeout_timer);
 
-///Accessors
-AccountDB* login_get_accounts_db(void){
-	return accounts;
+
+AccountDb* getAccountDb() {
+	return static_cast<LoginServer*>(global_core)->getAccountDb();
+}
+
+const Login_Config& getLoginConfig() {
+	return login_config;
 }
 
 // Console Command Parser [Wizputer]
@@ -102,7 +105,7 @@ struct online_login_data* login_add_online_user(int32 char_server, uint32 accoun
 		}
 	}
 
-	accounts->enable_webtoken( accounts, account_id );
+	getAccountDb()->enableWebToken(account_id);
 
 	return p;
 }
@@ -124,7 +127,7 @@ void login_remove_online_user(uint32 account_id) {
 		delete_timer( p->waiting_disconnect, login_waiting_disconnect_timer );
 	}
 
-	accounts->disable_webtoken( accounts, account_id );
+	add_timer(gettick() + login_config.disable_webtoken_delay, login_disable_webtoken_timer, account_id, 0);
 
 	online_db.erase( account_id );
 }
@@ -172,6 +175,89 @@ TIMER_FUNC(login_waiting_disconnect_timer){
 
 	return 0;
 }
+
+/**
+ * Timered function to remove a user's webtoken.
+ * @param tid: timer id
+ * @param tick: tick of execution
+ * @param id: user account id
+ * @param data: unused
+ * @return :0
+ */
+TIMER_FUNC(login_disable_webtoken_timer) {
+	if (!getAccountDb()->disableWebToken(id)) {
+		ShowError("Failed to disable web token for account %d\n", id);
+	}
+	return 0;
+}
+
+#ifdef VIP_ENABLE
+TIMER_FUNC(login_vip_timeout_timer) {
+	struct online_login_data* p = login_get_online_user(id);
+	
+	if (!p) {
+		// player isn't online anymore
+		return 0;
+	}
+
+	p->vip_timeout_tid = INVALID_TIMER;
+	MmoAccount acc;
+
+	if (getAccountDb()->loadFromAccountId(acc, id)) {
+		time_t now = time(nullptr);
+		time_t vip_time = acc.vip_time;
+		bool isVip{false};
+		if (vip_time > now) {
+			// still VIP time left, restart timer
+			int32 delay = static_cast<int32>(vip_time - now) * 1000;
+			p->vip_timeout_tid = add_timer(gettick() + delay, login_vip_timeout_timer, id, data);
+			isVip = true;
+		}
+		logchrif_sendvipdata(ch_server[p->char_server].fd, id, isVip ? 1 : 0, -1);
+	}
+	return 0;
+}
+
+bool login_enable_monitor_vip(uint32 account_id, time_t vip_time) {
+	struct online_login_data* p = login_get_online_user(account_id);
+
+	if (!p) {
+		// player isn't online
+		return false;
+	}
+
+	if (p->vip_timeout_tid != INVALID_TIMER) {
+		delete_timer(p->vip_timeout_tid, login_vip_timeout_timer);
+		p->vip_timeout_tid = INVALID_TIMER;
+	}
+
+	time_t now = time(nullptr);
+	if (vip_time > now) {
+		time_t remaining = vip_time - now * 1000;
+		p->vip_timeout_tid = add_timer(gettick() + remaining, login_vip_timeout_timer, account_id, 0);
+	}
+
+	return true;
+}
+
+bool login_disable_monitor_vip(uint32 account_id) {
+	struct online_login_data* p = login_get_online_user(account_id);
+
+	if (!p) {
+		// player isn't online
+		return false;
+	}
+
+	if (p->vip_timeout_tid != INVALID_TIMER) {
+		delete_timer(p->vip_timeout_tid, login_vip_timeout_timer);
+		p->vip_timeout_tid = INVALID_TIMER;
+	}
+
+	return true;
+}
+
+
+#endif // VIP_ENABLE
 
 void login_online_db_setoffline( int32 char_server ){
 	for( std::pair<uint32,struct online_login_data> pair : online_db ){
@@ -225,7 +311,7 @@ int32 login_mmo_auth_new(const char* userid, const char* pass, const char sex, c
 	static int32 num_regs = 0; // registration counter
 	static t_tick new_reg_tick = 0;
 	t_tick tick = gettick();
-	struct mmo_account acc;
+	MmoAccount acc{};
 
 	//Account Registration Flood Protection by [Kevin]
 	if( new_reg_tick == 0 )
@@ -243,12 +329,11 @@ int32 login_mmo_auth_new(const char* userid, const char* pass, const char sex, c
 		return 0; // 0 = Unregistered ID
 
 	// check if the account doesn't exist already
-	if( accounts->load_str(accounts, &acc, userid) ) {
+	if (getAccountDb()->loadFromUsername(acc, userid)) {
 		ShowNotice("Attempt of creation of an already existant account (account: %s, sex: %c)\n", userid, sex);
 		return 1; // 1 = Incorrect Password
 	}
 
-	memset(&acc, '\0', sizeof(acc));
 	acc.account_id = -1; // assigned by account db
 	safestrncpy(acc.userid, userid, sizeof(acc.userid));
 	safestrncpy(acc.pass, pass, sizeof(acc.pass));
@@ -265,8 +350,9 @@ int32 login_mmo_auth_new(const char* userid, const char* pass, const char sex, c
 	acc.vip_time = 0;
 	acc.old_group = 0;
 #endif
-	if( !accounts->create(accounts, &acc) )
+	if (!getAccountDb()->create(acc)) {
 		return 0;
+	}
 
 	ShowNotice("Account creation (account %s, id: %d, sex: %c)\n", acc.userid, acc.account_id, acc.sex);
 
@@ -294,7 +380,7 @@ int32 login_mmo_auth_new(const char* userid, const char* pass, const char sex, c
  *	x: acc state (TODO document me deeper)
  */
 int32 login_mmo_auth(struct login_session_data* sd, bool isServer) {
-	struct mmo_account acc;
+	MmoAccount acc;
 
 	char ip[16];
 	ip2str(session[sd->fd]->client_addr, ip);
@@ -342,7 +428,7 @@ int32 login_mmo_auth(struct login_session_data* sd, bool isServer) {
 		}
 	}
 
-	if( !accounts->load_str(accounts, &acc, sd->userid) ) {
+	if (!getAccountDb()->loadFromUsername(acc, sd->userid)) {
 		ShowNotice("Unknown account (account: %s, ip: %s)\n", sd->userid, ip);
 		return 0; // 0 = Unregistered ID
 	}
@@ -421,9 +507,10 @@ int32 login_mmo_auth(struct login_session_data* sd, bool isServer) {
 	safestrncpy(acc.last_ip, ip, sizeof(acc.last_ip));
 	acc.unban_time = 0;
 	acc.logincount++;
-	accounts->save(accounts, &acc, true);
+	getAccountDb()->save(acc);
 
-	if( login_config.use_web_auth_token ){
+	if (acc.sex != 'S' && login_config.use_web_auth_token) {
+		getAccountDb()->refreshWebToken(acc);
 		safestrncpy( sd->web_auth_token, acc.web_auth_token, WEB_AUTH_TOKEN_LENGTH );
 	}
 
@@ -441,7 +528,7 @@ int32 login_mmo_auth(struct login_session_data* sd, bool isServer) {
  * @param refpass: pass register in db
  * @return true if matching else false
  */
-bool login_check_password( struct login_session_data& sd, struct mmo_account& acc ){
+bool login_check_password(struct login_session_data& sd, MmoAccount& acc) {
 	if( sd.passwdenc == 0 ){
 		return 0 == strcmp( sd.passwd, acc.pass );
 	}
@@ -732,7 +819,7 @@ bool login_config_read(const char* cfgName, bool normal) {
 		else {// try the account engines
 			if (!normal)
 				continue;
-			if (accounts && accounts->set_property(accounts, w1, w2))
+			if (getAccountDb() && getAccountDb()->setProperty(w1, w2))
 				continue;
 			// try others
 			ipban_config_read(w1, w2);
@@ -803,7 +890,6 @@ void login_set_defaults() {
  */
 void LoginServer::finalize(){
 	struct client_hash_node *hn = login_config.client_hash_nodes;
-	AccountDB* db = accounts;
 
 	while (hn)
 	{
@@ -823,12 +909,6 @@ void LoginServer::finalize(){
 	do_final_loginclif();
 	do_final_logincnslif();
 
-	if (db) { // destroy account engine
-		db->destroy(db);
-		db = nullptr;
-	}
-
-	accounts = nullptr; // destroyed in account_engine
 	online_db.clear();
 	auth_db.clear();
 
@@ -839,6 +919,8 @@ void LoginServer::finalize(){
 		do_close(login_fd);
 		login_fd = -1;
 	}
+
+	accountDb_.reset();
 
 	ShowStatus("Finished.\n");
 }
@@ -854,12 +936,13 @@ bool LoginServer::initialize( int32 argc, char* argv[] ){
 	// Init default value
 	safestrncpy(console_log_filepath, "./log/login-msg_log.log", sizeof(console_log_filepath));
 
-	// initialize engine
-	accounts = account_db_sql();
-
 	// read login-server configuration
 	login_set_defaults();
 	cli_get_options(argc,argv);
+
+	// initialize engine
+	// TODO: Use a factory to determine which AccountDb implementation to use
+	accountDb_ = std::make_unique<AccountDbSql>();
 
 	login_config_read(LOGIN_CONF_NAME, true);
 	msg_config_read(LOGIN_MSG_CONF_NAME);
@@ -883,14 +966,18 @@ bool LoginServer::initialize( int32 argc, char* argv[] ){
 
 	// every 10 minutes cleanup online account db.
 	add_timer_func_list(login_online_data_cleanup, "online_data_cleanup");
+	add_timer_func_list(login_disable_webtoken_timer, "remove_webtoken_timer");
+#ifdef VIP_ENABLE
+	add_timer_func_list(account_vip_timeout_timer, "account_vip_timeout_timer");
+#endif // VIP_ENABLE
 	add_timer_interval(gettick() + 600*1000, login_online_data_cleanup, 0, 0, 600*1000);
 
 	// Account database init
-	if( accounts == nullptr ) {
+	if (accountDb_ == nullptr) {
 		ShowFatalError("do_init: account engine not found.\n");
 		return false;
 	} else {
-		if(!accounts->init(accounts)) {
+		if (!accountDb_->init()) {
 			ShowFatalError("do_init: Failed to initialize account engine.\n");
 			return false;
 		}
@@ -910,6 +997,6 @@ bool LoginServer::initialize( int32 argc, char* argv[] ){
 	return true;
 }
 
-int32 main( int32 argc, char *argv[] ){
-	return main_core<LoginServer>( argc, argv );
+AccountDb* LoginServer::getAccountDb() {
+	return accountDb_.get();
 }

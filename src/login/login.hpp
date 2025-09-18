@@ -12,22 +12,25 @@
 #include <common/timer.hpp>
 #include <config/core.hpp>
 
-#include "account.hpp"
+#include "accountdb/AccountDb.hpp"
 
 using rathena::server_core::Core;
 using rathena::server_core::e_core_type;
 
 namespace rathena::server_login {
 class LoginServer : public Core {
-	protected:
-		bool initialize( int32 argc, char* argv[] ) override;
-		void finalize() override;
-		void handle_shutdown() override;
+protected:
+	bool initialize(int32 argc, char* argv[]) override;
+	void finalize() override;
+	void handle_shutdown() override;
 
-	public:
-		LoginServer() : Core( e_core_type::LOGIN ){
+public:
+	LoginServer() : Core(e_core_type::LOGIN) {
+	}
 
-		}
+	AccountDb* getAccountDb();
+private:
+	std::unique_ptr<AccountDb> accountDb_{nullptr};
 };
 }
 
@@ -157,8 +160,7 @@ struct auth_node {
 	uint8 clienttype;
 };
 
-///Accessors
-AccountDB* login_get_accounts_db(void);
+AccountDb* getAccountDb();
 
 struct online_login_data* login_get_online_user( uint32 account_id );
 
@@ -197,6 +199,7 @@ void login_remove_auth_node( uint32 account_id );
  * @return :0
  */
 TIMER_FUNC(login_waiting_disconnect_timer);
+TIMER_FUNC(login_disable_webtoken_timer);
 
 void login_online_db_setoffline( int32 char_server );
 
@@ -239,5 +242,10 @@ int32 login_mmo_auth_new(const char* userid, const char* pass, const char sex, c
 int32 login_mmo_auth(struct login_session_data* sd, bool isServer);
 
 int32 login_get_usercount( int32 users );
+
+#ifdef VIP_ENABLE
+bool login_enable_monitor_vip(uint32 account_id, time_t vip_time);
+bool login_disable_monitor_vip(uint32 account_id);
+#endif // VIP_ENABLE
 
 #endif /* LOGIN_HPP */

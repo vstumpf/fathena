@@ -241,6 +241,15 @@ size_t Sql_EscapeStringLen(Sql* self, char *out_to, const char *from, size_t fro
 }
 
 
+std::string Sql_GetEscapeString(Sql* self, std::string_view from) {
+	std::string out;
+	size_t from_len = from.length();
+	out.resize(from_len * 2 + 1);
+	size_t len = Sql_EscapeStringLen(self, out.data(), from.data(), from_len);
+	out.resize(len);
+	return out;
+}
+
 
 /// Executes a query.
 int32 Sql_Query(Sql* self, const char* query, ...)

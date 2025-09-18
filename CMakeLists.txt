@@ -23,6 +23,7 @@ option(ENABLE_BUILDBOT "Enable extra buildbot code (default=OFF)" OFF)
 option(ENABLE_SOCKET_EPOLL "Use epoll instead of select (default=OFF)" OFF)
 option(ENABLE_VIP "Enable VIP system (default=OFF)" OFF)
 option(ENABLE_TESTS "Enable tests (default=OFF)" OFF)
+option(ENABLE_ASAN "Enable Address Sanitizer (default=OFF)" OFF)
 
 
 
