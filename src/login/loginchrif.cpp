@@ -792,7 +792,7 @@ int32 logchrif_parse_reqvipdata(int32 fd) {
 			bool isvip = false;
 
 			if( acc.group_id > login_config.vip_sys.group ) { //Don't change group if it's higher.
-				logchrif_sendvipdata(fd,&acc,0x2|((flag&0x8)?0x4:0),mapfd);
+				logchrif_sendvipdata(fd, acc, 0x2|((flag&0x8)?0x4:0), mapfd);
 				return 1;
 			}
 			if( flag&2 ) {
@@ -825,7 +825,7 @@ int32 logchrif_parse_reqvipdata(int32 fd) {
 			acc.vip_time = vip_time;
 			accountDb->save(acc);
 			if( flag&1 )
-				logchrif_sendvipdata(fd,&acc,((isvip)?0x1:0)|((flag&0x8)?0x4:0),mapfd);
+				logchrif_sendvipdata(fd, acc, ((isvip)?0x1:0)|((flag&0x8)?0x4:0), mapfd);
 
 			if( isvip ){
 				login_enable_monitor_vip(aid, vip_time);
