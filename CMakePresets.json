@@ -69,7 +69,8 @@
       "hidden": true,
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
-        "ENABLE_TESTS": "ON"
+        "ENABLE_TESTS": "ON",
+        "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_INSTALLATION_ROOT}/scripts/buildsystems/vcpkg.cmake"
       }
     },
     {
