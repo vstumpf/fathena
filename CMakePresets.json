@@ -62,6 +62,23 @@
     {
       "name": "windows-debug",
       "inherits": "windows"
+    },
+    {
+      "name": "ci-test",
+      "inherits": "base",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "ENABLE_TESTS": "ON"
+      }
+    },
+    {
+      "name": "ci-test-linux",
+      "inherits": ["linux", "ci-test"]
+    },
+    {
+      "name": "ci-test-win",
+      "inherits": ["windows", "ci-test"]
     }
   ],
   "buildPresets": [
@@ -92,6 +109,22 @@
       "name": "windows-debug",
       "configurePreset": "windows-debug",
       "configuration": "Debug"
+    },
+    {
+      "name": "ci-test-linux",
+      "configurePreset": "ci-test-linux",
+      "targets": [
+        "server",
+        "tests"
+      ]
+    },
+    {
+      "name": "ci-test-win",
+      "configurePreset": "ci-test-win",
+      "targets": [
+        "server",
+        "tests"
+      ]
     }
   ]
 }

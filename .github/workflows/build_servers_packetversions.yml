@@ -63,10 +63,10 @@ jobs:
         run: ./tools/ci/sql.sh
 
       - name: Configure CMake
-        run: cmake -B build -DENABLE_PRERE=${{env.PRERE}} -DPACKETVER=${{matrix.packetver}} -DENABLE_BUILDBOT=ON -DENABLE_TESTS=ON
+        run: cmake -DENABLE_PRERE=${{env.PRERE}} -DPACKETVER=${{matrix.packetver}} --preset ci-test-linux
 
       - name: Build
-        run: cmake --build build -j $(nproc) --target server tests
+        run: cmake --build --preset ci-test-linux -j $(nproc)
 
       - name: Run tests
-        run: cmake --build build --target test
+        run: cmake --build --preset ci-test-linux --target test

@@ -34,8 +34,8 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Configure CMake
-        run: cmake -B build
+        run: cmake --preset ci-test-win
 
       - name: Build
         # Execute the build.  You can specify a specific target with "--target <NAME>"
-        run: cmake --build build -j $NUMBER_OF_PROCESSORS --target ALL_BUILD
+        run: cmake --build --preset ci-test-win -j $NUMBER_OF_PROCESSORS --target ALL_BUILD

@@ -49,10 +49,10 @@ jobs:
       - uses: lukka/get-cmake@latest
 
       - name: Configure CMake
-        run: cmake -B build -DENABLE_TESTS=ON
+        run: cmake --preset ci-test-linux
 
       - name: Build
-        run: cmake --build build -j2 --target all
+        run: cmake --build --preset ci-test-linux -j2 --target all
 
       - name: Run tests
-        run: cmake --build build --target test
+        run: cmake --build --preset ci-test-linux --target test

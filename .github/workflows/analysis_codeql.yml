@@ -82,10 +82,10 @@ jobs:
       #    project uses a compiled language
 
       - name: Configure CMake
-        run: cmake -B build -DENABLE_PRERE=${{env.PRERE}} -DENABLE_BUILDBOT=ON
+        run: cmake -DENABLE_PRERE=${{env.PRERE}} --preset ci-test-linux
 
       - name: Build
-        run: cmake --build build -j $(nproc) --target all
+        run: cmake --build --preset ci-test-linux -j $(nproc) --target all
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
