@@ -81,11 +81,15 @@ jobs:
       #    three lines and modify them (or add more) to build your code if your
       #    project uses a compiled language
 
-      - name: Generate vcpkg toolchain
-        run: vcpkg install --dry-run
+      - name: debug info
+        run: |
+          echo "PRERE=${{env.PRERE}}"
+          echo "VCPKG_INSTALLATION_ROOT=${{env.VCPKG_INSTALLATION_ROOT}}"
+          ls -la ${{env.VCPKG_INSTALLATION_ROOT}}/scripts/buildsystems/vcpkg.cmake
+          cat CMakePresets.json
 
       - name: Configure CMake
-        run: cmake -DENABLE_PRERE=${{env.PRERE}} --preset ci-test-linux
+        run: cmake -DENABLE_PRERE=${{env.PRERE}} --preset ci-test-linux -DDCMAKE_TOOLCHAIN_FILE=$env{VCPKG_INSTALLATION_ROOT}/scripts/buildsystems/vcpkg.cmake
 
       - name: Build
         run: cmake --build --preset ci-test-linux -j $(nproc) --target all
