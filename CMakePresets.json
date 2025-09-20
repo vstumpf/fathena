@@ -64,6 +64,17 @@
       "inherits": "windows"
     },
     {
+      "name": "macos",
+      "inherits": "base",
+      "generator": "Unix Makefiles",
+      "hidden": true,
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Darwin"
+      }
+    },
+    {
       "name": "ci-test",
       "inherits": "base",
       "hidden": true,
@@ -80,6 +91,10 @@
     {
       "name": "ci-test-win",
       "inherits": ["windows", "ci-test"]
+    },
+    {
+      "name": "ci-test-macos",
+      "inherits": ["macos", "ci-test"]
     }
   ],
   "buildPresets": [
@@ -122,6 +137,13 @@
     {
       "name": "ci-test-win",
       "configurePreset": "ci-test-win",
+      "targets": [
+        "server"
+      ]
+    },
+    {
+      "name": "ci-test-macos",
+      "configurePreset": "ci-test-macos",
       "targets": [
         "server",
         "tests"
