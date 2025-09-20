@@ -89,11 +89,13 @@ jobs:
           vcpkgDirectory: '3rdparty/vcpkg'
           vcpkgJsonGlob: 'vcpkg.json'
 
-      - name: Configure CMake
-        run: cmake -DENABLE_PRERE=${{env.PRERE}} --preset ci-test-linux
-
-      - name: Build
-        run: cmake --build --preset ci-test-linux -j $(nproc) --target all
+      - name: Run CMake
+        uses: lukka/run-cmake@v10
+        with:
+          configurePreset: ci-test-linux
+          configurePresetAdditionalArgs: "['-DENABLE_PRERE=${{env.PRERE}}']"
+          buildPreset: ci-test-linux
+          buildPresetAdditionalArgs: "['-j', '$(nproc)']"
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3

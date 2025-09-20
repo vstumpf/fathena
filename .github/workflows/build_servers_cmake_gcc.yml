@@ -47,11 +47,13 @@ jobs:
           vcpkgDirectory: '3rdparty/vcpkg'
           vcpkgJsonGlob: 'vcpkg.json'
 
-      - name: Configure CMake
-        run: CXX=g++-${{matrix.gcc}} CC=gcc-${{matrix.gcc}} cmake --preset ci-test-linux
-
-      - name: Build
-        run: cmake --build --preset ci-test-linux -j $(nproc) --target all
+      - name: Run CMake
+        uses: lukka/run-cmake@v10
+        with:
+          configurePreset: ci-test-linux
+          configurePresetAdditionalArgs: "['-DCMAKE_CXX_COMPILER=g++-${{matrix.gcc}}', '-DCMAKE_C_COMPILER=gcc-${{matrix.gcc}}']"
+          buildPreset: ci-test-linux
+          buildPresetAdditionalArgs: "['-j', '$(nproc)']"
 
       - name: Run tests
         run: cmake --build --preset ci-test-linux --target test

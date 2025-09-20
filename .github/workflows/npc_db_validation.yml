@@ -69,11 +69,13 @@ jobs:
           vcpkgDirectory: '3rdparty/vcpkg'
           vcpkgJsonGlob: 'vcpkg.json'
 
-      - name: Configure CMake
-        run: cmake -DENABLE_PRERE=${{env.PRERE}} --preset ci-test-linux
-
-      - name: Build
-        run: cmake --build --preset ci-test-linux -j $(nproc) --target map-server
+      - name: Run CMake
+        uses: lukka/run-cmake@v10
+        with:
+          configurePreset: ci-test-linux
+          configurePresetAdditionalArgs: "['-DENABLE_PRERE=${{env.PRERE}}']"
+          buildPreset: ci-test-linux
+          buildPresetAdditionalArgs: "['-j', '$(nproc)', '--target', 'map-server']"
 
       # npc.sh enables all NPC scripts in the custom and test folders.
       - name: Enable All NPCs for Testing

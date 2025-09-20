@@ -89,7 +89,10 @@
     },
     {
       "name": "ci-test-win",
-      "inherits": ["windows", "ci-test"]
+      "inherits": ["windows", "ci-test"],
+      "cacheVariables": {
+        "ENABLE_TESTS": "OFF"
+      }
     },
     {
       "name": "ci-test-macos",

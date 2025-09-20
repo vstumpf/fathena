@@ -51,11 +51,13 @@ jobs:
           vcpkgDirectory: '3rdparty/vcpkg'
           vcpkgJsonGlob: 'vcpkg.json'
 
-      - name: Configure CMake
-        run: CXX=clang++-${{matrix.clang}} CC=clang-${{matrix.clang}} cmake --preset ci-test-linux
-
-      - name: Build
-        run: cmake --build --preset ci-test-linux
+      - name: Run CMake
+        uses: lukka/run-cmake@v10
+        with:
+          configurePreset: ci-test-linux
+          configurePresetAdditionalArgs: "['-DCMAKE_CXX_COMPILER=clang++-${{matrix.clang}}', '-DCMAKE_C_COMPILER=clang-${{matrix.clang}}']"
+          buildPreset: ci-test-linux
+          buildPresetAdditionalArgs: "['-j', '$(nproc)']"
 
       - name: Run tests
         run: cmake --build --preset ci-test-linux --target test

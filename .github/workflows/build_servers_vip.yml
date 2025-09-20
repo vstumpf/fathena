@@ -68,11 +68,13 @@ jobs:
           vcpkgDirectory: '3rdparty/vcpkg'
           vcpkgJsonGlob: 'vcpkg.json'
 
-      - name: Configure CMake
-        run: cmake -DENABLE_PRERE=${{env.PRERE}} -DENABLE_VIP=ON --preset ci-test-linux
-
-      - name: Build
-        run: cmake --build --preset ci-test-linux -j $(nproc)
+      - name: Run CMake
+        uses: lukka/run-cmake@v10
+        with:
+          configurePreset: ci-test-linux
+          configurePresetAdditionalArgs: "['-DENABLE_PRERE=${{env.PRERE}}', '-DENABLE_VIP=ON']"
+          buildPreset: ci-test-linux
+          buildPresetAdditionalArgs: "['-j', '$(nproc)']"
 
       - name: Run Once - login-server
         run: ./login-server --run-once
