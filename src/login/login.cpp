@@ -213,7 +213,7 @@ TIMER_FUNC(login_vip_timeout_timer) {
 			p->vip_timeout_tid = add_timer(gettick() + delay, login_vip_timeout_timer, id, data);
 			isVip = true;
 		}
-		logchrif_sendvipdata(ch_server[p->char_server].fd, id, isVip ? 1 : 0, -1);
+		logchrif_sendvipdata(ch_server[p->char_server].fd, acc, isVip ? 1 : 0, -1);
 	}
 	return 0;
 }
