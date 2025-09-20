@@ -1,7 +1,6 @@
-add_executable(login-server)
+add_library(login)
 
-target_sources(login-server PRIVATE
-	"account.cpp"
+target_sources(login PRIVATE
 	"ipban.cpp"
 	"login.cpp"
 	"loginchrif.cpp"
@@ -11,8 +10,7 @@ target_sources(login-server PRIVATE
 )
 
 if(WIN32)
-	target_sources(login-server PRIVATE
-		"account.hpp"
+	target_sources(login PRIVATE
 		"ipban.hpp"
 		"loginchrif.hpp"
 		"loginclif.hpp"
@@ -21,9 +19,15 @@ if(WIN32)
 		"loginlog.hpp"
 	)
 
-	set_target_properties(login-server PROPERTIES FOLDER "Servers")
+	set_target_properties(login PROPERTIES FOLDER "Servers")
 endif()
 
-target_link_libraries(login-server PUBLIC
+target_link_libraries(login PUBLIC
 	common
+	accountdb
 )
+
+add_executable(login-server "LoginServerMain.cpp")
+target_link_libraries(login-server PRIVATE login)
+
+add_subdirectory(accountdb)

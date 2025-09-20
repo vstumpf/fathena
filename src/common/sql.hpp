@@ -6,6 +6,8 @@
 
 #include <cstdarg>// va_list
 #include <stdexcept>
+#include <string>
+#include <string_view>
 
 #ifdef WIN32
 #include "winapi.hpp"
@@ -127,7 +129,8 @@ size_t Sql_EscapeString(Sql* self, char* out_to, const char* from);
 /// @return The size of the escaped string
 size_t Sql_EscapeStringLen(Sql* self, char* out_to, const char* from, size_t from_len);
 
-
+// Escapes a string
+std::string Sql_GetEscapeString(Sql* self, std::string_view from);
 
 /// Executes a query.
 /// Any previous result is freed.

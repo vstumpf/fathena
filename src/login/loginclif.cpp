@@ -16,11 +16,11 @@
 #include <common/timer.hpp> //difftick
 #include <common/utils.hpp>
 
-#include "account.hpp"
 #include "ipban.hpp" //ipban_check
 #include "login.hpp"
 #include "loginchrif.hpp"
 #include "loginlog.hpp"
+#include "accountdb/MmoAccount.hpp"
 
 /**
  * Transmit auth result to client.
@@ -225,9 +225,9 @@ static void logclif_auth_failed(struct login_session_data* sd, int32 result) {
 	// 6 = You are prohibited to log in until %s
 	if( result == 6 ){
 		char unblock_time[20];
-		struct mmo_account acc;
-		AccountDB* accounts = login_get_accounts_db();
-		time_t unban_time = ( accounts->load_str( accounts, &acc, sd->userid ) ) ? acc.unban_time : 0;
+		MmoAccount acc;
+		AccountDb* accountDb = getAccountDb();
+		time_t unban_time = ( accountDb->loadFromUsername(acc, sd->userid)) ? acc.unban_time : 0;
 		timestamp2string( unblock_time, sizeof( unblock_time ), unban_time, login_config.date_format );
 
 		logclif_auth_failed( fd, result, unblock_time );

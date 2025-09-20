@@ -229,6 +229,11 @@ target_link_libraries(common PUBLIC
 	${ZLIB_LIBRARIES}
 )
 
+if(ENABLE_ASAN)
+	target_compile_options(common PUBLIC "-fsanitize=address" "-fno-omit-frame-pointer")
+	target_link_options(common PUBLIC "-fsanitize=address")
+endif()
+
 if(ENABLE_PROFILER STREQUAL "gprof")
 	target_compile_options(common PUBLIC "-pg")
 	target_link_libraries(common PUBLIC "-pg")
