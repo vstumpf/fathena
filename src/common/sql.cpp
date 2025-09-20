@@ -3,6 +3,8 @@
 
 #include "sql.hpp"
 
+#include <string>
+#include <string_view>
 #include <cstdlib>// strtoul
 
 #include "cbasetypes.hpp"

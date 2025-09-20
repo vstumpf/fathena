@@ -6,6 +6,8 @@
 
 #include <cstdarg>// va_list
 #include <stdexcept>
+#include <string>
+#include <string_view>
 
 #ifdef WIN32
 #include "winapi.hpp"
