@@ -72,6 +72,9 @@
         "type": "equals",
         "lhs": "${hostSystemName}",
         "rhs": "Darwin"
+      },
+      "cacheVariables": {
+        "CMAKE_VERBOSE_MAKEFILE": "ON"
       }
     },
     {

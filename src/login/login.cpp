@@ -968,7 +968,7 @@ bool LoginServer::initialize( int32 argc, char* argv[] ){
 	add_timer_func_list(login_online_data_cleanup, "online_data_cleanup");
 	add_timer_func_list(login_disable_webtoken_timer, "remove_webtoken_timer");
 #ifdef VIP_ENABLE
-	add_timer_func_list(account_vip_timeout_timer, "account_vip_timeout_timer");
+	add_timer_func_list(login_vip_timeout_timer, "login_vip_timeout_timer");
 #endif // VIP_ENABLE
 	add_timer_interval(gettick() + 600*1000, login_online_data_cleanup, 0, 0, 600*1000);
 
