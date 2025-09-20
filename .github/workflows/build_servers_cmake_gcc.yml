@@ -39,6 +39,9 @@ jobs:
           sudo apt update
           sudo apt install zlib1g-dev libpcre3-dev gcc-${{matrix.gcc}} g++-${{matrix.gcc}}
 
+      - name: Generate vcpkg toolchain
+        run: vcpkg install --dry-run
+
       - name: Configure CMake
         run: CXX=g++-${{matrix.gcc}} CC=gcc-${{matrix.gcc}} cmake --preset ci-test-linux
 

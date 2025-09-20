@@ -33,6 +33,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Generate vcpkg toolchain
+        run: vcpkg install --dry-run
+
       - name: Configure CMake
         run: cmake --preset ci-test-win
 

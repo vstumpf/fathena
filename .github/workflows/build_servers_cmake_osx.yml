@@ -48,6 +48,9 @@ jobs:
       # Install latest CMake.
       - uses: lukka/get-cmake@latest
 
+      - name: Generate vcpkg toolchain
+        run: vcpkg install --dry-run
+
       - name: Configure CMake
         run: cmake --preset ci-test-linux
 

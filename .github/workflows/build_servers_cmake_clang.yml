@@ -43,6 +43,9 @@ jobs:
           version: ${{ matrix.clang }}
           platform: x64
 
+      - name: Generate vcpkg toolchain
+        run: vcpkg install --dry-run
+
       - name: Configure CMake
         run: CXX=clang++-${{matrix.clang}} CC=clang-${{matrix.clang}} cmake --preset ci-test-linux
 

@@ -81,6 +81,9 @@ jobs:
       #    three lines and modify them (or add more) to build your code if your
       #    project uses a compiled language
 
+      - name: Generate vcpkg toolchain
+        run: vcpkg install --dry-run
+
       - name: Configure CMake
         run: cmake -DENABLE_PRERE=${{env.PRERE}} --preset ci-test-linux
 

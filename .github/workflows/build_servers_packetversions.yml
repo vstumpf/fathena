@@ -62,6 +62,10 @@ jobs:
       - name: Setup Database and import table data
         run: ./tools/ci/sql.sh
 
+      - name: Generate vcpkg toolchain
+        run: vcpkg install --dry-run
+
+
       - name: Configure CMake
         run: cmake -DENABLE_PRERE=${{env.PRERE}} -DPACKETVER=${{matrix.packetver}} --preset ci-test-linux
 
