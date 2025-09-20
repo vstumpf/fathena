@@ -33,14 +33,19 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Update & Install compilers
         run: |
           sudo apt update
           sudo apt install zlib1g-dev libpcre3-dev gcc-${{matrix.gcc}} g++-${{matrix.gcc}}
 
-      - name: Generate vcpkg toolchain
-        run: vcpkg install --dry-run
+      - name: Restore from cache and setup vcpkg executable and data files.
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgDirectory: '3rdparty/vcpkg'
+          vcpkgJsonGlob: 'vcpkg.json'
 
       - name: Configure CMake
         run: CXX=g++-${{matrix.gcc}} CC=gcc-${{matrix.gcc}} cmake --preset ci-test-linux

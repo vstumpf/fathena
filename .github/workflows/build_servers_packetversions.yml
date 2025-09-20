@@ -38,6 +38,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       # A simple 'yes' and 'no' can be confusing, so we use names to display in the current job then convert them for use in the compiler.
       - name: Variable Parsing - PRE
@@ -62,9 +64,11 @@ jobs:
       - name: Setup Database and import table data
         run: ./tools/ci/sql.sh
 
-      - name: Generate vcpkg toolchain
-        run: vcpkg install --dry-run
-
+      - name: Restore from cache and setup vcpkg executable and data files.
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgDirectory: '3rdparty/vcpkg'
+          vcpkgJsonGlob: 'vcpkg.json'
 
       - name: Configure CMake
         run: cmake -DENABLE_PRERE=${{env.PRERE}} -DPACKETVER=${{matrix.packetver}} --preset ci-test-linux
