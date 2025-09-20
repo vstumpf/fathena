@@ -6,8 +6,9 @@ fAthena is a collaborative software development project revolving around the cre
 fAthena uses vcpkg and CMake. To get started, clone the repository and use cmake to build the project:
 
 ```bash
-git clone https://github.com/vstumpf/fAthena.git
+git clone --recurse-submodules https://github.com/vstumpf/fAthena.git
 cd fAthena
-cmake -B build
-cmake --build build
+cmake --preset linux
+cmake --build --preset linux -j
+ctest --preset linux
 ```

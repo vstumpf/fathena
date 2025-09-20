@@ -62,6 +62,4 @@ jobs:
           configurePreset: ci-test-macos
           buildPreset: ci-test-macos
           buildPresetAdditionalArgs: "['-j2']"
-
-      - name: Run tests
-        run: cmake --build --preset ci-test-macos --target test
+          testPreset: ci-test-macos

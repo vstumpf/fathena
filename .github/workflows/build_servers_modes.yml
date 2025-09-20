@@ -75,6 +75,7 @@ jobs:
           configurePresetAdditionalArgs: "['-DENABLE_PRERE=${{env.PRERE}}']"
           buildPreset: ci-test-linux
           buildPresetAdditionalArgs: "['-j', '$(nproc)']"
+          testPreset: ci-test-linux
 
       - name: Run Once - login-server
         run: ./login-server --run-once
@@ -84,6 +85,3 @@ jobs:
 
       - name: Run Once - map-server
         run: ./map-server --run-once
-
-      - name: Run tests
-        run: cmake --build --preset ci-test-linux --target test

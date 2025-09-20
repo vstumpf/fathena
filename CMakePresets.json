@@ -151,5 +151,19 @@
         "tests"
       ]
     }
+  ],
+  "testPresets": [
+    {
+      "name": "ci-test-linux",
+      "configurePreset": "ci-test-linux"
+    },
+    {
+      "name": "ci-test-win",
+      "configurePreset": "ci-test-win"
+    },
+    {
+      "name": "ci-test-macos",
+      "configurePreset": "ci-test-macos"
+    }
   ]
 }

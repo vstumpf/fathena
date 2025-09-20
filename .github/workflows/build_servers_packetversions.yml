@@ -77,6 +77,4 @@ jobs:
           configurePresetAdditionalArgs: "['-DENABLE_PRERE=${{env.PRERE}}', '-DPACKETVER=${{matrix.packetver}}']"
           buildPreset: ci-test-linux
           buildPresetAdditionalArgs: "['-j', '$(nproc)']"
-
-      - name: Run tests
-        run: cmake --build --preset ci-test-linux --target test
+          testPreset: ci-test-linux

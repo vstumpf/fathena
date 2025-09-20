@@ -54,6 +54,4 @@ jobs:
           configurePresetAdditionalArgs: "['-DCMAKE_CXX_COMPILER=g++-${{matrix.gcc}}', '-DCMAKE_C_COMPILER=gcc-${{matrix.gcc}}']"
           buildPreset: ci-test-linux
           buildPresetAdditionalArgs: "['-j', '$(nproc)']"
-
-      - name: Run tests
-        run: cmake --build --preset ci-test-linux --target test
+          testPreset: ci-test-linux
