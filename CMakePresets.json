@@ -7,7 +7,8 @@
       "hidden": true,
       "cacheVariables": {
         "CMAKE_EXPORT_COMPILE_COMMANDS": true,
-        "PACKETVER": "20211103"
+        "PACKETVER": "20211103",
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/3rdparty/vcpkg/scripts/buildsystems/vcpkg.cmake"
       }
     },
     {
@@ -61,6 +62,41 @@
     {
       "name": "windows-debug",
       "inherits": "windows"
+    },
+    {
+      "name": "macos",
+      "inherits": "base",
+      "generator": "Unix Makefiles",
+      "hidden": true,
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Darwin"
+      }
+    },
+    {
+      "name": "ci-test",
+      "inherits": "base",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "ENABLE_TESTS": "ON"
+      }
+    },
+    {
+      "name": "ci-test-linux",
+      "inherits": ["linux", "ci-test"]
+    },
+    {
+      "name": "ci-test-win",
+      "inherits": ["windows", "ci-test"],
+      "cacheVariables": {
+        "ENABLE_TESTS": "OFF"
+      }
+    },
+    {
+      "name": "ci-test-macos",
+      "inherits": ["macos", "ci-test"]
     }
   ],
   "buildPresets": [
@@ -91,6 +127,43 @@
       "name": "windows-debug",
       "configurePreset": "windows-debug",
       "configuration": "Debug"
+    },
+    {
+      "name": "ci-test-linux",
+      "configurePreset": "ci-test-linux",
+      "targets": [
+        "server",
+        "tests"
+      ]
+    },
+    {
+      "name": "ci-test-win",
+      "configurePreset": "ci-test-win",
+      "targets": [
+        "server"
+      ]
+    },
+    {
+      "name": "ci-test-macos",
+      "configurePreset": "ci-test-macos",
+      "targets": [
+        "server",
+        "tests"
+      ]
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "ci-test-linux",
+      "configurePreset": "ci-test-linux"
+    },
+    {
+      "name": "ci-test-win",
+      "configurePreset": "ci-test-win"
+    },
+    {
+      "name": "ci-test-macos",
+      "configurePreset": "ci-test-macos"
     }
   ]
 }

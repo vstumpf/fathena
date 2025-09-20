@@ -42,6 +42,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
@@ -81,11 +83,19 @@ jobs:
       #    three lines and modify them (or add more) to build your code if your
       #    project uses a compiled language
 
-      - name: Configure CMake
-        run: cmake -B build -DENABLE_PRERE=${{env.PRERE}} -DENABLE_BUILDBOT=ON
+      - name: Restore from cache and setup vcpkg executable and data files.
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgDirectory: '3rdparty/vcpkg'
+          vcpkgJsonGlob: 'vcpkg.json'
 
-      - name: Build
-        run: cmake --build build -j $(nproc) --target all
+      - name: Run CMake
+        uses: lukka/run-cmake@v10
+        with:
+          configurePreset: ci-test-linux
+          configurePresetAdditionalArgs: "['-DENABLE_PRERE=${{env.PRERE}}']"
+          buildPreset: ci-test-linux
+          buildPresetAdditionalArgs: "['-j', '$(nproc)']"
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3

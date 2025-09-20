@@ -34,6 +34,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Update & Install packages
         # Macos runners already have most of the packages rAthena requires to build.
@@ -48,11 +50,16 @@ jobs:
       # Install latest CMake.
       - uses: lukka/get-cmake@latest
 
-      - name: Configure CMake
-        run: cmake -B build -DENABLE_TESTS=ON
+      - name: Restore from cache and setup vcpkg executable and data files.
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgDirectory: '3rdparty/vcpkg'
+          vcpkgJsonGlob: 'vcpkg.json'
 
-      - name: Build
-        run: cmake --build build -j2 --target all
-
-      - name: Run tests
-        run: cmake --build build --target test
+      - name: Run CMake
+        uses: lukka/run-cmake@v10
+        with:
+          configurePreset: ci-test-macos
+          buildPreset: ci-test-macos
+          buildPresetAdditionalArgs: "['-j2']"
+          testPreset: ci-test-macos

@@ -36,6 +36,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       # A simple 'yes' and 'no' can be confusing, so we use names to display in the current job then convert them for use in the compiler.
       - name: Variable Parsing - PRE
@@ -60,11 +62,20 @@ jobs:
       - name: Setup Database and import table data
         run: ./tools/ci/sql.sh
 
-      - name: Configure CMake
-        run: cmake -B build -DENABLE_PRERE=${{env.PRERE}} -DENABLE_BUILDBOT=ON -DENABLE_TESTS=ON
+      - name: Restore from cache and setup vcpkg executable and data files.
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgDirectory: '3rdparty/vcpkg'
+          vcpkgJsonGlob: 'vcpkg.json'
 
-      - name: Build
-        run: cmake --build build -j $(nproc) --target server tests
+      - name: Run CMake
+        uses: lukka/run-cmake@v10
+        with:
+          configurePreset: ci-test-linux
+          configurePresetAdditionalArgs: "['-DENABLE_PRERE=${{env.PRERE}}']"
+          buildPreset: ci-test-linux
+          buildPresetAdditionalArgs: "['-j', '$(nproc)']"
+          testPreset: ci-test-linux
 
       - name: Run Once - login-server
         run: ./login-server --run-once
@@ -74,6 +85,3 @@ jobs:
 
       - name: Run Once - map-server
         run: ./map-server --run-once
-
-      - name: Run tests
-        run: cmake --build build --target test

@@ -33,17 +33,25 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Update & Install compilers
         run: |
           sudo apt update
           sudo apt install zlib1g-dev libpcre3-dev gcc-${{matrix.gcc}} g++-${{matrix.gcc}}
 
-      - name: Configure CMake
-        run: CXX=g++-${{matrix.gcc}} CC=gcc-${{matrix.gcc}} cmake -B build -DENABLE_TESTS=ON
+      - name: Restore from cache and setup vcpkg executable and data files.
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgDirectory: '3rdparty/vcpkg'
+          vcpkgJsonGlob: 'vcpkg.json'
 
-      - name: Build
-        run: cmake --build build -j $(nproc) --target all
-
-      - name: Run tests
-        run: cmake --build build --target test
+      - name: Run CMake
+        uses: lukka/run-cmake@v10
+        with:
+          configurePreset: ci-test-linux
+          configurePresetAdditionalArgs: "['-DCMAKE_CXX_COMPILER=g++-${{matrix.gcc}}', '-DCMAKE_C_COMPILER=gcc-${{matrix.gcc}}']"
+          buildPreset: ci-test-linux
+          buildPresetAdditionalArgs: "['-j', '$(nproc)']"
+          testPreset: ci-test-linux

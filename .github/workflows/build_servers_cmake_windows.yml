@@ -32,10 +32,18 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
-      - name: Configure CMake
-        run: cmake -B build
+      - name: Restore from cache and setup vcpkg executable and data files.
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgDirectory: '3rdparty/vcpkg'
+          vcpkgJsonGlob: 'vcpkg.json'
 
-      - name: Build
-        # Execute the build.  You can specify a specific target with "--target <NAME>"
-        run: cmake --build build -j $NUMBER_OF_PROCESSORS --target ALL_BUILD
+      - name: Run CMake
+        uses: lukka/run-cmake@v10
+        with:
+          configurePreset: ci-test-win
+          buildPreset: ci-test-win
+          buildPresetAdditionalArgs: "['-j', '$NUMBER_OF_PROCESSORS']"
