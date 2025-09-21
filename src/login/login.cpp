@@ -977,7 +977,7 @@ bool LoginServer::initialize( int32 argc, char* argv[] ){
 		ShowFatalError("do_init: account engine not found.\n");
 		return false;
 	} else {
-		if (!accountDb_->init()) {
+		if (!accountDb_->init(std::make_unique<SqlHandle>())) {
 			ShowFatalError("do_init: Failed to initialize account engine.\n");
 			return false;
 		}
