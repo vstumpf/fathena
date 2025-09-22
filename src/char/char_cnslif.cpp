@@ -14,25 +14,6 @@
 
 #include "char.hpp"
 
-/*======================================================
- * Login-Server help option info
- *------------------------------------------------------*/
-void display_helpscreen(bool do_exit)
-{
-	ShowInfo("Usage: %s [options]\n", SERVER_NAME);
-	ShowInfo("\n");
-	ShowInfo("Options:\n");
-	ShowInfo("  -?, -h [--help]\t\tDisplays this help screen.\n");
-	ShowInfo("  -v [--version]\t\tDisplays the server's version.\n");
-	ShowInfo("  --run-once\t\t\tCloses server after loading (testing).\n");
-	ShowInfo("  --char-config <file>\t\tAlternative char-server configuration.\n");
-	ShowInfo("  --lan-config <file>\t\tAlternative lag configuration.\n");
-	ShowInfo("  --inter-config <file>\t\tAlternative inter-server configuration.\n");
-	ShowInfo("  --msg-config <file>\t\tAlternative message configuration.\n");
-	if( do_exit )
-		exit(EXIT_SUCCESS);
-}
-
 /**
  * Timered function to check if the console has a new event to be read.
  * @param tid: timer id

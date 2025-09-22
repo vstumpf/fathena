@@ -16,25 +16,6 @@
 #include "login.hpp"
 
 /**
- * Login-server console help: starting option info.
- *  Do not rename function used as extern.
- * @param do_exit: terminate program execution ?
- */
-void display_helpscreen(bool do_exit) {
-	ShowInfo("Usage: %s [options]\n", SERVER_NAME);
-	ShowInfo("\n");
-	ShowInfo("Options:\n");
-	ShowInfo("  -?, -h [--help]\t\tDisplays this help screen.\n");
-	ShowInfo("  -v [--version]\t\tDisplays the server's version.\n");
-	ShowInfo("  --run-once\t\t\tCloses server after loading (testing).\n");
-	ShowInfo("  --login-config <file>\t\tAlternative login-server configuration.\n");
-	ShowInfo("  --lan-config <file>\t\tAlternative lan configuration.\n");
-	ShowInfo("  --msg-config <file>\t\tAlternative message configuration.\n");
-	if( do_exit )
-		exit(EXIT_SUCCESS);
-}
-
-/**
  * Console Command Parser
  * Transmited from command cli.cpp
  * note common name for all serv do not rename (extern in cli)

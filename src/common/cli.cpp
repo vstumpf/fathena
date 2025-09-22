@@ -102,7 +102,7 @@ int32 cli_get_options(int32 argc, char ** argv) {
 			arg++;
 
 			if (strcmp(arg, "help") == 0) {
-				display_helpscreen(true);
+				global_core->displayHelpScreen(true);
 			}
 			else if (strcmp(arg, "version") == 0) {
 				display_versionscreen(true);
@@ -175,7 +175,7 @@ int32 cli_get_options(int32 argc, char ** argv) {
 			switch (arg[0]) {// short option
 				case '?':
 				case 'h':
-					display_helpscreen(true);
+					global_core->displayHelpScreen(true);
 					break;
 				case 'v':
 					display_versionscreen(true);

@@ -29,6 +29,7 @@ public:
 	}
 
 	AccountDb* getAccountDb();
+	void displayHelpScreen(bool exit) override;
 private:
 	std::unique_ptr<AccountDb> accountDb_{nullptr};
 };

@@ -26,7 +26,6 @@
  extern const char* LAN_CONF_NAME; //char-login
  extern const char* MSG_CONF_NAME_EN; //all
 
-extern void display_helpscreen(bool exit);
 bool cli_hasevent();
 void display_versionscreen(bool do_exit);
 bool opt_has_next_value(const char* option, int32 i, int32 argc);

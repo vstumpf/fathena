@@ -227,32 +227,35 @@ set(MAP_HEADERS
 	"skills/thief/stonefling.hpp"
 )
 
-add_executable(map-server)
+add_library(map)
 
-target_sources(map-server PRIVATE ${MAP_SOURCES})
+target_sources(map PRIVATE ${MAP_SOURCES})
 
 if(WIN32)
-	target_sources(map-server PRIVATE ${MAP_HEADERS})
-	set_target_properties(map-server PROPERTIES FOLDER "Servers")
+	target_sources(map PRIVATE ${MAP_HEADERS})
+	set_target_properties(map PROPERTIES FOLDER "Servers")
 endif()
 
-target_link_libraries(map-server PUBLIC
+target_link_libraries(map PUBLIC
 	common
 	${PCRE_LIBRARIES}
 )
 
-target_include_directories(map-server PUBLIC
+target_include_directories(map PUBLIC
 	${PCRE_INCLUDE_DIRS}
 )
 
 if(WITH_PCRE)
-	target_compile_definitions(map-server PUBLIC "PCRE_SUPPORT")
+	target_compile_definitions(map PUBLIC "PCRE_SUPPORT")
 endif()
 
-# map-server-generator
-add_executable(map-server-generator)
+add_executable(map-server "MapServerMain.cpp")
+target_link_libraries(map-server PRIVATE map)
 
-target_sources(map-server-generator PRIVATE ${MAP_SOURCES})
+# map-server-generator
+add_library(map-server-generator)
+
+target_sources(map-server-generator PRIVATE ${MAP_SOURCES} "MapServerGeneratorMain.cpp")
 
 if(WIN32)
 	target_sources(map-server-generator PRIVATE ${MAP_HEADERS})

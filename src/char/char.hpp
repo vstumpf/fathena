@@ -21,15 +21,16 @@ using rathena::server_core::e_core_type;
 
 namespace rathena::server_character {
 class CharacterServer : public Core {
-	protected:
-		bool initialize( int32 argc, char* argv[] ) override;
-		void finalize() override;
-		void handle_shutdown() override;
+protected:
+	bool initialize( int32 argc, char* argv[] ) override;
+	void finalize() override;
+	void handle_shutdown() override;
 
-	public:
-		CharacterServer() : Core( e_core_type::CHARACTER ){
+public:
+	CharacterServer() : Core( e_core_type::CHARACTER ){
 
-		}
+	}
+	void displayHelpScreen(bool doExit) override;
 };
 
 }
