@@ -31,6 +31,7 @@ public:
 
 	}
 	void displayHelpScreen(bool doExit) override;
+	int32_t parseConsole(const char* buf) override;
 };
 
 }

@@ -90,6 +90,7 @@ public:
 	int32 start( int32 argc, char* argv[] );
 
 	virtual void displayHelpScreen(bool doExit) = 0;
+	virtual int32_t parseConsole(const char* buf) = 0; 
 };
 }
 

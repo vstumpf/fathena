@@ -30,6 +30,7 @@ public:
 
 	AccountDb* getAccountDb();
 	void displayHelpScreen(bool exit) override;
+	int32_t parseConsole(const char* buf) override;
 private:
 	std::unique_ptr<AccountDb> accountDb_{nullptr};
 };

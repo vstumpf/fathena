@@ -1015,3 +1015,7 @@ void LoginServer::displayHelpScreen(bool doExit) {
 		exit(EXIT_SUCCESS);
 	}
 }
+
+int32_t LoginServer::parseConsole(const char* input) {
+	return parse_console(input);
+}

@@ -5481,3 +5481,7 @@ void MapServer::displayHelpScreen(bool doExit) {
 		exit(EXIT_SUCCESS);
 	}
 }
+
+int32_t MapServer::parseConsole(const char* input) {
+	return parse_console(input);
+}

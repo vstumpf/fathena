@@ -500,3 +500,7 @@ void WebServer::displayHelpScreen(bool doExit) {
 		exit(EXIT_SUCCESS);
 	}
 }
+
+int32_t WebServer::parseConsole(const char* input) {
+	return parse_console(input);
+}

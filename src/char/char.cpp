@@ -3284,3 +3284,7 @@ void CharacterServer::displayHelpScreen(bool doExit) {
 		exit(EXIT_SUCCESS);
 	}
 }
+
+int32_t CharacterServer::parseConsole(const char* input) {
+	return parse_console(input);
+}
