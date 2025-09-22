@@ -292,22 +292,6 @@ typedef char bool;
 #define PATHSEP_STR "/"
 #endif
 
-//////////////////////////////////////////////////////////////////////////
-// Assert
-
-#if ! defined(Assert)
-#if defined(RELEASE)
-#define Assert(EX)
-#else
-// extern "C" {
-#include <cassert>
-// }
-#if !defined(DEFCPP) && defined(WIN32) && !defined(MINGW)
-#include <crtdbg.h>
-#endif
-#define Assert(EX) assert(EX)
-#endif
-#endif /* ! defined(Assert) */
 
 //////////////////////////////////////////////////////////////////////////
 // Has to be unsigned to avoid problems in some systems

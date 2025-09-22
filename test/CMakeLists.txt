@@ -12,8 +12,13 @@ endif()
 
 include(GoogleTest)
 
+add_library(mocks INTERFACE)
+target_include_directories(mocks INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}")
+target_link_libraries(mocks INTERFACE GTest::gmock)
+
 add_subdirectory(common)
+add_subdirectory(login)
 
 add_custom_target(tests
-    DEPENDS common-tests
+    DEPENDS common-tests login-tests
 )

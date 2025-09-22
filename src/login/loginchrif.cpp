@@ -469,7 +469,7 @@ int32 logchrif_parse_upd_global_accreg(int32 fd, int32 id, char* ip){
 		uint8 len_val = RFIFOB(fd, cursor);
 		cursor += 1;
 		std::string_view key{RFIFOCP(fd, cursor), len_val};
-		cursor += 1 + len_val;
+		cursor += len_val;
 		uint32 index = RFIFOL(fd, cursor);
 		cursor += 4;
 		switch (RFIFOB(fd, cursor++)){

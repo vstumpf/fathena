@@ -682,7 +682,7 @@ bool script_check_RegistryVariableLength(int32 pType, const char *val, size_t* v
 /// Looks up string using the provided id.
 const char* get_str(int32 id)
 {
-	Assert( id >= LABEL_START && id < str_size );
+	assert( id >= LABEL_START && id < str_size );
 	return str_buf+str_data[id].str;
 }
 

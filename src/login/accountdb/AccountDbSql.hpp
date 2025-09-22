@@ -6,7 +6,9 @@
 #include <config/core.hpp>
 
 #include <common/cbasetypes.hpp>
+#include <common/ISqlHandle.hpp>
 #include <common/sql.hpp>
+#include <common/SqlHandle.hpp>
 
 #include "AccountDb.hpp"
 #include "MmoAccount.hpp"
@@ -16,7 +18,7 @@ public:
 	// Destroys this database, releasing all allocated memory (including itself).
 	~AccountDbSql();
 
-	bool init() override;
+	bool init(std::unique_ptr<ISqlHandle> sqlHandle) override;
 
 	// Sets a property in this database.
 	//
@@ -79,7 +81,7 @@ public:
 	void deleteGlobalAccRegStr(uint32 account_id, std::string_view key, uint32 index) override;
 
 private:
-	Sql* accounts_{nullptr}; // SQL handle accounts storage
+	std::unique_ptr<ISqlHandle> accounts_{nullptr}; // SQL handle accounts storage
 	std::string db_hostname_{"127.0.0.1"};
 	uint16 db_port_{3306};
 	std::string db_username_{"ragnarok"};

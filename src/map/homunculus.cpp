@@ -1043,7 +1043,7 @@ void hom_alloc(map_session_data *sd, struct s_homunculus *hom)
 {
 	nullpo_retv(sd);
 
-	Assert((sd->status.hom_id == 0 || sd->hd == 0) || sd->hd->master == sd);
+	assert((sd->status.hom_id == 0 || sd->hd == 0) || sd->hd->master == sd);
 
 	std::shared_ptr<s_homunculus_db> homun_db = homunculus_db.homun_search(hom->class_);
 

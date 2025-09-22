@@ -748,7 +748,7 @@ int32 pet_target_check(pet_data *pd,block_list *bl,int32 type)
 {
 	nullpo_ret(pd);
 
-	Assert((pd->master == 0) || (pd->master->pd == pd));
+	assert((pd->master == 0) || (pd->master->pd == pd));
 
 
 	if(bl == nullptr || bl->type != BL_MOB || bl->prev == nullptr ||
@@ -986,7 +986,7 @@ bool pet_data_init(map_session_data *sd, struct s_pet *pet)
 
 	nullpo_retr(false, sd);
 
-	Assert((sd->status.pet_id == 0 || sd->pd == 0) || sd->pd->master == sd);
+	assert((sd->status.pet_id == 0 || sd->pd == 0) || sd->pd->master == sd);
 
 	if(sd->status.account_id != pet->account_id || sd->status.char_id != pet->char_id) {
 		sd->status.pet_id = 0;
@@ -1078,7 +1078,7 @@ int32 pet_birth_process(map_session_data *sd, struct s_pet *pet)
 {
 	nullpo_retr(1, sd);
 
-	Assert((sd->status.pet_id == 0 || sd->pd == 0) || sd->pd->master == sd);
+	assert((sd->status.pet_id == 0 || sd->pd == 0) || sd->pd->master == sd);
 
 	if(sd->status.pet_id && pet->incubate == 1) {
 		sd->status.pet_id = 0;
@@ -1115,7 +1115,7 @@ int32 pet_birth_process(map_session_data *sd, struct s_pet *pet)
 		clif_pet_autofeed_status(sd,true);
 	}
 
-	Assert((sd->status.pet_id == 0 || sd->pd == 0) || sd->pd->master == sd);
+	assert((sd->status.pet_id == 0 || sd->pd == 0) || sd->pd->master == sd);
 
 	return 0;
 }
@@ -1695,7 +1695,7 @@ static int32 pet_randomwalk(pet_data *pd,t_tick tick)
 {
 	nullpo_ret(pd);
 
-	Assert((pd->master == 0) || (pd->master->pd == pd));
+	assert((pd->master == 0) || (pd->master->pd == pd));
 
 	if(DIFF_TICK(pd->next_walktime,tick) < 0 && unit_can_move(pd)) {
 		const int32 retrycount = 20;

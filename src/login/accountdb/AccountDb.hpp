@@ -7,6 +7,7 @@
 #include <config/core.hpp>
 
 #include <common/cbasetypes.hpp>
+#include <common/ISqlHandle.hpp>
 
 #include "MmoAccount.hpp"
 
@@ -26,7 +27,7 @@ class AccountDb {
 public:
 	virtual ~AccountDb() = default;
 
-	virtual bool init() = 0;
+	virtual bool init(std::unique_ptr<ISqlHandle> sqlHandle) = 0;
 
 	// Sets a property in this database.
 	//
