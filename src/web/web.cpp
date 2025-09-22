@@ -494,6 +494,13 @@ void WebServer::handle_main( t_tick next ){
 	std::this_thread::sleep_for( std::chrono::milliseconds( next ) );
 }
 
-int32 main( int32 argc, char *argv[] ){
-	return main_core<WebServer>( argc, argv );
+void WebServer::displayHelpScreen(bool doExit) {
+	ShowInfo("Usage: %s\n", SERVER_NAME);
+	if (doExit) {
+		exit(EXIT_SUCCESS);
+	}
+}
+
+int32_t WebServer::parseConsole(const char* input) {
+	return parse_console(input);
 }

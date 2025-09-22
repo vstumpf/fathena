@@ -17,16 +17,18 @@ using rathena::server_core::e_core_type;
 
 namespace rathena::server_web {
 class WebServer : public Core{
-	protected:
-		bool initialize( int32 argc, char* argv[] ) override;
-		void handle_main( t_tick next ) override;
-		void finalize() override;
-		void handle_crash() override;
+protected:
+	bool initialize( int32 argc, char* argv[] ) override;
+	void handle_main( t_tick next ) override;
+	void finalize() override;
+	void handle_crash() override;
 
-	public:
-		WebServer() : Core( e_core_type::WEB ){
+public:
+	WebServer() : Core( e_core_type::WEB ){
 
-		}
+	}
+	void displayHelpScreen(bool doExit) override;
+	int32_t parseConsole(const char* buf) override;
 };
 }
 

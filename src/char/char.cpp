@@ -3269,6 +3269,22 @@ bool CharacterServer::initialize( int32 argc, char *argv[] ){
 	return true;
 }
 
-int32 main( int32 argc, char *argv[] ){
-	return main_core<CharacterServer>( argc, argv );
+void CharacterServer::displayHelpScreen(bool doExit) {
+	ShowInfo("Usage: %s [options]\n", SERVER_NAME);
+	ShowInfo("\n");
+	ShowInfo("Options:\n");
+	ShowInfo("  -?, -h [--help]\t\tDisplays this help screen.\n");
+	ShowInfo("  -v [--version]\t\tDisplays the server's version.\n");
+	ShowInfo("  --run-once\t\t\tCloses server after loading (testing).\n");
+	ShowInfo("  --char-config <file>\t\tAlternative char-server configuration.\n");
+	ShowInfo("  --lan-config <file>\t\tAlternative lag configuration.\n");
+	ShowInfo("  --inter-config <file>\t\tAlternative inter-server configuration.\n");
+	ShowInfo("  --msg-config <file>\t\tAlternative message configuration.\n");
+	if (doExit) {
+		exit(EXIT_SUCCESS);
+	}
+}
+
+int32_t CharacterServer::parseConsole(const char* input) {
+	return parse_console(input);
 }

@@ -1,9 +1,9 @@
-add_executable(web-server)
+add_library(web)
 
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 
-target_sources(web-server PRIVATE
+target_sources(web PRIVATE
 	"auth.cpp"
 	"charconfig_controller.cpp"
 	"emblem_controller.cpp"
@@ -16,7 +16,7 @@ target_sources(web-server PRIVATE
 )
 
 if(WIN32)
-	target_sources(web-server PRIVATE
+	target_sources(web PRIVATE
 		"auth.hpp"
 		"charconfig_controller.hpp"
 		"emblem_controller.hpp"
@@ -30,12 +30,15 @@ if(WIN32)
 		"webutils.hpp"
 	)
 
-	set_target_properties(web-server PROPERTIES FOLDER "Servers")
+	set_target_properties(web PROPERTIES FOLDER "Servers")
 endif()
 
-target_link_libraries(web-server PUBLIC
+target_link_libraries(web PUBLIC
 	common
 	httplib
 	Threads::Threads
 	json
 )
+
+add_executable(web-server "WebServerMain.cpp")
+target_link_libraries(web-server PRIVATE web)

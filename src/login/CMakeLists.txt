@@ -29,7 +29,7 @@ target_link_libraries(login PUBLIC
 
 # common depends on login for the implementations of some functions
 # TODO Remove this circular dependency by refactoring those functions into Core::<func> and overriding them
-target_link_libraries(common PUBLIC login)
+# target_link_libraries(common PUBLIC login)
 
 add_executable(login-server "LoginServerMain.cpp")
 target_link_libraries(login-server PRIVATE login)

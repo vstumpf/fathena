@@ -1,6 +1,6 @@
-add_executable(char-server)
+add_library(char)
 
-target_sources(char-server PRIVATE
+target_sources(char PRIVATE
 	"char.cpp"
 	"char_clif.cpp"
 	"char_cnslif.cpp"
@@ -22,7 +22,7 @@ target_sources(char-server PRIVATE
 )
 
 if(WIN32)
-	target_sources(char-server PRIVATE
+	target_sources(char PRIVATE
 		"char_clif.hpp"
 		"char_cnslif.hpp"
 		"char.hpp"
@@ -44,9 +44,12 @@ if(WIN32)
 		"packets.hpp"
 	)
 
-	set_target_properties(char-server PROPERTIES FOLDER "Servers")
+	set_target_properties(char PROPERTIES FOLDER "Servers")
 endif()
 
-target_link_libraries(char-server PUBLIC
+target_link_libraries(char PUBLIC
 	common
 )
+
+add_executable(char-server "CharacterServerMain.cpp")
+target_link_libraries(char-server PRIVATE char)

@@ -78,6 +78,7 @@ public:
 		this->m_crashed = false;
 		this->m_type = type;
 	}
+	virtual ~Core() = default;
 
 	e_core_status get_status();
 	e_core_type get_type();
@@ -87,6 +88,9 @@ public:
 	void signal_crash();
 	void signal_shutdown();
 	int32 start( int32 argc, char* argv[] );
+
+	virtual void displayHelpScreen(bool doExit) = 0;
+	virtual int32_t parseConsole(const char* buf) = 0; 
 };
 }
 

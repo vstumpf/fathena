@@ -5149,29 +5149,6 @@ void MapServer::handle_crash(){
 }
 
 /*======================================================
- * Map-Server help options screen
- *------------------------------------------------------*/
-void display_helpscreen(bool do_exit)
-{
-	ShowInfo("Usage: %s [options]\n", SERVER_NAME);
-	ShowInfo("\n");
-	ShowInfo("Options:\n");
-	ShowInfo("  -?, -h [--help]\t\tDisplays this help screen.\n");
-	ShowInfo("  -v [--version]\t\tDisplays the server's version.\n");
-	ShowInfo("  --run-once\t\t\tCloses server after loading (testing).\n");
-	ShowInfo("  --map-config <file>\t\tAlternative map-server configuration.\n");
-	ShowInfo("  --battle-config <file>\tAlternative battle configuration.\n");
-	ShowInfo("  --atcommand-config <file>\tAlternative atcommand configuration.\n");
-	ShowInfo("  --script-config <file>\tAlternative script configuration.\n");
-	ShowInfo("  --msg-config <file>\t\tAlternative message configuration.\n");
-	ShowInfo("  --grf-path <file>\t\tAlternative GRF path configuration.\n");
-	ShowInfo("  --inter-config <file>\t\tAlternative inter-server configuration.\n");
-	ShowInfo("  --log-config <file>\t\tAlternative logging configuration.\n");
-	if( do_exit )
-		exit(EXIT_SUCCESS);
-}
-
-/*======================================================
  * Message System
  *------------------------------------------------------*/
 struct msg_data {
@@ -5485,6 +5462,26 @@ bool MapServer::initialize( int32 argc, char *argv[] ){
 	return true;
 }
 
-int32 main( int32 argc, char *argv[] ){
-	return main_core<MapServer>( argc, argv );
+void MapServer::displayHelpScreen(bool doExit) {
+	ShowInfo("Usage: %s [options]\n", SERVER_NAME);
+	ShowInfo("\n");
+	ShowInfo("Options:\n");
+	ShowInfo("  -?, -h [--help]\t\tDisplays this help screen.\n");
+	ShowInfo("  -v [--version]\t\tDisplays the server's version.\n");
+	ShowInfo("  --run-once\t\t\tCloses server after loading (testing).\n");
+	ShowInfo("  --map-config <file>\t\tAlternative map-server configuration.\n");
+	ShowInfo("  --battle-config <file>\tAlternative battle configuration.\n");
+	ShowInfo("  --atcommand-config <file>\tAlternative atcommand configuration.\n");
+	ShowInfo("  --script-config <file>\tAlternative script configuration.\n");
+	ShowInfo("  --msg-config <file>\t\tAlternative message configuration.\n");
+	ShowInfo("  --grf-path <file>\t\tAlternative GRF path configuration.\n");
+	ShowInfo("  --inter-config <file>\t\tAlternative inter-server configuration.\n");
+	ShowInfo("  --log-config <file>\t\tAlternative logging configuration.\n");
+	if (doExit) {
+		exit(EXIT_SUCCESS);
+	}
+}
+
+int32_t MapServer::parseConsole(const char* input) {
+	return parse_console(input);
 }
