@@ -87,17 +87,17 @@ enum msg_type {
 	MSG_FATALERROR
 };
 
-extern void ClearScreen(void);
-extern int32 _vShowMessage(enum msg_type flag, const char *string, va_list ap);
-extern void ShowMessage(const char *, ...);
-extern void ShowStatus(const char *, ...);
-extern void ShowSQL(const char *, ...);
-extern void ShowInfo(const char *, ...);
-extern void ShowNotice(const char *, ...);
-extern void ShowWarning(const char *, ...);
-extern void ShowDebug(const char *, ...);
-extern void ShowError(const char *, ...);
-extern void ShowFatalError(const char *, ...);
-extern void ShowConfigWarning(config_setting_t *config, const char *string, ...);
+void ClearScreen(void);
+int32 _vShowMessage(enum msg_type flag, const char *string, va_list ap);
+void ShowMessage(const char *, ...);
+void ShowStatus(const char *, ...);
+void ShowSQL(const char *, ...);
+void ShowInfo(const char *, ...);
+void ShowNotice(const char *, ...);
+void ShowWarning(const char *, ...);
+void ShowDebug(const char *, ...);
+void ShowError(const char *, ...);
+void ShowFatalError(const char *, ...);
+void ShowConfigWarning(config_setting_t *config, const char *string, ...);
 
 #endif /* SHOWMSG_HPP */

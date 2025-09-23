@@ -125,8 +125,8 @@ extern time_t stall_time;
 
 //////////////////////////////////
 // some checking on sockets
-extern bool session_isValid(int32 fd);
-extern bool session_isActive(int32 fd);
+bool session_isValid(int32 fd);
+bool session_isActive(int32 fd);
 //////////////////////////////////
 
 // Function prototype declaration
@@ -145,9 +145,9 @@ void do_close(int32 fd);
 void socket_init(void);
 void socket_final(void);
 
-extern void flush_fifo(int32 fd);
-extern void flush_fifos(void);
-extern void set_nonblocking(int32 fd, unsigned long yes);
+void flush_fifo(int32 fd);
+void flush_fifos(void);
+void set_nonblocking(int32 fd, unsigned long yes);
 
 void set_defaultparse(ParseFunc defaultparse);
 

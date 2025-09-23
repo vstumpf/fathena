@@ -33,19 +33,19 @@ uint32 get_percentage_exp(const uint64 a, const uint64 b);
 // byte word dword access [Shinomori]
 //////////////////////////////////////////////////////////////////////////
 
-extern uint8 GetByte(uint32 val, int32 idx);
-extern uint16 GetWord(uint32 val, int32 idx);
-extern uint16 MakeWord(uint8 byte0, uint8 byte1);
-extern uint32 MakeDWord(uint16 word0, uint16 word1);
+uint8 GetByte(uint32 val, int32 idx);
+uint16 GetWord(uint32 val, int32 idx);
+uint16 MakeWord(uint8 byte0, uint8 byte1);
+uint32 MakeDWord(uint16 word0, uint16 word1);
 
 //////////////////////////////////////////////////////////////////////////
 // Big-endian compatibility functions
 //////////////////////////////////////////////////////////////////////////
-extern int16 MakeShortLE(int16 val);
-extern int32 MakeLongLE(int32 val);
-extern uint16 GetUShort(const unsigned char* buf);
-extern uint32 GetULong(const unsigned char* buf);
-extern int32 GetLong(const unsigned char* buf);
-extern float GetFloat(const unsigned char* buf);
+int16 MakeShortLE(int16 val);
+int32 MakeLongLE(int32 val);
+uint16 GetUShort(const unsigned char* buf);
+uint32 GetULong(const unsigned char* buf);
+int32 GetLong(const unsigned char* buf);
+float GetFloat(const unsigned char* buf);
 
 #endif /* UTILS_HPP */

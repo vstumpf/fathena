@@ -789,8 +789,8 @@ extern struct Battle_Config battle_config;
 
 void do_init_battle(void);
 void do_final_battle(void);
-extern int32 battle_config_read(const char *cfgName);
-extern void battle_set_defaults(void);
+int32 battle_config_read(const char *cfgName);
+void battle_set_defaults(void);
 int32 battle_set_value(const char* w1, const char* w2);
 int32 battle_get_value(const char* w1);
 
