@@ -31,12 +31,13 @@
 #                              To remove an item via import set amount to 0.
 #           RentalHours        Rental time in hours. (Default: 0)
 #           Refine             Refine level of the item. (Default: 0)
+#           Grade              Grade level of the item. (None, D, C, B or A. Default: None)
 #           RandomOptionGroup  Name of the random option group that will be applied. (Default: none)
 ###########################################################################
 
 Header:
   Type: ITEM_PACKAGE_DB
-  Version: 1
+  Version: 2
 
 Body:
   - Item: Select_Example1
@@ -1115,3 +1116,33 @@ Body:
       - Group: 1
         Items:
           - Item: C_Guide_Of_Dead_Text
+  - Item: C_CLB_DT_Select_Box1
+    Groups:
+      - Group: 0
+        Items:
+          - Item: C_CLB_DT_TS_Hat
+      - Group: 1
+        Items:
+          - Item: C_CLB_DT_TS_Mini
+      - Group: 2
+        Items:
+          - Item: C_CLB_DT_TS_Hood
+  - Item: C_CLB_DT_Select_Box2
+    Groups:
+      - Group: 0
+        Items:
+          - Item: C_CLB_DT_TS_Wing
+      - Group: 1
+        Items:
+          - Item: CLB_DT_2D_Foot_Robe
+      - Group: 2
+        Items:
+          - Item: CLB_DT_3D_Foot_Robe
+  - Item: C_Clouds_Select_Box
+    Groups:
+      - Group: 0
+        Items:
+          - Item: C_Over_Cloud
+      - Group: 1
+        Items:
+          - Item: C_Aurora_On_Clouds

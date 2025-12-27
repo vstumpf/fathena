@@ -60,9 +60,6 @@ jobs:
       - name: Start MySQL
         run: sudo systemctl start mysql.service
 
-      - name: Setup Database and import table data
-        run: ./tools/ci/sql.sh
-
       - name: Restore from cache and setup vcpkg executable and data files.
         uses: lukka/run-vcpkg@v11
         with:
@@ -80,6 +77,9 @@ jobs:
       # npc.sh enables all NPC scripts in the custom and test folders.
       - name: Enable All NPCs for Testing
         run: ./tools/ci/npc.sh
+
+      - name: Setup Database and import table data
+        run: ./tools/ci/sql.sh
 
       - name: Run Once - map-server
         run: ./map-server --run-once

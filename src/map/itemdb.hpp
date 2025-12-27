@@ -3118,6 +3118,59 @@ enum e_random_item_group {
 	IG_BRILLIANT_HAT_BOX,
 	IG_CHEST_OF_DEATH,
 	IG_SHADOW_CUBE_SAK,
+	IG_AEGIS_100582,
+	IG_AEGIS_100584,
+	IG_DT_COLABO_BOX1,
+	IG_DT_COLABO_BOX2,
+	IG_CLOUD_COSTUME_PACK,
+	IG_COSTUMEMILEPACK_39_1,
+	IG_COSTUMEMILEPACK_39_2,
+	IG_COSTUMEMILEPACK_39_3,
+	IG_RT_CH01_ARMOR_A,
+	IG_RT_CH01_ARMOR_C,
+	IG_RT_CH01_DIMEN_A,
+	IG_RT_CH01_DIMEN_C,
+	IG_RT_CH01_DIMEN_3,
+	IG_RT_CH01_EXTRA_A,
+	IG_RT_CH01_EXTRA_C,
+	IG_RT_CH01_EXTRA_2,
+	IG_RT_CH01_EXTRA_4,
+	IG_RT_CH01_EXTRA_5,
+	IG_AEGIS_104901,
+	IG_AEGIS_105031,
+	IG_23TH_COSTUME_A,
+	IG_23TH_COSTUME_B,
+	IG_23TH_COSTUME_C,
+	IG_AEGIS_105059,
+	IG_AEGIS_105161,
+	IG_AEGIS_105162,
+	IG_AEGIS_105219,
+	IG_AEGIS_105220,
+	IG_SP_COSTUME_COLLECTION,
+	IG_2025ROS_FOR_OFFLINE,
+	IG_AEGIS_105518,
+	IG_AEGIS_105715,
+	IG_LI_NYANGVINE_BOX1_40,
+	IG_LI_NYANGVINE_BOX2_40,
+	IG_LI_NYANGVINE_BOX3_40,
+	IG_23TH_COSTUME_PACK_A,
+	IG_23TH_COSTUME_PACK_B,
+	IG_23TH_COSTUME_PACK_C,
+	IG_23TH_PACKAGE_1,
+	IG_23TH_PACKAGE_2,
+	IG_23TH_PACKAGE_3,
+	IG_23TH_PACKAGE_4,
+	IG_COSTUMEMILEPACK_SP_1,
+	IG_COSTUMEMILEPACK_SP_2,
+	IG_COSTUMEMILEPACK_SP_3,
+	IG_COSTUMEMILEPACK_SP_4,
+	IG_COSTUMEMILEPACK_41_1,
+	IG_COSTUMEMILEPACK_41_2,
+	IG_COSTUMEMILEPACK_41_3,
+	IG_NIFLHEIM_COSTUME_1,
+	IG_NIFLHEIM_COSTUME_2,
+	IG_NIFLHEIM_COSTUME_3,
+	IG_NIFLHEIM_COSTUME_4,
 
 	IG_MAX
 };
@@ -3299,6 +3352,8 @@ struct s_item_group_entry
 	std::shared_ptr<s_random_opt_group> randomOptionGroup;
 	uint16 refineMinimum;
 	uint16 refineMaximum;
+	uint16 minimumEnchantgrade;
+	uint16 maximumEnchantgrade;
 };
 
 /// Struct of random group
@@ -3465,7 +3520,7 @@ extern ItemDatabase item_db;
 
 class ItemGroupDatabase : public TypesafeCachedYamlDatabase<uint16, s_item_group_db> {
 public:
-	ItemGroupDatabase() : TypesafeCachedYamlDatabase("ITEM_GROUP_DB", 4, 1) {
+	ItemGroupDatabase() : TypesafeCachedYamlDatabase("ITEM_GROUP_DB", 5, 1) {
 
 	}
 
@@ -3643,6 +3698,7 @@ struct s_item_package_item{
 	uint16 amount;
 	uint16 rentalhours;
 	uint16 refine;
+	uint16 grade;
 	std::shared_ptr<s_random_opt_group> randomOptionGroup;
 };
 
@@ -3658,7 +3714,7 @@ struct s_item_package{
 
 class ItemPackageDatabase : public TypesafeYamlDatabase<t_itemid, s_item_package>{
 public:
-	ItemPackageDatabase() : TypesafeYamlDatabase( "ITEM_PACKAGE_DB", 1 ){
+	ItemPackageDatabase() : TypesafeYamlDatabase( "ITEM_PACKAGE_DB", 2, 1 ){
 
 	}
 
