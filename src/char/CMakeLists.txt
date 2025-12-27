@@ -41,7 +41,6 @@ if(WIN32)
 		"int_pet.hpp"
 		"int_quest.hpp"
 		"int_storage.hpp"
-		"packets.hpp"
 	)
 
 	set_target_properties(char PROPERTIES FOLDER "Servers")
