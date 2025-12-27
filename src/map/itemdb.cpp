@@ -2872,6 +2872,29 @@ uint64 ItemPackageDatabase::parseBodyNode( const ryml::NodeRef& node ){
 					}
 				}
 
+				if (this->nodeExists(itemNode, "Grade")) {
+					std::string enchantgrade;
+
+					if (!this->asString(itemNode, "Grade", enchantgrade)) {
+						return 0;
+					}
+
+					std::string grade_constant = "ENCHANTGRADE_" + enchantgrade;
+					int64 constant;
+
+					if (!script_get_constant(grade_constant.c_str(), &constant) || constant < ENCHANTGRADE_NONE ||	constant > MAX_ENCHANTGRADE) {
+						this->invalidWarning(itemNode["Grade"], "Invalid enchantgrade %s, defaulting to None.\n", enchantgrade.c_str());
+						constant = ENCHANTGRADE_NONE;
+					}
+
+					package_item->grade = static_cast<decltype(package_item->grade)>(constant);
+				}
+				else {
+					if (!package_item_exists) {
+						package_item->grade = static_cast<decltype(package_item->grade)>(ENCHANTGRADE_NONE);
+					}
+				}
+
 				if( !package_item_exists ){
 					group->items[package_item->item_id] = package_item;
 				}
@@ -3059,6 +3082,16 @@ void ItemGroupDatabase::pc_get_itemgroup_sub( map_session_data& sd, bool identif
 				tmp.refine = static_cast<uint8>( rnd_value<uint16>( 1, data->refineMaximum ) );
 			}else{
 				tmp.refine = 0;
+			}
+
+			if( data->minimumEnchantgrade > ENCHANTGRADE_NONE && data->maximumEnchantgrade > ENCHANTGRADE_NONE ){
+				tmp.enchantgrade = static_cast<uint8>( rnd_value<uint16>( data->minimumEnchantgrade, data->maximumEnchantgrade ) );
+			}else if( data->minimumEnchantgrade > ENCHANTGRADE_NONE ){
+				tmp.enchantgrade = static_cast<uint8>( rnd_value<uint16>( data->minimumEnchantgrade, MAX_ENCHANTGRADE ) );
+			}else if( data->maximumEnchantgrade > ENCHANTGRADE_NONE ){
+				tmp.enchantgrade = static_cast<uint8>( rnd_value<uint16>( ENCHANTGRADE_NONE, data->maximumEnchantgrade ) );
+			}else{
+				tmp.enchantgrade = static_cast<uint8>( ENCHANTGRADE_NONE );
 			}
 
 			if( data->randomOptionGroup != nullptr ){
@@ -3645,6 +3678,52 @@ uint64 ItemGroupDatabase::parseBodyNode(const ryml::NodeRef& node) {
 				}else{
 					if( !exists ){
 						entry->refineMaximum = 0;
+					}
+				}
+
+				if (this->nodeExists(listit, "GradeMinimum")) {
+					std::string enchantgrade;
+
+					if (!this->asString(listit, "GradeMinimum", enchantgrade)) {
+						return 0;
+					}
+
+					std::string grade_constant = "ENCHANTGRADE_" + enchantgrade;
+					int64 constant;
+
+					if (!script_get_constant(grade_constant.c_str(), &constant) || constant < ENCHANTGRADE_NONE || constant > MAX_ENCHANTGRADE) {
+						this->invalidWarning(listit["GradeMinimum"], "Invalid enchantgrade %s, defaulting to None.\n", enchantgrade.c_str());
+						constant = ENCHANTGRADE_NONE;
+					}
+
+					entry->minimumEnchantgrade = static_cast<uint16>(constant);
+				}
+				else {
+					if (!exists) {
+						entry->minimumEnchantgrade = static_cast<uint16>( ENCHANTGRADE_NONE );
+					}
+				}
+
+				if (this->nodeExists(listit, "GradeMaximum")) {
+					std::string enchantgrade;
+
+					if (!this->asString(listit, "GradeMaximum", enchantgrade)) {
+						return 0;
+					}
+
+					std::string grade_constant = "ENCHANTGRADE_" + enchantgrade;
+					int64 constant;
+
+					if (!script_get_constant(grade_constant.c_str(), &constant) || constant < ENCHANTGRADE_NONE || constant > MAX_ENCHANTGRADE) {
+						this->invalidWarning(listit["GradeMaximum"], "Invalid enchantgrade %s, defaulting to None.\n", enchantgrade.c_str());
+						constant = ENCHANTGRADE_NONE;
+					}
+
+					entry->maximumEnchantgrade = static_cast<uint16>(constant);
+				}
+				else {
+					if (!exists) {
+						entry->maximumEnchantgrade = static_cast<uint16>( ENCHANTGRADE_NONE );
 					}
 				}
 			}
