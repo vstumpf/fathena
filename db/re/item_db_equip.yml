@@ -5225,7 +5225,7 @@ Body:
       bonus4 bSetMDefRace,RC_Player_Human,10000,5000,1;
       bonus4 bSetDefRace,RC_Player_Doram,10000,5000,1;
       bonus4 bSetMDefRace,RC_Player_Doram,10000,5000,1;
-      bonus bAspdRate,getrefine();
+      bonus bAspdRate,4+getrefine();
   - Id: 1294
     AegisName: Velum_Scare
     Name: Vellum Scale
@@ -11045,7 +11045,7 @@ Body:
     EquipLevelMin: 40
     Refineable: true
     Script: |
-      bonus2 bAddRace,RC_Undead,15;
+      bonus2 bAddEle,Ele_Undead,15;
       bonus2 bComaRace,RC_Undead,10;
       bonus2 bExpAddRace,RC_Undead,5;
   - Id: 1527
@@ -12616,7 +12616,7 @@ Body:
     EquipLevelMin: 95
     Refineable: true
     Script: |
-      bonus bHealPower,5+BaseLevel;
+      bonus bHealPower,5+BaseLevel/10;
       if (getrefine()>=6) {
          bonus2 bSkillCooldown,"AB_LAUDAAGNUS",-3000;
          bonus2 bSkillCooldown,"AB_LAUDARAMUS",-3000;
@@ -14596,8 +14596,8 @@ Body:
     Script: |
       .@r = getrefine();
       if (.@r>5) {
-         bonus2 bSkillAtk,"SO_PSYCHIC_WAVE",(.@r-6)*2;
-         bonus bMaxHPrate,-(.@r-6)*2;
+         bonus2 bSkillAtk,"SO_PSYCHIC_WAVE",(.@r-5)*2;
+         bonus bMaxHPrate,-(.@r-5)*2;
       }
       bonus2 bSkillVariableCast,"SO_PSYCHIC_WAVE",-3000;
       bonus2 bSkillUseSP,"SO_PSYCHIC_WAVE",-60;
@@ -15049,10 +15049,13 @@ Body:
     Script: |
       .@r = getrefine();
       bonus bMatk,30*(.@r/3);
-      if (.@r>=6)
-         bonus bMatkRate,(.@r>=9?10:5);
-      if (.@r>=9)
-         bonus5 bAutoSpell,"HW_MAGICPOWER",1,5,BF_MAGIC,0;
+      if (.@r>=6) {
+         bonus2 bMagicAddRace,RC_All,5;
+         if (.@r>=9) {
+            bonus2 bMagicAddRace,RC_All,5;
+            bonus5 bAutoSpell,"HW_MAGICPOWER",1,5,BF_MAGIC,0;
+         }
+      }
   - Id: 1671
     AegisName: Staff_Of_Evil_Slayer
     Name: Evil Slayer Vanquisher Staff
@@ -17693,8 +17696,8 @@ Body:
       bonus2 bSkillAtk,"SR_SKYNETBLOW",20;
       bonus bUseSPrate,5;
       .@r = getrefine();
-      if (.@r>6) {
-         bonus bUseSPrate,-1*(.@r-6);
+      if (.@r>5) {
+         bonus bUseSPrate,-1*(.@r-5);
       }
   - Id: 1831
     AegisName: P_Knuckle1
@@ -18455,15 +18458,15 @@ Body:
       bonus bAtkRate,10;
       bonus2 bSkillAtk,"SR_KNUCKLEARROW",10;
       if (.@r>=7) {
-         bonus bAspdRate,10;
+         bonus bAspdRate,15;
          bonus bBaseAtk,40;
-      }
-      if (.@r>=9) {
-         bonus2 bSkillAtk,"SR_KNUCKLEARROW",15;
-         autobonus "{ bonus2 bAddSize,Size_All,15; }",10,10000,BF_WEAPON;
-      }
-      if (.@r>=11) {
-         bonus bDelayrate,-20;
+         if (.@r>=9) {
+            bonus2 bSkillAtk,"SR_KNUCKLEARROW",15;
+            autobonus "{ bonus2 bAddSize,Size_All,15; }",10,10000,BF_WEAPON;
+            if (.@r>=11) {
+               bonus bDelayrate,-20;
+            }
+         }
       }
   - Id: 1868
     AegisName: Combo_Fist_J
@@ -35011,6 +35014,7 @@ Body:
     Name: Safety Ring
     Type: Armor
     Buy: 1
+    Defense: 8
     Jobs:
       All: true
       Novice: false
@@ -35029,7 +35033,6 @@ Body:
       NoMail: true
       NoAuction: true
     Script: |
-      bonus bDef,8;
       if (vip_status(VIP_STATUS_ACTIVE)) {
          bonus bAllStats,1;
       }
@@ -38137,6 +38140,7 @@ Body:
       bonus bVariableCastrate,-10;
       skill "AL_HEAL",1;
       skill "AL_TELEPORT",1;
+      bonus bAspdRate,10;
   - Id: 2842
     AegisName: F_Earing_C
     Name: Earring
@@ -39421,7 +39425,7 @@ Body:
       bonus bMaxSP,20;
       bonus bBaseAtk,(readparam(bStr)/10);
       if (readparam(bStr)>=110)
-         bonus bAtkRate,1;
+         bonus2 bAddClass,Class_All,1;
   - Id: 2918
     AegisName: Int_Glove
     Name: Int Glove
@@ -142767,6 +142771,55 @@ Body:
       Both_Hand: true
     WeaponLevel: 5
     Refineable: true
+  - Id: 28145
+    AegisName: Sky_Rush_Axe
+    Name: Sky Rush Axe    # !todo check english name
+    Type: Weapon
+    SubType: 2hAxe
+    Weight: 5000
+    Attack: 370
+    Range: 1
+    Slots: 2
+    Jobs:
+      Blacksmith: true
+    Classes:
+      Fourth: true
+    Locations:
+      Both_Hand: true
+    WeaponLevel: 5
+    EquipLevelMin: 240
+    Refineable: true
+    Gradable: true
+    Script: |
+      .@g = getenchantgrade();
+      .@r = getrefine();
+      bonus bUnbreakableWeapon;
+      bonus bPerfectHitAddRate,5;
+      bonus2 bSkillAtk,"MT_RUSH_STRIKE",15+7*(.@r/4);
+      bonus bNonCritAtkRate,3*(.@r/3);
+      bonus bBaseAtk,35*(.@r/3);
+      if (.@r>=7) {
+         bonus bNonCritAtkRate,25;
+         if (.@r>=9) {
+            bonus bAspdRate,10;
+            bonus bPAtk,5;
+            if (.@r>=11) {
+               bonus2 bSkillAtk,"MT_RUSH_STRIKE",15;
+            }
+         }
+      }
+      if (.@g>=ENCHANTGRADE_D) {
+         bonus bAtkRate,5;
+         if (.@g>=ENCHANTGRADE_C) {
+            bonus2 bSkillAtk,"MT_RUSH_STRIKE",10;
+            if (.@g>=ENCHANTGRADE_B) {
+               bonus2 bSkillAtk,"MT_RUSH_STRIKE",10;
+               if (.@g>=ENCHANTGRADE_A) {
+                  bonus bPAtk,10;
+               }
+            }
+         }
+      }
   - Id: 28200
     AegisName: END_OF_HORIZON
     Name: End Of The Horizon
@@ -179090,7 +179143,7 @@ Body:
     Jobs:
       KagerouOboro: true
     Classes:
-      Fourth: true
+      Third: true
     Locations:
       Head_Top: true
     ArmorLevel: 2
@@ -179147,7 +179200,7 @@ Body:
     Jobs:
       Rebellion: true
     Classes:
-      Fourth: true
+      Third: true
     Locations:
       Head_Top: true
     ArmorLevel: 2
@@ -179400,9 +179453,7 @@ Body:
     Defense: 60
     Slots: 1
     Jobs:
-      Summoner: true
-    Classes:
-      Fourth: true
+      Spirit_Handler: true
     Locations:
       Head_Top: true
     ArmorLevel: 2
@@ -179544,6 +179595,104 @@ Body:
             }
          }
       }
+  - Id: 401056
+    AegisName: Stardust_Crown_SC
+    Name: Scarlet Stardust Crown    # !todo check english name
+    Type: Armor
+    Weight: 400
+    Defense: 65
+    Slots: 1
+    Locations:
+      Head_Top: true
+    ArmorLevel: 2
+    EquipLevelMin: 250
+    Refineable: true
+    Gradable: true
+    View: 2393
+    Script: |
+      .@g = getenchantgrade();
+      .@r = getrefine();
+      bonus bPow,5;
+      bonus bCon,5;
+      bonus bBaseAtk,30*(.@r/2);
+      if (.@r>=7) {
+         bonus bShortAtkRate,15;
+         bonus bLongAtkRate,15;
+         if (.@r>=9) {
+            bonus bPAtk,7;
+            bonus bAtkRate,12;
+            if (.@r>=11) {
+               bonus bShortAtkRate,25;
+               bonus bLongAtkRate,25;
+               bonus bPAtk,8;
+            }
+         }
+      }
+      if (.@g>=ENCHANTGRADE_D) {
+         bonus bAtkRate,5;
+         bonus bPow,5;
+         if (.@g>=ENCHANTGRADE_C) {
+            bonus bPAtk,7;
+            bonus bBaseAtk,25;
+            if (.@g>=ENCHANTGRADE_B) {
+               bonus bFixedCast,-500;
+               bonus bVariableCastrate,-10;
+               if (.@g>=ENCHANTGRADE_A) {
+                  bonus2 bAddRace,RC_All,4*(.@r/3);
+                  bonus2 bAddRace,RC_Player_Human,-4*(.@r/3);
+                  bonus2 bAddRace,RC_Player_Doram,-4*(.@r/3);
+               }
+            }
+         }
+      }
+  - Id: 401057
+    AegisName: Stardust_Crown_VI
+    Name: Violet Stardust Crown    # !todo check english name
+    Type: Armor
+    Weight: 400
+    Defense: 35
+    Slots: 1
+    Locations:
+      Head_Top: true
+    ArmorLevel: 2
+    EquipLevelMin: 250
+    Refineable: true
+    Gradable: true
+    View: 2506
+    Script: |
+      .@g = getenchantgrade();
+      .@r = getrefine();
+      bonus bSpl,5;
+      bonus bCon,5;
+      bonus bMatk,25*(.@r/2);
+      if (.@r>=7) {
+         bonus bVariableCastrate,-10;
+         if (.@r>=9) {
+            bonus bSMatk,7;
+            bonus bMatkRate,12;
+            if (.@r>=11) {
+               bonus2 bMagicAtkEle,Ele_All,25;
+               bonus bSMatk,8;
+            }
+         }
+      }
+      if (.@g>=ENCHANTGRADE_D) {
+         bonus bMatkRate,5;
+         bonus bSpl,5;
+         if (.@g>=ENCHANTGRADE_C) {
+            bonus bSMatk,7;
+            bonus bMatk,25;
+            if (.@g>=ENCHANTGRADE_B) {
+               bonus bFixedCast,-500;
+               bonus bDelayrate,-7;
+               if (.@g>=ENCHANTGRADE_A) {
+                  bonus2 bMagicAddRace,RC_All,4*(.@r/3);
+                  bonus2 bMagicAddRace,RC_Player_Human,-4*(.@r/3);
+                  bonus2 bMagicAddRace,RC_Player_Doram,-4*(.@r/3);
+               }
+            }
+         }
+      }
   - Id: 401058
     AegisName: Sky_Rune_Crown_IG
     Name: Celestial Rune Crown (Imperial Guard)    # !todo check english name
@@ -179647,9 +179796,7 @@ Body:
     Defense: 50
     Slots: 1
     Jobs:
-      Summoner: true
-    Classes:
-      Fourth: true
+      Spirit_Handler: true
     Locations:
       Head_Top: true
     ArmorLevel: 2
@@ -179679,6 +179826,299 @@ Body:
          bonus bPAtk,5;
          if (.@g>=ENCHANTGRADE_C) {
             bonus2 bSkillAtk,"SH_HOGOGONG_STRIKE",15;
+            if (.@g>=ENCHANTGRADE_B) {
+               bonus2 bAddSize,Size_All,10;
+               if (.@g>=ENCHANTGRADE_A) {
+                  bonus2 bAddEle,Ele_All,10;
+               }
+            }
+         }
+      }
+  - Id: 401062
+    AegisName: aegis_401062
+    Name: Costume Ignis Cap (Red)    # !todo check english name
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    View: 2556
+  - Id: 401115
+    AegisName: Sky_Rune_Crown_MS
+    Name: Sky Rune Crown (Meister)    # !todo check english name
+    Type: Armor
+    Defense: 50
+    Slots: 1
+    Jobs:
+      Blacksmith: true
+    Classes:
+      Fourth: true
+    Locations:
+      Head_Top: true
+    ArmorLevel: 2
+    EquipLevelMin: 240
+    Refineable: true
+    Gradable: true
+    View: 2692
+    Script: |
+      .@g = getenchantgrade();
+      .@r = getrefine();
+      bonus bBaseAtk,3*(.@r/2);
+      bonus bHit,5*(.@r/2);
+      bonus bNonCritAtkRate,3*(.@r/3);
+      bonus bShortAtkRate,(.@r/3);
+      bonus bAtkRate,2*(.@r/3);
+      bonus2 bSkillAtk,"MT_RUSH_STRIKE",5*(.@r/4);
+      bonus2 bSkillAtk,"MT_POWERFUL_SWING",5*(.@r/4);
+      if (.@r>=7) {
+         bonus bShortAtkRate,10;
+         if (.@r>=9) {
+            bonus bPAtk,5;
+            if (.@r>=11) {
+               bonus bDelayrate,-10;
+            }
+         }
+      }
+      if (.@g>=ENCHANTGRADE_D) {
+         bonus bPAtk,5;
+         if (.@g>=ENCHANTGRADE_C) {
+            bonus2 bSkillAtk,"MT_POWERFUL_SWING",15;
+            if (.@g>=ENCHANTGRADE_B) {
+               bonus2 bAddSize,Size_All,10;
+               if (.@g>=ENCHANTGRADE_A) {
+                  bonus2 bAddEle,Ele_All,10;
+               }
+            }
+         }
+      }
+  - Id: 401116
+    AegisName: Sky_Rune_Crown_WH
+    Name: Sky Rune Crown (Windhawk)    # !todo check english name
+    Type: Armor
+    Defense: 50
+    Slots: 1
+    Jobs:
+      Hunter: true
+    Classes:
+      Fourth: true
+    Locations:
+      Head_Top: true
+    ArmorLevel: 2
+    EquipLevelMin: 240
+    Refineable: true
+    Gradable: true
+    View: 2692
+    Script: |
+      .@g = getenchantgrade();
+      .@r = getrefine();
+      bonus bCritical,2*(.@r/2);
+      bonus bBaseAtk,3*(.@r/2);
+      bonus bCritAtkRate,3*(.@r/3);
+      bonus bAtkRate,2*(.@r/3);
+      bonus2 bSkillAtk,"WH_CRESCIVE_BOLT",5*(.@r/4);
+      bonus2 bSkillAtk,"WH_HAWKRUSH",5*(.@r/4);
+      if (.@r>=7) {
+         bonus bLongAtkRate,10;
+         if (.@r>=9) {
+            bonus bPAtk,5;
+            if (.@r>=11) {
+               bonus bFixedCast,-500;
+            }
+         }
+      }
+      if (.@g>=ENCHANTGRADE_D) {
+         bonus bPAtk,5;
+         if (.@g>=ENCHANTGRADE_C) {
+            bonus2 bSkillAtk,"WH_HAWKRUSH",15;
+            if (.@g>=ENCHANTGRADE_B) {
+               bonus2 bAddSize,Size_All,10;
+               if (.@g>=ENCHANTGRADE_A) {
+                  bonus2 bAddEle,Ele_All,10;
+               }
+            }
+         }
+      }
+  - Id: 401117
+    AegisName: Sky_Rune_Crown_HN
+    Name: Sky Rune Crown (Hyper Novice)    # !todo check english name
+    Type: Armor
+    Defense: 50
+    Slots: 1
+    Jobs:
+      SuperNovice: true
+    Classes:
+      Fourth: true
+    Locations:
+      Head_Top: true
+    ArmorLevel: 2
+    EquipLevelMin: 240
+    Refineable: true
+    Gradable: true
+    View: 2692
+    Script: |
+      .@g = getenchantgrade();
+      .@r = getrefine();
+      bonus bMatk,5*(.@r/2);
+      bonus2 bMagicAtkEle,Ele_Ghost,2*(.@r/3);
+      bonus2 bMagicAtkEle,Ele_Wind,2*(.@r/3);
+      bonus bMatkRate,2*(.@r/3);
+      bonus2 bSkillAtk,"HN_NAPALM_VULCAN_STRIKE",5*(.@r/4);
+      if (.@r>=7) {
+         bonus2 bMagicAtkEle,Ele_Ghost,10;
+         bonus2 bMagicAtkEle,Ele_Wind,10;
+         if (.@r>=9) {
+            bonus bSMatk,5;
+            if (.@r>=11) {
+               bonus bFixedCast,-500;
+            }
+         }
+      }
+      if (.@g>=ENCHANTGRADE_D) {
+         bonus bSMatk,5;
+         if (.@g>=ENCHANTGRADE_C) {
+            bonus2 bSkillAtk,"HN_NAPALM_VULCAN_STRIKE",10;
+            if (.@g>=ENCHANTGRADE_B) {
+               bonus2 bMagicAddSize,Size_All,10;
+               if (.@g>=ENCHANTGRADE_A) {
+                  bonus2 bMagicAddEle,Ele_All,10;
+               }
+            }
+         }
+      }
+  - Id: 401118
+    AegisName: Sky_Rune_Crown_CD
+    Name: Sky Rune Crown (Cardinal)    # !todo check english name
+    Type: Armor
+    Defense: 50
+    Slots: 1
+    Jobs:
+      Priest: true
+    Classes:
+      Fourth: true
+    Locations:
+      Head_Top: true
+    ArmorLevel: 2
+    EquipLevelMin: 240
+    Refineable: true
+    Gradable: true
+    View: 2692
+    Script: |
+      .@g = getenchantgrade();
+      .@r = getrefine();
+      bonus bMatk,5*(.@r/2);
+      bonus2 bMagicAtkEle,Ele_Holy,2*(.@r/3);
+      bonus bMatkRate,2*(.@r/3);
+      bonus2 bSkillAtk,"CD_ARBITRIUM",5*(.@r/4);
+      bonus2 bSkillAtk,"CD_ARBITRIUM_ATK",5*(.@r/4);
+      bonus2 bSkillAtk,"CD_FRAMEN",5*(.@r/4);
+      if (.@r>=7) {
+         bonus2 bMagicAtkEle,Ele_Holy,10;
+         if (.@r>=9) {
+            bonus bSMatk,5;
+            if (.@r>=11) {
+               bonus bFixedCast,-500;
+            }
+         }
+      }
+      if (.@g>=ENCHANTGRADE_D) {
+         bonus bSMatk,5;
+         if (.@g>=ENCHANTGRADE_C) {
+            bonus2 bSkillAtk,"CD_FRAMEN",10;
+            if (.@g>=ENCHANTGRADE_B) {
+               bonus2 bMagicAddSize,Size_All,10;
+               if (.@g>=ENCHANTGRADE_A) {
+                  bonus2 bMagicAddEle,Ele_All,10;
+               }
+            }
+         }
+      }
+  - Id: 401119
+    AegisName: Sky_Rune_Crown_IQ
+    Name: Sky Rune Crown (Inquisitor)    # !todo check english name
+    Type: Armor
+    Defense: 50
+    Slots: 1
+    Jobs:
+      Monk: true
+    Classes:
+      Fourth: true
+    Locations:
+      Head_Top: true
+    ArmorLevel: 2
+    EquipLevelMin: 240
+    Refineable: true
+    Gradable: true
+    View: 2692
+    Script: |
+      .@g = getenchantgrade();
+      .@r = getrefine();
+      bonus bBaseAtk,3*(.@r/2);
+      bonus bHit,5*(.@r/2);
+      bonus bAtkRate,2*(.@r/3);
+      bonus bMaxHPrate,3*(.@r/3);
+      bonus2 bSkillAtk,"IQ_THIRD_FLAME_BOMB",5*(.@r/4);
+      bonus2 bSkillAtk,"SR_TIGERCANNON",5*(.@r/4);
+      if (.@r>=7) {
+         bonus bShortAtkRate,10;
+         if (.@r>=9) {
+            bonus bPAtk,5;
+            if (.@r>=11) {
+               bonus bPerfectHitAddRate,5;
+               bonus bMaxHPrate,5;
+            }
+         }
+      }
+      if (.@g>=ENCHANTGRADE_D) {
+         bonus bPAtk,5;
+         if (.@g>=ENCHANTGRADE_C) {
+            bonus2 bSkillAtk,"SR_TIGERCANNON",15;
+            if (.@g>=ENCHANTGRADE_B) {
+               bonus2 bAddSize,Size_All,10;
+               if (.@g>=ENCHANTGRADE_A) {
+                  bonus2 bAddEle,Ele_All,10;
+               }
+            }
+         }
+      }
+  - Id: 401120
+    AegisName: Sky_Rune_Crown_SKE
+    Name: Sky Rune Crown (Sky Emperor)    # !todo check english name
+    Type: Armor
+    Defense: 50
+    Slots: 1
+    Jobs:
+      StarGladiator: true
+    Classes:
+      Fourth: true
+    Locations:
+      Head_Top: true
+    ArmorLevel: 2
+    EquipLevelMin: 240
+    Refineable: true
+    Gradable: true
+    View: 2692
+    Script: |
+      .@g = getenchantgrade();
+      .@r = getrefine();
+      bonus bBaseAtk,3*(.@r/2);
+      bonus bHit,5*(.@r/2);
+      bonus bNonCritAtkRate,3*(.@r/3);
+      bonus bShortAtkRate,(.@r/3);
+      bonus bAtkRate,2*(.@r/3);
+      bonus2 bSkillAtk,"SKE_SKY_MOON",5*(.@r/4);
+      bonus2 bSkillAtk,"SKE_STAR_LIGHT_KICK",5*(.@r/4);
+      if (.@r>=7) {
+         bonus bShortAtkRate,10;
+         if (.@r>=9) {
+            bonus bPAtk,5;
+            if (.@r>=11) {
+               bonus bUseSPrate,-5;
+            }
+         }
+      }
+      if (.@g>=ENCHANTGRADE_D) {
+         bonus bPAtk,5;
+         if (.@g>=ENCHANTGRADE_C) {
+            bonus2 bSkillAtk,"SKE_SKY_MOON",15;
             if (.@g>=ENCHANTGRADE_B) {
                bonus2 bAddSize,Size_All,10;
                if (.@g>=ENCHANTGRADE_A) {
@@ -184068,6 +184508,14 @@ Body:
       Costume_Head_Mid: true
     ArmorLevel: 1
     View: 2730
+  - Id: 410471
+    AegisName: aegis_410471
+    Name: Costume Gear Monocle    # !todo check english name
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    View: 2736
   - Id: 410474
     AegisName: aegis_410474
     Name: Costume Chained Bear
@@ -187903,6 +188351,30 @@ Body:
       hateffect HAT_EF_C_AURORA_ON_CLOUDS,true;
     UnEquipScript: |
       hateffect HAT_EF_C_AURORA_ON_CLOUDS,false;
+  - Id: 420514
+    AegisName: aegis_420514
+    Name: Costume Wonderful Long (No Decoration)    # !todo check english name
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    View: 2697
+  - Id: 420515
+    AegisName: aegis_420515
+    Name: Costume Wonderful Long    # !todo check english name
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    View: 2698
+  - Id: 420516
+    AegisName: aegis_420516
+    Name: Costume Forest Friends    # !todo check english name
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    View: 2699
   - Id: 420532
     AegisName: C_Immortal_H_Power
     Name: Costume Immortal Monarch's Might    # !todo check english name
@@ -187946,6 +188418,22 @@ Body:
       Costume_Head_Low: true
     ArmorLevel: 1
     View: 2728
+  - Id: 420570
+    AegisName: aegis_420570
+    Name: Costume Winged Twin Hair    # !todo check english name
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    View: 2734
+  - Id: 420571
+    AegisName: aegis_420571
+    Name: Costume Winged Bronze Hair    # !todo check english name
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    View: 2735
   - Id: 420575
     AegisName: aegis_420575
     Name: Costume Piamette Rollhair
@@ -187965,6 +188453,14 @@ Body:
       hateffect HAT_EF_C_NIGHTMARE_CHAIN,true;
     UnEquipScript: |
       hateffect HAT_EF_C_NIGHTMARE_CHAIN,false;
+  - Id: 420642
+    AegisName: aegis_420642
+    Name: Costume Open Air Headphones (Red)    # !todo check english name
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    View: 2716
   - Id: 430001
     AegisName: C_Helm_Of_Ra
     Name: Costume Hat of the Sun God
@@ -197021,7 +197517,6 @@ Body:
     Defense: 100
     Slots: 1
     Jobs:
-      Summoner: true
       Spirit_Handler: true
     Locations:
       Armor: true
@@ -197101,7 +197596,6 @@ Body:
     Slots: 1
     Jobs:
       Spirit_Handler: true
-      Summoner: true
     Locations:
       Armor: true
     ArmorLevel: 1
@@ -217089,6 +217583,34 @@ Body:
       Costume_Garment: true
     ArmorLevel: 1
     View: 278
+  - Id: 480627
+    AegisName: aegis_480627
+    Name: Costume ROS Victory Robe    # !todo check english name
+    Type: Armor
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    View: 282
+    Script: |
+      hateffect HAT_EF_C_2025ROSFESTA,true;
+    UnEquipScript: |
+      hateffect HAT_EF_C_2025ROSFESTA,false;
+  - Id: 480629
+    AegisName: aegis_480629
+    Name: Costume Clark Lord    # !todo check english name
+    Type: Armor
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    View: 283
+  - Id: 480631
+    AegisName: aegis_480631
+    Name: Costume Detective's Magnifying Glass    # !todo check english name
+    Type: Armor
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    View: 285
   - Id: 480632
     AegisName: aegis_480632
     Name: Costume Mad Bunny Nightmare
@@ -217188,6 +217710,247 @@ Body:
                if (.@g>=ENCHANTGRADE_A) {
                   bonus bCritAtkRate,15;
                   bonus bCRate,7;
+               }
+            }
+         }
+      }
+  - Id: 480671
+    AegisName: aegis_480671
+    Name: Fighter's Cloak    # !todo check english name
+    Type: Armor
+    Weight: 600
+    Defense: 35
+    Slots: 1
+    Locations:
+      Garment: true
+    ArmorLevel: 2
+    EquipLevelMin: 250
+    Refineable: true
+    Gradable: true
+    Script: |
+      .@g = getenchantgrade();
+      .@r = getrefine();
+      bonus bPAtk,12;
+      bonus bAtkRate,5;
+      bonus bNonCritAtkRate,5*(.@r/2);
+      bonus bBaseAtk,25*(.@r/2);
+      bonus2 bAddSize,Size_All,4*(.@r/3);
+      if (.@r>=7) {
+         bonus bPAtk,7;
+         bonus bAtkRate,5;
+         if (.@r>=9) {
+            bonus bVariableCastrate,-10;
+            bonus bDelayrate,-10;
+            if (.@r>=11) {
+               bonus bLongAtkRate,15;
+               bonus bShortAtkRate,15;
+            }
+         }
+      }
+      if (.@g>=ENCHANTGRADE_D) {
+         bonus bPAtk,7;
+         bonus bBaseAtk,15;
+         if (.@g>=ENCHANTGRADE_C) {
+            bonus bShortAtkRate,10;
+            bonus bLongAtkRate,10;
+            if (.@g>=ENCHANTGRADE_B) {
+               bonus bPow,5;
+               bonus bCon,5;
+               if (.@g>=ENCHANTGRADE_A) {
+                  bonus bNonCritAtkRate,15;
+                  bonus bPAtk,7;
+               }
+            }
+         }
+      }
+  - Id: 480672
+    AegisName: aegis_480672
+    Name: Champion's Cloak    # !todo check english name
+    Type: Armor
+    Weight: 600
+    Defense: 35
+    Slots: 1
+    Locations:
+      Garment: true
+    ArmorLevel: 2
+    EquipLevelMin: 250
+    Refineable: true
+    Gradable: true
+    Script: |
+      .@g = getenchantgrade();
+      .@r = getrefine();
+      bonus bPAtk,12;
+      bonus bMaxHPrate,5+(.@r/2);
+      bonus bBaseAtk,15*(.@r/2);
+      bonus2 bAddSize,Size_All,4*(.@r/3);
+      if (.@r>=7) {
+         bonus bPAtk,7;
+         bonus bAtkRate,5;
+         if (.@r>=9) {
+            bonus bVariableCastrate,-10;
+            bonus bDelayrate,-10;
+            if (.@r>=11) {
+               bonus bShortAtkRate,15;
+               bonus bLongAtkRate,15;
+            }
+         }
+      }
+      if (.@g>=ENCHANTGRADE_D) {
+         bonus bPAtk,7;
+         bonus bBaseAtk,15;
+         if (.@g>=ENCHANTGRADE_C) {
+            bonus bShortAtkRate,10;
+            bonus bLongAtkRate,10;
+            bonus bMaxHPrate,2;
+            if (.@g>=ENCHANTGRADE_B) {
+               bonus bPow,5;
+               bonus bCon,5;
+               if (.@g>=ENCHANTGRADE_A) {
+                  bonus bShortAtkRate,15;
+                  bonus bLongAtkRate,15;
+                  bonus bMaxHPrate,5;
+               }
+            }
+         }
+      }
+  - Id: 480673
+    AegisName: aegis_480673
+    Name: Scholar's Muffler    # !todo check english name
+    Type: Armor
+    Weight: 600
+    Defense: 25
+    Slots: 1
+    Locations:
+      Garment: true
+    ArmorLevel: 2
+    EquipLevelMin: 250
+    Refineable: true
+    Gradable: true
+    Script: |
+      .@g = getenchantgrade();
+      .@r = getrefine();
+      bonus bSMatk,12;
+      bonus bMatkRate,5;
+      bonus2 bMagicAtkEle,Ele_Neutral,3*(.@r/2);
+      bonus2 bMagicAtkEle,Ele_Fire,3*(.@r/2);
+      bonus2 bMagicAtkEle,Ele_Earth,3*(.@r/2);
+      bonus2 bMagicAtkEle,Ele_Water,3*(.@r/2);
+      bonus2 bMagicAtkEle,Ele_Wind,3*(.@r/2);
+      bonus2 bMagicAtkEle,Ele_Poison,3*(.@r/2);
+      bonus2 bMagicAtkEle,Ele_Dark,3*(.@r/2);
+      bonus bMatk,15*(.@r/2);
+      bonus2 bMagicAddSize,Size_All,4*(.@r/3);
+      if (.@r>=7) {
+         bonus bSMatk,7;
+         bonus bMatkRate,5;
+         if (.@r>=9) {
+            bonus bVariableCastrate,-10;
+            bonus bDelayrate,-10;
+            if (.@r>=11) {
+               bonus2 bMagicAtkEle,Ele_Neutral,15;
+               bonus2 bMagicAtkEle,Ele_Fire,15;
+               bonus2 bMagicAtkEle,Ele_Earth,15;
+               bonus2 bMagicAtkEle,Ele_Water,15;
+               bonus2 bMagicAtkEle,Ele_Wind,15;
+               bonus2 bMagicAtkEle,Ele_Poison,15;
+               bonus2 bMagicAtkEle,Ele_Dark,15;
+            }
+         }
+      }
+      if (.@g>=ENCHANTGRADE_D) {
+         bonus bSMatk,7;
+         bonus bMatkRate,3;
+         if (.@g>=ENCHANTGRADE_C) {
+            bonus2 bMagicAtkEle,Ele_Neutral,10;
+            bonus2 bMagicAtkEle,Ele_Fire,10;
+            bonus2 bMagicAtkEle,Ele_Earth,10;
+            bonus2 bMagicAtkEle,Ele_Water,10;
+            bonus2 bMagicAtkEle,Ele_Wind,10;
+            bonus2 bMagicAtkEle,Ele_Poison,10;
+            bonus2 bMagicAtkEle,Ele_Dark,10;
+            if (.@g>=ENCHANTGRADE_B) {
+               bonus bSpl,5;
+               bonus bCon,5;
+               if (.@g>=ENCHANTGRADE_A) {
+                  bonus2 bMagicAtkEle,Ele_Neutral,15;
+                  bonus2 bMagicAtkEle,Ele_Fire,15;
+                  bonus2 bMagicAtkEle,Ele_Earth,15;
+                  bonus2 bMagicAtkEle,Ele_Water,15;
+                  bonus2 bMagicAtkEle,Ele_Wind,15;
+                  bonus2 bMagicAtkEle,Ele_Poison,15;
+                  bonus2 bMagicAtkEle,Ele_Dark,15;
+                  bonus bSMatk,7;
+               }
+            }
+         }
+      }
+  - Id: 480674
+    AegisName: aegis_480674
+    Name: Wizard's Cloak    # !todo check english name
+    Type: Armor
+    Weight: 600
+    Defense: 25
+    Slots: 1
+    Locations:
+      Garment: true
+    ArmorLevel: 2
+    EquipLevelMin: 250
+    Refineable: true
+    Gradable: true
+    Script: |
+      .@g = getenchantgrade();
+      .@r = getrefine();
+      bonus bSMatk,12;
+      bonus bMatkRate,5;
+      bonus2 bMagicAtkEle,Ele_Undead,3*(.@r/2);
+      bonus2 bMagicAtkEle,Ele_Fire,3*(.@r/2);
+      bonus2 bMagicAtkEle,Ele_Neutral,3*(.@r/2);
+      bonus2 bMagicAtkEle,Ele_Wind,3*(.@r/2);
+      bonus2 bMagicAtkEle,Ele_Ghost,3*(.@r/2);
+      bonus2 bMagicAtkEle,Ele_Holy,3*(.@r/2);
+      bonus2 bMagicAtkEle,Ele_Dark,3*(.@r/2);
+      bonus bMatk,15*(.@r/2);
+      bonus2 bMagicAddSize,Size_All,4*(.@r/3);
+      if (.@r>=7) {
+         bonus bSMatk,7;
+         bonus bMatkRate,5;
+         if (.@r>=9) {
+            bonus bVariableCastrate,-10;
+            bonus bDelayrate,-10;
+            if (.@r>=11) {
+               bonus2 bMagicAtkEle,Ele_Undead,15;
+               bonus2 bMagicAtkEle,Ele_Fire,15;
+               bonus2 bMagicAtkEle,Ele_Neutral,15;
+               bonus2 bMagicAtkEle,Ele_Wind,15;
+               bonus2 bMagicAtkEle,Ele_Ghost,15;
+               bonus2 bMagicAtkEle,Ele_Holy,15;
+               bonus2 bMagicAtkEle,Ele_Dark,15;
+            }
+         }
+      }
+      if (.@g>=ENCHANTGRADE_D) {
+         bonus bSMatk,7;
+         bonus bMatkRate,3;
+         if (.@g>=ENCHANTGRADE_C) {
+            bonus2 bMagicAtkEle,Ele_Undead,10;
+            bonus2 bMagicAtkEle,Ele_Fire,10;
+            bonus2 bMagicAtkEle,Ele_Neutral,10;
+            bonus2 bMagicAtkEle,Ele_Wind,10;
+            bonus2 bMagicAtkEle,Ele_Ghost,10;
+            bonus2 bMagicAtkEle,Ele_Holy,10;
+            bonus2 bMagicAtkEle,Ele_Dark,10;
+            if (.@g>=ENCHANTGRADE_B) {
+               bonus bSpl,5;
+               bonus bCon,5;
+               if (.@g>=ENCHANTGRADE_A) {
+                  bonus2 bMagicAtkEle,Ele_Undead,15;
+                  bonus2 bMagicAtkEle,Ele_Fire,15;
+                  bonus2 bMagicAtkEle,Ele_Neutral,15;
+                  bonus2 bMagicAtkEle,Ele_Wind,15;
+                  bonus2 bMagicAtkEle,Ele_Ghost,15;
+                  bonus2 bMagicAtkEle,Ele_Holy,15;
+                  bonus2 bMagicAtkEle,Ele_Dark,15;
+                  bonus bSMatk,7;
                }
             }
          }
@@ -229950,6 +230713,58 @@ Body:
             }
          }
       }
+  - Id: 500134
+    AegisName: Sky_Napalm_Sword
+    Name: Celestial Napalm Sword    # !todo check english name
+    Type: Weapon
+    SubType: 1hSword
+    Weight: 1800
+    Attack: 100
+    MagicAttack: 230
+    Range: 1
+    Slots: 2
+    Jobs:
+      SuperNovice: true
+    Classes:
+      Fourth: true
+    Locations:
+      Right_Hand: true
+    WeaponLevel: 5
+    EquipLevelMin: 240
+    Refineable: true
+    Gradable: true
+    Script: |
+      .@g = getenchantgrade();
+      .@r = getrefine();
+      bonus bVariableCastrate,-5;
+      bonus2 bSkillAtk,"HN_JUPITEL_THUNDER_STORM",15;
+      bonus2 bMagicAtkEle,Ele_Ghost,2*(.@r/3);
+      bonus2 bMagicAtkEle,Ele_Wind,2*(.@r/3);
+      bonus bMatk,30*(.@r/3);
+      bonus2 bSkillAtk,"HN_NAPALM_VULCAN_STRIKE",5*(.@r/4);
+      if (.@r>=7) {
+         bonus2 bMagicAtkEle,Ele_Ghost,25;
+         bonus2 bMagicAtkEle,Ele_Wind,25;
+         if (.@r>=9) {
+            bonus bVariableCastrate,-10;
+            bonus bSMatk,5;
+            if (.@r>=11) {
+               bonus2 bSkillAtk,"HN_JUPITEL_THUNDER_STORM",15;
+            }
+         }
+      }
+      if (.@g>=ENCHANTGRADE_D) {
+         bonus bMatkRate,5;
+         if (.@g>=ENCHANTGRADE_C) {
+            bonus2 bSkillAtk,"HN_JUPITEL_THUNDER_STORM",10;
+            if (.@g>=ENCHANTGRADE_B) {
+               bonus bDelayrate,-10;
+               if (.@g>=ENCHANTGRADE_A) {
+                  bonus bSMatk,10;
+               }
+            }
+         }
+      }
   - Id: 510001
     AegisName: Boost_Dagger
     Name: Booster Dagger
@@ -238963,6 +239778,54 @@ Body:
             }
          }
       }
+  - Id: 540122
+    AegisName: Sky_Moon_Book
+    Name: Celestial Moonsong Book    # !todo check english name
+    Type: Weapon
+    SubType: Book
+    Weight: 1800
+    Attack: 220
+    Range: 1
+    Slots: 2
+    Jobs:
+      StarGladiator: true
+    Classes:
+      Fourth: true
+    Locations:
+      Right_Hand: true
+    WeaponLevel: 5
+    EquipLevelMin: 240
+    Refineable: true
+    Gradable: true
+    Script: |
+      .@g = getenchantgrade();
+      .@r = getrefine();
+      bonus bPerfectHitAddRate,5;
+      bonus2 bSkillAtk,"SKE_STAR_LIGHT_KICK",15+7*(.@r/4);
+      bonus bNonCritAtkRate,2*(.@r/3);
+      bonus bBaseAtk,30*(.@r/3);
+      if (.@r>=7) {
+         bonus bNonCritAtkRate,25;
+         if (.@r>=9) {
+            bonus bAspdRate,10;
+            bonus bPAtk,5;
+            if (.@r>=11) {
+               bonus2 bSkillAtk,"SKE_STAR_LIGHT_KICK",15;
+            }
+         }
+      }
+      if (.@g>=ENCHANTGRADE_D) {
+         bonus bAtkRate,5;
+         if (.@g>=ENCHANTGRADE_C) {
+            bonus2 bSkillAtk,"SKE_STAR_LIGHT_KICK",10;
+            if (.@g>=ENCHANTGRADE_B) {
+               bonus2 bSkillAtk,"SKE_STAR_LIGHT_KICK",10;
+               if (.@g>=ENCHANTGRADE_A) {
+                  bonus bPAtk,10;
+               }
+            }
+         }
+      }
   - Id: 550001
     AegisName: Boost_Soul_Rod
     Name: Booster Rod
@@ -241687,7 +242550,6 @@ Body:
     MagicAttack: 400
     Range: 1
     Jobs:
-      Summoner: true
       Spirit_Handler: true
     Locations:
       Right_Hand: true
@@ -242078,7 +242940,6 @@ Body:
     Range: 1
     Slots: 1
     Jobs:
-      Summoner: true
       Spirit_Handler: true
     Locations:
       Right_Hand: true
@@ -244157,7 +245018,7 @@ Body:
     Range: 1
     Slots: 2
     Jobs:
-      Summoner: true
+      Spirit_Handler: true
     Locations:
       Right_Hand: true
     WeaponLevel: 5
@@ -244300,9 +245161,7 @@ Body:
     Range: 1
     Slots: 2
     Jobs:
-      Summoner: true
-    Classes:
-      Fourth: true
+      Spirit_Handler: true
     Locations:
       Right_Hand: true
     WeaponLevel: 5
@@ -244376,9 +245235,7 @@ Body:
     Range: 1
     Slots: 2
     Jobs:
-      Summoner: true
-    Classes:
-      Fourth: true
+      Spirit_Handler: true
     Locations:
       Right_Hand: true
     WeaponLevel: 5
@@ -244411,6 +245268,60 @@ Body:
                bonus2 bSkillAtk,"SH_CHUL_HO_BATTERING",10;
                if (.@g>=ENCHANTGRADE_A) {
                   bonus bPAtk,10;
+               }
+            }
+         }
+      }
+  - Id: 550190
+    AegisName: Sky_Arbi_Rod
+    Name: Celestial Arby Rod    # !todo check english name
+    Type: Weapon
+    SubType: Staff
+    Weight: 1500
+    Attack: 120
+    MagicAttack: 230
+    Range: 1
+    Slots: 2
+    Jobs:
+      Priest: true
+    Classes:
+      Fourth: true
+    Locations:
+      Right_Hand: true
+    WeaponLevel: 5
+    EquipLevelMin: 240
+    Refineable: true
+    Gradable: true
+    Script: |
+      .@g = getenchantgrade();
+      .@r = getrefine();
+      bonus bUnbreakableWeapon;
+      bonus bVariableCastrate,-5;
+      bonus2 bSkillAtk,"CD_ARBITRIUM",15+7*(.@r/4);
+      bonus2 bSkillAtk,"CD_ARBITRIUM_ATK",15+7*(.@r/4);
+      bonus2 bMagicAtkEle,Ele_Holy,2*(.@r/3);
+      bonus bMatk,30*(.@r/3);
+      if (.@r>=7) {
+         bonus2 bMagicAtkEle,Ele_Holy,25;
+         if (.@r>=9) {
+            bonus bVariableCastrate,-10;
+            bonus bSMatk,5;
+            if (.@r>=11) {
+               bonus2 bSkillAtk,"CD_ARBITRIUM",15;
+               bonus2 bSkillAtk,"CD_ARBITRIUM_ATK",15;
+            }
+         }
+      }
+      if (.@g>=ENCHANTGRADE_D) {
+         bonus bMatkRate,5;
+         if (.@g>=ENCHANTGRADE_C) {
+            bonus2 bSkillAtk,"CD_ARBITRIUM",10;
+            bonus2 bSkillAtk,"CD_ARBITRIUM_ATK",10;
+            if (.@g>=ENCHANTGRADE_B) {
+               bonus2 bSkillAtk,"CD_ARBITRIUM",10;
+               bonus2 bSkillAtk,"CD_ARBITRIUM_ATK",10;
+               if (.@g>=ENCHANTGRADE_A) {
+                  bonus bSMatk,10;
                }
             }
          }
@@ -246172,6 +247083,55 @@ Body:
                bonus bLongAtkRate,15;
                if (.@g>=ENCHANTGRADE_A) {
                   bonus bPAtk,3*(.@r/2);
+               }
+            }
+         }
+      }
+  - Id: 560086
+    AegisName: Sky_Destroy_Knuckle
+    Name: Celestial Annihilation    # !todo check english name
+    Type: Weapon
+    SubType: Knuckle
+    Weight: 1500
+    Attack: 230
+    Range: 1
+    Slots: 2
+    Jobs:
+      Monk: true
+    Classes:
+      Fourth: true
+    Locations:
+      Right_Hand: true
+    WeaponLevel: 5
+    EquipLevelMin: 240
+    Refineable: true
+    Gradable: true
+    Script: |
+      .@g = getenchantgrade();
+      .@r = getrefine();
+      bonus bPerfectHitAddRate,5;
+      bonus2 bSkillAtk,"IQ_THIRD_FLAME_BOMB",15+7*(.@r/4);
+      bonus bMaxHPrate,2*(.@r/3);
+      bonus bBaseAtk,30*(.@r/3);
+      if (.@r>=7) {
+         bonus bShortAtkRate,25;
+         if (.@r>=9) {
+            bonus bAspdRate,10;
+            bonus bPAtk,5;
+            if (.@r>=11) {
+               bonus bPerfectHitAddRate,5;
+               bonus2 bSkillAtk,"IQ_THIRD_FLAME_BOMB",10;
+            }
+         }
+      }
+      if (.@g>=ENCHANTGRADE_D) {
+         bonus bMaxHPrate,5;
+         if (.@g>=ENCHANTGRADE_C) {
+            bonus2 bSkillAtk,"IQ_THIRD_FLAME_BOMB",10;
+            if (.@g>=ENCHANTGRADE_B) {
+               bonus bMaxHPrate,7;
+               if (.@g>=ENCHANTGRADE_A) {
+                  bonus bPAtk,10;
                }
             }
          }
@@ -259957,7 +260917,8 @@ Body:
     Range: 1
     Jobs:
       KagerouOboro: true
-      Ninja: true
+    Classes:
+      Third: true
     Locations:
       Both_Hand: true
     WeaponLevel: 5
@@ -259977,7 +260938,8 @@ Body:
     Slots: 1
     Jobs:
       KagerouOboro: true
-      Ninja: true
+    Classes:
+      Third: true
     Locations:
       Both_Hand: true
     WeaponLevel: 5
@@ -260460,7 +261422,7 @@ Body:
       }
   - Id: 650048
     AegisName: Encroached_Humma
-    Name: Encroached Fūma Shuriken    # !todo check english name
+    Name: Encroached Huuma Shuriken    # !todo check english name
     Type: Weapon
     SubType: Huuma
     Weight: 3100
@@ -260469,7 +261431,8 @@ Body:
     Slots: 3
     Jobs:
       KagerouOboro: true
-      Ninja: true
+    Classes:
+      Third: true
     Locations:
       Both_Hand: true
     WeaponLevel: 5
@@ -260552,7 +261515,7 @@ Body:
     Jobs:
       KagerouOboro: true
     Classes:
-      Fourth: true
+      Third: true
     Locations:
       Both_Hand: true
     WeaponLevel: 5
@@ -263349,6 +264312,55 @@ Body:
             }
          }
       }
+  - Id: 700125
+    AegisName: Sky_Crescive_Bow
+    Name: Celestial Crescent Bow    # !todo check english name
+    Type: Weapon
+    SubType: Bow
+    Weight: 2000
+    Attack: 310
+    Range: 5
+    Slots: 2
+    Jobs:
+      Hunter: true
+    Classes:
+      Fourth: true
+    Locations:
+      Both_Hand: true
+    WeaponLevel: 5
+    EquipLevelMin: 240
+    Refineable: true
+    Gradable: true
+    Script: |
+      .@g = getenchantgrade();
+      .@r = getrefine();
+      bonus bCritical,5;
+      bonus2 bSkillAtk,"WH_CRESCIVE_BOLT",15+7*(.@r/4);
+      bonus bCritAtkRate,3*(.@r/3);
+      bonus bBaseAtk,35*(.@r/3);
+      if (.@r>=7) {
+         bonus bCritAtkRate,25;
+         if (.@r>=9) {
+            bonus bPAtk,5;
+            bonus bCritical,10;
+            if (.@r>=11) {
+               bonus bCritical,5;
+               bonus2 bSkillAtk,"WH_CRESCIVE_BOLT",10;
+            }
+         }
+      }
+      if (.@g>=ENCHANTGRADE_D) {
+         bonus bAtkRate,5;
+         if (.@g>=ENCHANTGRADE_C) {
+            bonus2 bSkillAtk,"WH_CRESCIVE_BOLT",10;
+            if (.@g>=ENCHANTGRADE_B) {
+               bonus bVariableCastrate,-10;
+               if (.@g>=ENCHANTGRADE_A) {
+                  bonus bPAtk,10;
+               }
+            }
+         }
+      }
   - Id: 800000
     AegisName: IDTest_gun
     Name: IDTest gun
@@ -263827,8 +264839,9 @@ Body:
     Attack: 230
     Range: 7
     Jobs:
-      Gunslinger: true
       Rebellion: true
+    Classes:
+      Third: true
     Locations:
       Both_Hand: true
     WeaponLevel: 5
@@ -263846,8 +264859,9 @@ Body:
     Range: 7
     Slots: 1
     Jobs:
-      Gunslinger: true
       Rebellion: true
+    Classes:
+      Third: true
     Locations:
       Both_Hand: true
     WeaponLevel: 5
@@ -264701,8 +265715,9 @@ Body:
     Range: 9
     Slots: 1
     Jobs:
-      Gunslinger: true
       Rebellion: true
+    Classes:
+      Third: true
     Locations:
       Both_Hand: true
     WeaponLevel: 5
@@ -265146,8 +266161,9 @@ Body:
     Range: 9
     Slots: 3
     Jobs:
-      Gunslinger: true
       Rebellion: true
+    Classes:
+      Third: true
     Locations:
       Both_Hand: true
     WeaponLevel: 5
@@ -265165,7 +266181,7 @@ Body:
     Jobs:
       Rebellion: true
     Classes:
-      Fourth: true
+      Third: true
     Locations:
       Both_Hand: true
     WeaponLevel: 5
@@ -265521,7 +266537,6 @@ Body:
     Attack: 300
     Range: 9
     Jobs:
-      Gunslinger: true
       Rebellion: true
     Locations:
       Both_Hand: true
@@ -265541,7 +266556,6 @@ Body:
     Range: 9
     Slots: 1
     Jobs:
-      Gunslinger: true
       Rebellion: true
     Locations:
       Both_Hand: true
@@ -266368,7 +267382,6 @@ Body:
     Attack: 350
     Range: 9
     Jobs:
-      Gunslinger: true
       Rebellion: true
     Locations:
       Both_Hand: true
@@ -266425,7 +267438,6 @@ Body:
     Range: 9
     Slots: 1
     Jobs:
-      Gunslinger: true
       Rebellion: true
     Locations:
       Both_Hand: true
@@ -267158,7 +268170,6 @@ Body:
     Attack: 300
     Range: 9
     Jobs:
-      Gunslinger: true
       Rebellion: true
     Locations:
       Both_Hand: true
@@ -267177,7 +268188,6 @@ Body:
     Range: 9
     Slots: 1
     Jobs:
-      Gunslinger: true
       Rebellion: true
     Locations:
       Both_Hand: true
@@ -267563,7 +268573,7 @@ Body:
     Jobs:
       Rebellion: true
     Classes:
-      Fourth: true
+      Third: true
     Locations:
       Both_Hand: true
     WeaponLevel: 5
@@ -268075,9 +269085,7 @@ Body:
     Name: Hyunrok Cannon Shadow Earring
     Type: ShadowGear
     Jobs:
-      Summoner: true
-    Classes:
-      Fourth: true
+      Spirit_Handler: true
     Locations:
       Shadow_Right_Accessory: true
     EquipLevelMin: 200
@@ -268092,9 +269100,7 @@ Body:
     Name: Hyunrok Cannon Shadow Pendant
     Type: ShadowGear
     Jobs:
-      Summoner: true
-    Classes:
-      Fourth: true
+      Spirit_Handler: true
     Locations:
       Shadow_Left_Accessory: true
     EquipLevelMin: 200
@@ -268109,9 +269115,7 @@ Body:
     Name: Hyunrok Breeze Spirit Shadow Armor
     Type: ShadowGear
     Jobs:
-      Summoner: true
-    Classes:
-      Fourth: true
+      Spirit_Handler: true
     Locations:
       Shadow_Armor: true
     EquipLevelMin: 200
@@ -268126,9 +269130,7 @@ Body:
     Name: Hyunrok Breeze Spirit Shadow Shoes
     Type: ShadowGear
     Jobs:
-      Summoner: true
-    Classes:
-      Fourth: true
+      Spirit_Handler: true
     Locations:
       Shadow_Shoes: true
     EquipLevelMin: 200
@@ -268912,7 +269914,7 @@ Body:
     Jobs:
       KagerouOboro: true
     Classes:
-      Fourth: true
+      Third: true
     Locations:
       Shadow_Right_Accessory: true
     EquipLevelMin: 200
@@ -268930,7 +269932,7 @@ Body:
     Jobs:
       KagerouOboro: true
     Classes:
-      Fourth: true
+      Third: true
     Locations:
       Shadow_Left_Accessory: true
     EquipLevelMin: 200
@@ -268947,7 +269949,7 @@ Body:
     Jobs:
       KagerouOboro: true
     Classes:
-      Fourth: true
+      Third: true
     Locations:
       Shadow_Armor: true
     EquipLevelMin: 200
@@ -268965,7 +269967,7 @@ Body:
     Jobs:
       KagerouOboro: true
     Classes:
-      Fourth: true
+      Third: true
     Locations:
       Shadow_Shoes: true
     EquipLevelMin: 200
@@ -269126,7 +270128,7 @@ Body:
     Jobs:
       Rebellion: true
     Classes:
-      Fourth: true
+      Third: true
     Locations:
       Shadow_Right_Accessory: true
     EquipLevelMin: 200
@@ -269143,7 +270145,7 @@ Body:
     Jobs:
       Rebellion: true
     Classes:
-      Fourth: true
+      Third: true
     Locations:
       Shadow_Left_Accessory: true
     EquipLevelMin: 200
@@ -269160,7 +270162,7 @@ Body:
     Jobs:
       Rebellion: true
     Classes:
-      Fourth: true
+      Third: true
     Locations:
       Shadow_Armor: true
     EquipLevelMin: 200
@@ -269177,7 +270179,7 @@ Body:
     Jobs:
       Rebellion: true
     Classes:
-      Fourth: true
+      Third: true
     Locations:
       Shadow_Shoes: true
     EquipLevelMin: 200
