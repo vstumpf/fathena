@@ -16,6 +16,7 @@ function(add_login_test name)
 endfunction()
 
 add_subdirectory(accountdb)
+add_subdirectory(ipbandb)
 
 add_custom_target(login-tests
     DEPENDS ${LOGIN_TESTS}

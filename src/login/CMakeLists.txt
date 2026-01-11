@@ -25,6 +25,7 @@ endif()
 target_link_libraries(login PUBLIC
 	common
 	accountdb
+	ipbandb
 )
 
 # common depends on login for the implementations of some functions
@@ -35,3 +36,4 @@ add_executable(login-server "LoginServerMain.cpp")
 target_link_libraries(login-server PRIVATE login)
 
 add_subdirectory(accountdb)
+add_subdirectory(ipbandb)

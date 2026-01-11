@@ -30,6 +30,7 @@
 #include "logincnslif.hpp"
 #include "loginlog.hpp"
 #include "accountdb/AccountDbSql.hpp"
+#include "ipbandb/IpBanDbSql.hpp"
 
 using namespace rathena;
 using namespace rathena::server_login;
@@ -60,6 +61,10 @@ TIMER_FUNC(login_vip_timeout_timer);
 
 AccountDb* getAccountDb() {
 	return static_cast<LoginServer*>(global_core)->getAccountDb();
+}
+
+IpBanDb* getIpBanDb() {
+	return static_cast<LoginServer*>(global_core)->getIpBanDb();
 }
 
 const Login_Config& getLoginConfig() {
@@ -943,6 +948,7 @@ bool LoginServer::initialize( int32 argc, char* argv[] ){
 	// initialize engine
 	// TODO: Use a factory to determine which AccountDb implementation to use
 	accountDb_ = std::make_unique<AccountDbSql>();
+	ipbanDb_ = std::make_unique<IpBanDbSql>();
 
 	login_config_read(LOGIN_CONF_NAME, true);
 	msg_config_read(LOGIN_MSG_CONF_NAME);
@@ -983,6 +989,12 @@ bool LoginServer::initialize( int32 argc, char* argv[] ){
 		}
 	}
 
+	// Make sure ipban engine is initialized
+	if (ipbanDb_ == nullptr) {
+		ShowFatalError("do_init: ipban engine not found.\n");
+		return false;
+	}
+
 	// server port open & binding
 	if( (login_fd = make_listen_bind(login_config.login_ip,login_config.login_port)) == -1 ) {
 		ShowFatalError("Failed to bind to port '" CL_WHITE "%d" CL_RESET "'\n",login_config.login_port);
@@ -999,6 +1011,10 @@ bool LoginServer::initialize( int32 argc, char* argv[] ){
 
 AccountDb* LoginServer::getAccountDb() {
 	return accountDb_.get();
+}
+
+IpBanDb* LoginServer::getIpBanDb() {
+	return ipbanDb_.get();
 }
 
 void LoginServer::displayHelpScreen(bool doExit) {

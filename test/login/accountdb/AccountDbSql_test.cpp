@@ -65,7 +65,6 @@ TEST_F(AccountDbSqlTest, InitTestFailConnect) {
     db.setProperty("login_codepage", "utf8");
     db.setProperty("login_case_sensitive", "1");
 
-    auto mockSqlHandle = std::make_unique<MockSqlHandle>();
     EXPECT_CALL(*mockSqlHandle, connect(StrEq("test_user"), StrEq("test_password"), StrEq("127.0.0.1"), 3306, StrEq("test_db")))
         .WillOnce(::testing::Return(SQL_ERROR));
 
@@ -78,6 +77,7 @@ TEST_F(AccountDbSqlTest, InitTestFailConnect) {
         }));
 
     didInit = db.init(std::move(mockSqlHandle));
+    EXPECT_FALSE(didInit);
 }
 
 TEST_F(AccountDbSqlTest, InitTestFailEncoding) {
@@ -92,7 +92,6 @@ TEST_F(AccountDbSqlTest, InitTestFailEncoding) {
     db.setProperty("login_codepage", "utf8");
     db.setProperty("login_case_sensitive", "1");
 
-    auto mockSqlHandle = std::make_unique<MockSqlHandle>();
     EXPECT_CALL(*mockSqlHandle, connect(StrEq("test_user"), StrEq("test_password"), StrEq("127.0.0.1"), 3306, StrEq("test_db")))
         .WillOnce(::testing::Return(SQL_SUCCESS));
 
@@ -111,6 +110,7 @@ TEST_F(AccountDbSqlTest, InitTestFailEncoding) {
         }));
 
     didInit = db.init(std::move(mockSqlHandle));
+    EXPECT_TRUE(didInit);
 }
 
 TEST_F(AccountDbSqlTest, DisableWebToken) {
@@ -122,7 +122,7 @@ TEST_F(AccountDbSqlTest, DisableWebToken) {
     EXPECT_TRUE(db.disableWebToken(1234));
 }
 
-TEST_F(AccountDbSqlTest, TestCreate) {    
+TEST_F(AccountDbSqlTest, TestCreate) {
     auto acc = MmoAccount{};
     acc.account_id = -1;
     safestrncpy(acc.userid, "testuser", sizeof(acc.userid));
@@ -150,7 +150,9 @@ TEST_F(AccountDbSqlTest, TestCreate) {
     EXPECT_CALL(*mockSqlHandle, getData(0, ::testing::_, ::testing::_))
         .WillOnce(Invoke([max_id_str](size_t col, char** out_buf, size_t* out_len) {
             *out_buf = const_cast<char*>(max_id_str);
-            *out_len = strlen(max_id_str);
+            if (out_len) {
+                *out_len = strlen(max_id_str);
+            }
             return SQL_SUCCESS;
         }));
 
@@ -276,7 +278,7 @@ TEST_F(AccountDbSqlTest, TestCreate) {
 }
 
 
-TEST_F(AccountDbSqlTest, TestSave) {    
+TEST_F(AccountDbSqlTest, TestSave) {
     auto acc = MmoAccount{};
     acc.account_id = 2123456;
     safestrncpy(acc.userid, "testuser", sizeof(acc.userid));
