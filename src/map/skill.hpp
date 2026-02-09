@@ -512,6 +512,7 @@ e_cast_type skill_get_casttype(uint16 skill_id); //[Skotlex]
 const char*	skill_get_name( uint16 skill_id ); 	// [Skotlex]
 const char*	skill_get_desc( uint16 skill_id ); 	// [Skotlex]
 int32 skill_tree_get_max( uint16 skill_id, int32 b_class );	// Celest
+int32 skill_greed(block_list* bl, va_list ap);
 int32 skill_cell_overlap(block_list* bl, va_list ap);
 
 // Accessor to the skills database
@@ -626,6 +627,7 @@ int32 skill_check_pc_partner(map_session_data *sd, uint16 skill_id, uint16 *skil
 int32 skill_unit_move(block_list *bl,t_tick tick,int32 flag);
 void skill_unit_move_unit_group( std::shared_ptr<s_skill_unit_group> group, int16 m,int16 dx,int16 dy);
 void skill_unit_move_unit(block_list *bl, int32 dx, int32 dy);
+bool skill_check_unit_movepos(uint8 check_flag, block_list *bl, int16 dst_x, int16 dst_y, int32 easy, bool checkpath);
 
 int32 skill_sit(map_session_data *sd, bool sitting);
 void skill_repairweapon( map_session_data& sd, int32 idx );
@@ -637,6 +639,8 @@ int32 skill_calc_heal(block_list *src, block_list *target, uint16 skill_id, uint
 
 bool skill_check_cloaking(block_list *bl, struct status_change_entry *sce);
 int8 skill_isCopyable(map_session_data *sd, uint16 skill_id);
+
+int32 skill_graffitiremover(block_list *bl, va_list ap); // [Valaris]
 
 // Abnormal status
 bool skill_isNotOk( uint16 skill_id, map_session_data& sd );
