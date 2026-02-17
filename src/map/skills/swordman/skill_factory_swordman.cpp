@@ -6,28 +6,44 @@
 #include "../skill_impl.hpp"
 
 #include "autoberserk.hpp"
+#include "banding.hpp"
+#include "banishingpoint.hpp"
 #include "bash.hpp"
+#include "battlechant.hpp"
 #include "bowlingbash.hpp"
 #include "brandishspear.hpp"
+#include "cannonspear.hpp"
 #include "counterattack.hpp"
 #include "crossrain.hpp"
 #include "dragonicaura.hpp"
 #include "dragonicbreath.hpp"
 #include "dragonicpierce.hpp"
+#include "earthdrive.hpp"
+#include "forceofvanguard.hpp"
+#include "gloriadomini.hpp"
 #include "grandcross.hpp"
 #include "grandjudgement.hpp"
 #include "guardianshield.hpp"
 #include "hackandslasher.hpp"
+#include "hesperuslit.hpp"
 #include "holycross.hpp"
 #include "imperialcross.hpp"
 #include "imperialpressure.hpp"
 #include "judgementcross.hpp"
+#include "kingsgrace.hpp"
 #include "madnesscrusher.hpp"
 #include "magnum.hpp"
+#include "martyrsreckoning.hpp"
+#include "moonslasher.hpp"
+#include "overbrand.hpp"
 #include "overslash.hpp"
 #include "pierce.hpp"
+#include "piety.hpp"
+#include "pinpointattack.hpp"
 #include "provoke.hpp"
 #include "radiantspear.hpp"
+#include "rageburst.hpp"
+#include "rayofgenesis.hpp"
 #include "relax.hpp"
 #include "resistantsouls.hpp"
 #include "sacrifice.hpp"
@@ -37,13 +53,17 @@
 #include "servantweaponphantom.hpp"
 #include "servantweaponsign.hpp"
 #include "shieldboomerang.hpp"
+#include "shieldchain.hpp"
+#include "shieldpress.hpp"
 #include "shieldreflect.hpp"
 #include "shieldshooting.hpp"
+#include "shieldspell.hpp"
 #include "smite.hpp"
 #include "spearboomerang.hpp"
 #include "spearstab.hpp"
 #include "spiralpierce.hpp"
 #include "stormslash.hpp"
+#include "trample.hpp"
 #include "traumaticblow.hpp"
 #include "ultimatesacrifice.hpp"
 #include "vitalstrike.hpp"
@@ -144,22 +164,46 @@ std::unique_ptr<const SkillImpl> SkillFactorySwordman::create(const e_skill skil
 			return std::make_unique<SkillSpearStab>();
 		case KN_TWOHANDQUICKEN:
 			return std::make_unique<StatusSkillImpl>(skill_id);
+		case LG_BANDING:
+			return std::make_unique<SkillBanding>();
 		case LG_BANISHINGPOINT:
-			return std::make_unique<WeaponSkillImpl>(skill_id);
+			return std::make_unique<SkillBanishingPoint>();
+		case LG_CANNONSPEAR:
+			return std::make_unique<SkillCannonSpear>();
+		case LG_EARTHDRIVE:
+			return std::make_unique<SkillEarthDrive>();
 		case LG_EXEEDBREAK:
 			return std::make_unique<StatusSkillImpl>(skill_id);
+		case LG_FORCEOFVANGUARD:
+			return std::make_unique<SkillForceOfVanguard>();
 		case LG_HESPERUSLIT:
-			return std::make_unique<WeaponSkillImpl>(skill_id);
+			return std::make_unique<SkillHesperusLit>();
 		case LG_INSPIRATION:
 			return std::make_unique<StatusSkillImpl>(skill_id);
+		case LG_KINGS_GRACE:
+			return std::make_unique<SkillKingsGrace>();
+		case LG_MOONSLASHER:
+			return std::make_unique<SkillMoonSlasher>();
+		case LG_OVERBRAND:
+			return std::make_unique<SkillOverBrand>();
+		case LG_PIETY:
+			return std::make_unique<SkillPiety>();
+		case LG_PINPOINTATTACK:
+			return std::make_unique<SkillPinpointAttack>();
 		case LG_PRESTIGE:
 			return std::make_unique<StatusSkillImpl>(skill_id);
 		case LG_RAGEBURST:
-			return std::make_unique<WeaponSkillImpl>(skill_id);
+			return std::make_unique<SkillRageBurst>();
+		case LG_RAYOFGENESIS:
+			return std::make_unique<SkillRayOfGenesis>();
 		case LG_REFLECTDAMAGE:
 			return std::make_unique<StatusSkillImpl>(skill_id, true);
 		case LG_SHIELDPRESS:
-			return std::make_unique<WeaponSkillImpl>(skill_id);
+			return std::make_unique<SkillShieldPress>();
+		case LG_SHIELDSPELL:
+			return std::make_unique<SkillShieldSpell>();
+		case LG_TRAMPLE:
+			return std::make_unique<SkillTrample>();
 		case LK_AURABLADE:
 			return std::make_unique<StatusSkillImpl>(skill_id);
 		case LK_BERSERK:
@@ -176,10 +220,14 @@ std::unique_ptr<const SkillImpl> SkillFactorySwordman::create(const e_skill skil
 			return std::make_unique<SkillSpiralPierce>();
 		case LK_TENSIONRELAX:
 			return std::make_unique<SkillRelax>();
+		case PA_GOSPEL:
+			return std::make_unique<SkillBattleChant>();
+		case PA_PRESSURE:
+			return std::make_unique<SkillGloriaDomini>();
 		case PA_SACRIFICE:
-			return std::make_unique<WeaponSkillImpl>(skill_id);
+			return std::make_unique<SkillMartyrsReckoning>();
 		case PA_SHIELDCHAIN:
-			return std::make_unique<WeaponSkillImpl>(skill_id);
+			return std::make_unique<SkillShieldChain>();
 		case RK_DEATHBOUND:
 			return std::make_unique<StatusSkillImpl>(skill_id);
 		case RK_SONICWAVE:

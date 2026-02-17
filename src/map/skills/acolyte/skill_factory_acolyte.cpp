@@ -7,15 +7,20 @@
 
 #include "../skill_impl.hpp"
 
+#include "absorbspiritsphere.hpp"
 #include "adoramus.hpp"
 #include "ancilla.hpp"
 #include "angelus.hpp"
 #include "arbitrium.hpp"
 #include "aspersio.hpp"
+#include "assumptio.hpp"
+#include "asurastrike.hpp"
+#include "basilica.hpp"
 #include "blazingflameblast.hpp"
 #include "blessing.hpp"
 #include "bssacramenti.hpp"
 #include "cantocandidus.hpp"
+#include "chaincrushcombo.hpp"
 #include "clearance.hpp"
 #include "coluceoheal.hpp"
 #include "competentia.hpp"
@@ -32,6 +37,7 @@
 #include "explosionblaster.hpp"
 #include "firstbrand.hpp"
 #include "framen.hpp"
+#include "glacierfist.hpp"
 #include "gloria.hpp"
 #include "heal.hpp"
 #include "highnessheal.hpp"
@@ -40,6 +46,8 @@
 #include "impositiomanus.hpp"
 #include "incagi.hpp"
 #include "judex.hpp"
+#include "kiexplosion.hpp"
+#include "kitranslation.hpp"
 #include "kyrieeleison.hpp"
 #include "laudaagnus.hpp"
 #include "laudaramus.hpp"
@@ -48,12 +56,17 @@
 #include "magnusexorcismus.hpp"
 #include "massiveflameblaster.hpp"
 #include "medialevotum.hpp"
+#include "occultimpaction.hpp"
 #include "oleumsanctum.hpp"
 #include "oratio.hpp"
 #include "petitio.hpp"
 #include "pneuma.hpp"
 #include "pneumaticusprocella.hpp"
 #include "praefatio.hpp"
+#include "ragingpalmstrike.hpp"
+#include "ragingquadrupleblow.hpp"
+#include "ragingthrust.hpp"
+#include "ragingtrifectablow.hpp"
 #include "renovatio.hpp"
 #include "reparatio.hpp"
 #include "ruwach.hpp"
@@ -62,13 +75,17 @@
 #include "secondflame.hpp"
 #include "secondjudgement.hpp"
 #include "silentium.hpp"
+#include "snap.hpp"
 #include "statusrecovery.hpp"
 #include "suffragium.hpp"
+#include "summonspiritsphere.hpp"
 #include "thirdconsecration.hpp"
 #include "thirdflamebomb.hpp"
 #include "thirdpunish.hpp"
+#include "throwspiritsphere.hpp"
 #include "turnundead.hpp"
 #include "vituperatum.hpp"
+#include "zen.hpp"
 
 std::unique_ptr<const SkillImpl> SkillFactoryAcolyte::create(const e_skill skill_id) const {
 	switch( skill_id ){
@@ -173,13 +190,17 @@ std::unique_ptr<const SkillImpl> SkillFactoryAcolyte::create(const e_skill skill
 		case CD_REPARATIO:
 			return std::make_unique<SkillReparatio>();
 		case CH_CHAINCRUSH:
-			return std::make_unique<WeaponSkillImpl>(skill_id);
+			return std::make_unique<SkillChainCrushCombo>();
+		case CH_PALMSTRIKE:
+			return std::make_unique<SkillRagingPalmStrike>();
+		case CH_SOULCOLLECT:
+			return std::make_unique<SkillZen>();
 		case CH_TIGERFIST:
-			return std::make_unique<WeaponSkillImpl>(skill_id);
-#ifdef RENEWAL
+			return std::make_unique<SkillGlacierFist>();
+		case HP_ASSUMPTIO:
+			return std::make_unique<SkillAssumptio>();
 		case HP_BASILICA:
-			return std::make_unique<StatusSkillImpl>(skill_id);
-#endif
+			return std::make_unique<SkillBasilica>();
 		case IQ_BLAZING_FLAME_BLAST:
 			return std::make_unique<SkillBlazingFlameBlast>();
 		case IQ_EXPOSION_BLASTER:
@@ -214,12 +235,34 @@ std::unique_ptr<const SkillImpl> SkillFactoryAcolyte::create(const e_skill skill
 			return std::make_unique<SkillThirdFlameBomb>();
 		case IQ_THIRD_PUNISH:
 			return std::make_unique<SkillThirdPunish>();
+		case MO_ABSORBSPIRITS:
+			return std::make_unique<SkillAbsorbSpiritSphere>();
+		case MO_BALKYOUNG:
+			return std::make_unique<SkillKiExplosion>();
 		case MO_BLADESTOP:
 			return std::make_unique<StatusSkillImpl>(skill_id);
+		case MO_BODYRELOCATION:
+			return std::make_unique<SkillSnap>();
+		case MO_CALLSPIRITS:
+			return std::make_unique<SkillSummoningSpiritSphere>();
+		case MO_CHAINCOMBO:
+			return std::make_unique<SkillRagingQuadrupleBlow>();
+		case MO_COMBOFINISH:
+			return std::make_unique<SkillRagingThrust>();
 		case MO_EXPLOSIONSPIRITS:
 			return std::make_unique<StatusSkillImpl>(skill_id);
+		case MO_EXTREMITYFIST:
+			return std::make_unique<SkillAsuraStrike>();
+		case MO_FINGEROFFENSIVE:
+			return std::make_unique<SkillThrowSpiritSphere>();
+		case MO_INVESTIGATE:
+			return std::make_unique<SkillOccultImpaction>();
+		case MO_KITRANSLATION:
+			return std::make_unique<SkillKiTranslation>();
 		case MO_STEELBODY:
 			return std::make_unique<StatusSkillImpl>(skill_id);
+		case MO_TRIPLEATTACK:
+			return std::make_unique<SkillRagingTrifectaBlow>();
 		case PR_ASPERSIO:
 			return std::make_unique<SkillAspersio>();
 		case PR_BENEDICTIO:
