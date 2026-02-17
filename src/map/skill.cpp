@@ -48,7 +48,7 @@
 
 // Include .cpp files into the TU to optimize compile time
 // For reference see unity builds or amalgamated builds
-#include "skills/skill_factory.cpp"
+#include "skills/skill_factory.hpp"
 
 using namespace rathena;
 
