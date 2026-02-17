@@ -44,9 +44,24 @@ set(MAP_SOURCES
 
 	"skills/skill_factory.cpp"
 	"skills/skill_impl.cpp"
-	"skills/weapon_skill_impl.cpp"
-	"skills/status_skill_impl.cpp"
 
+	"skills/acolyte/skill_factory_acolyte.cpp"
+	"skills/archer/skill_factory_archer.cpp"
+	"skills/custom/skill_factory_custom.cpp"
+	"skills/gunslinger/skill_factory_gunslinger.cpp"
+	"skills/mage/skill_factory_mage.cpp"
+	"skills/mercenary/skill_factory_mercenary.cpp"
+	"skills/merchant/skill_factory_merchant.cpp"
+	"skills/ninja/skill_factory_ninja.cpp"
+	"skills/novice/skill_factory_novice.cpp"
+	"skills/npc/skill_factory_npc.cpp"
+	"skills/summoner/skill_factory_summoner.cpp"
+	"skills/swordman/skill_factory_swordman.cpp"
+	"skills/taekwon/skill_factory_taekwon.cpp"
+	"skills/thief/skill_factory_thief.cpp"
+)
+
+set(SKILL_SOURCES
 	"skills/acolyte/adoramus.cpp"
 	"skills/acolyte/ancilla.cpp"
 	"skills/acolyte/angelus.cpp"
@@ -102,7 +117,6 @@ set(MAP_SOURCES
 	"skills/acolyte/secondflame.cpp"
 	"skills/acolyte/secondjudgement.cpp"
 	"skills/acolyte/silentium.cpp"
-	"skills/acolyte/skill_factory_acolyte.cpp"
 	"skills/acolyte/statusrecovery.cpp"
 	"skills/acolyte/suffragium.cpp"
 	"skills/acolyte/thirdconsecration.cpp"
@@ -151,7 +165,6 @@ set(MAP_SOURCES
 	"skills/archer/sensitivekeen.cpp"
 	"skills/archer/shockwavetrap.cpp"
 	"skills/archer/skidtrap.cpp"
-	"skills/archer/skill_factory_archer.cpp"
 	"skills/archer/solidtrap.cpp"
 	"skills/archer/springtrap.cpp"
 	"skills/archer/swifttrap.cpp"
@@ -164,7 +177,6 @@ set(MAP_SOURCES
 	"skills/archer/wargstrike.cpp"
 	"skills/archer/wildwalk.cpp"
 	"skills/archer/windwalker.cpp"
-	"skills/custom/skill_factory_custom.cpp"
 	"skills/gunslinger/bullseye.cpp"
 	"skills/gunslinger/cracker.cpp"
 	"skills/gunslinger/desperado.cpp"
@@ -177,7 +189,6 @@ set(MAP_SOURCES
 	"skills/gunslinger/grounddrift.cpp"
 	"skills/gunslinger/piercingshot.cpp"
 	"skills/gunslinger/rapidshower.cpp"
-	"skills/gunslinger/skill_factory_gunslinger.cpp"
 	"skills/gunslinger/spreadattack.cpp"
 	"skills/gunslinger/tracking.cpp"
 	"skills/gunslinger/tripleaction.cpp"
@@ -229,7 +240,6 @@ set(MAP_SOURCES
 	"skills/mage/sightblaster.cpp"
 	"skills/mage/sight.cpp"
 	"skills/mage/sightrasher.cpp"
-	"skills/mage/skill_factory_mage.cpp"
 	"skills/mage/soulexpansion.cpp"
 	"skills/mage/soulstrike.cpp"
 	"skills/mage/soulvulcanstrike.cpp"
@@ -249,7 +259,6 @@ set(MAP_SOURCES
 	"skills/mage/waterball.cpp"
 	"skills/mage/whiteimprison.cpp"
 	"skills/mercenary/mercenary_bash.cpp"
-	"skills/mercenary/skill_factory_mercenary.cpp"
 	"skills/merchant/abrbattlewarior.cpp"
 	"skills/merchant/abrdualcannon.cpp"
 	"skills/merchant/abrinfinity.cpp"
@@ -286,7 +295,6 @@ set(MAP_SOURCES
 	"skills/merchant/preparepotion.cpp"
 	"skills/merchant/rushquake.cpp"
 	"skills/merchant/rushstrike.cpp"
-	"skills/merchant/skill_factory_merchant.cpp"
 	"skills/merchant/skill_vending.cpp"
 	"skills/merchant/sparkblaster.cpp"
 	"skills/merchant/summonflora.cpp"
@@ -301,7 +309,6 @@ set(MAP_SOURCES
 	"skills/merchant/vaporize.cpp"
 	"skills/merchant/weaponperfection.cpp"
 	"skills/merchant/weaponrepair.cpp"
-	"skills/ninja/skill_factory_ninja.cpp"
 	"skills/novice/doublebowlingbash.cpp"
 	"skills/novice/groundgravitation.cpp"
 	"skills/novice/hellsdrive.cpp"
@@ -313,10 +320,7 @@ set(MAP_SOURCES
 	"skills/novice/napalmvulcanstrike.cpp"
 	"skills/novice/overcomingcrisis.cpp"
 	"skills/novice/shieldchainrush.cpp"
-	"skills/novice/skill_factory_novice.cpp"
 	"skills/novice/spiralpiercemax.cpp"
-	"skills/npc/skill_factory_npc.cpp"
-	"skills/summoner/skill_factory_summoner.cpp"
 	"skills/swordman/autoberserk.cpp"
 	"skills/swordman/bash.cpp"
 	"skills/swordman/bowlingbash.cpp"
@@ -351,7 +355,6 @@ set(MAP_SOURCES
 	"skills/swordman/shieldboomerang.cpp"
 	"skills/swordman/shieldreflect.cpp"
 	"skills/swordman/shieldshooting.cpp"
-	"skills/swordman/skill_factory_swordman.cpp"
 	"skills/swordman/smite.cpp"
 	"skills/swordman/spearboomerang.cpp"
 	"skills/swordman/spearstab.cpp"
@@ -381,7 +384,6 @@ set(MAP_SOURCES
 	"skills/taekwon/mission.cpp"
 	"skills/taekwon/run.cpp"
 	"skills/taekwon/sevenwind.cpp"
-	"skills/taekwon/skill_factory_taekwon.cpp"
 	"skills/taekwon/soulgathering.cpp"
 	"skills/taekwon/soulofheavenandearth.cpp"
 	"skills/taekwon/spiritofrebirth.cpp"
@@ -460,7 +462,6 @@ set(MAP_SOURCES
 	"skills/thief/scribble.cpp"
 	"skills/thief/shadowstab.cpp"
 	"skills/thief/sightlessmind.cpp"
-	"skills/thief/skill_factory_thief.cpp"
 	"skills/thief/snatch.cpp"
 	"skills/thief/sonicblow.cpp"
 	"skills/thief/souldestroyer.cpp"
@@ -525,8 +526,6 @@ set(MAP_HEADERS
 
 	"skills/skill_factory.hpp"
 	"skills/skill_impl.hpp"
-	"skills/weapon_skill_impl.hpp"
-	"skills/status_skill_impl.hpp"
 
 	"skills/acolyte/adoramus.hpp"
 	"skills/acolyte/ancilla.hpp"
@@ -959,6 +958,22 @@ set(MAP_HEADERS
 add_library(map)
 
 target_sources(map PRIVATE ${MAP_SOURCES})
+
+if(COLLATE_SKILL_SOURCES)
+	# We can do this at configure time because the list of skill sources is fixed
+	# and won't change until the next CMake run, so we don't need to worry about
+	# regenerating this file at build time.
+	foreach(SOURCE IN LISTS SKILL_SOURCES)
+		get_filename_component(SOURCE_NAME ${SOURCE} NAME_WE)
+		set(COLLATED "${COLLATED}#include \"${CMAKE_CURRENT_SOURCE_DIR}/${SOURCE}\"\n")
+	endforeach()
+
+	file(GENERATE OUTPUT "skill_sources_collated.cpp" CONTENT "${COLLATED}")
+
+	target_sources(map PRIVATE skill_sources_collated.cpp)
+else()
+	target_sources(map PRIVATE ${SKILL_SOURCES})
+endif()
 
 if(WIN32)
 	target_sources(map PRIVATE ${MAP_HEADERS})

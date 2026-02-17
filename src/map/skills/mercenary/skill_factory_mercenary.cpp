@@ -5,9 +5,7 @@
 
 #include "../skill_impl.hpp"
 
-// Include .cpp files into the TU to optimize compile time
-// For reference see unity builds or amalgamated builds
-#include "mercenary_bash.cpp"
+#include "mercenary_bash.hpp"
 
 std::unique_ptr<const SkillImpl> SkillFactoryMercenary::create(const e_skill skill_id) const {
 	switch( skill_id ){
