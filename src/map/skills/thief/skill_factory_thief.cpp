@@ -9,9 +9,13 @@
 #include "abyssflame.hpp"
 #include "abysssquare.hpp"
 #include "antidote.hpp"
+#include "autoshadowspell.hpp"
 #include "backslide.hpp"
 #include "backstab.hpp"
+#include "bloodylust.hpp"
+#include "bodypainting.hpp"
 #include "chainreactionshot.hpp"
+#include "chaospanic.hpp"
 #include "chasingbreak.hpp"
 #include "chasingshot.hpp"
 #include "cloaking.hpp"
@@ -29,16 +33,20 @@
 #include "darkillusion.hpp"
 #include "deftstab.hpp"
 #include "detoxify.hpp"
+#include "dimensiondoor.hpp"
 #include "divestall.hpp"
 #include "divestarmor.hpp"
 #include "divesthelm.hpp"
 #include "divestshield.hpp"
 #include "divestweapon.hpp"
+#include "emergencyescape.hpp"
 #include "enchantdeadlypoison.hpp"
 #include "enchantpoison.hpp"
 #include "envenom.hpp"
 #include "eternalslash.hpp"
+#include "fatalmenace.hpp"
 #include "fatalshadowcrow.hpp"
+#include "feintbomb.hpp"
 #include "findstone.hpp"
 #include "frenzyshot.hpp"
 #include "fromtheabyss.hpp"
@@ -47,6 +55,15 @@
 #include "hiding.hpp"
 #include "hitandsliding.hpp"
 #include "impactcrater.hpp"
+#include "invisibility.hpp"
+#include "maelstrom.hpp"
+#include "manhole.hpp"
+#include "masqueradeenervation.hpp"
+#include "masqueradegloomy.hpp"
+#include "masqueradeignorance.hpp"
+#include "masqueradelaziness.hpp"
+#include "masqueradeunlucky.hpp"
+#include "masqueradeweakness.hpp"
 #include "meteorassault.hpp"
 #include "mug.hpp"
 #include "omegaabyssstrike.hpp"
@@ -54,10 +71,12 @@
 #include "poisoningweapon.hpp"
 #include "poisonsmoke.hpp"
 #include "remover.hpp"
+#include "reproduce.hpp"
 #include "rollingcutter.hpp"
 #include "sandattack.hpp"
 #include "savageimpact.hpp"
 #include "scribble.hpp"
+#include "shadowform.hpp"
 #include "shadowstab.hpp"
 #include "sightlessmind.hpp"
 #include "snatch.hpp"
@@ -66,8 +85,10 @@
 #include "steal.hpp"
 #include "stealth.hpp"
 #include "stonefling.hpp"
+#include "stripaccessory.hpp"
 #include "stripshadow.hpp"
 #include "throwvenomknife.hpp"
+#include "triangleshot.hpp"
 #include "unluckyrush.hpp"
 #include "venomdust.hpp"
 #include "venompressure.hpp"
@@ -190,12 +211,50 @@ std::unique_ptr<const SkillImpl> SkillFactoryThief::create(const e_skill skill_i
 			return std::make_unique<SkillDivestShield>();
 		case RG_STRIPWEAPON:
 			return std::make_unique<SkillDivestWeapon>();
+		case SC_AUTOSHADOWSPELL:
+			return std::make_unique<SkillAutoShadowSpell>();
+		case SC_BLOODYLUST:
+			return std::make_unique<SkillBloodyLust>();
+		case SC_BODYPAINT:
+			return std::make_unique<SkillBodyPainting>();
+		case SC_CHAOSPANIC:
+			return std::make_unique<SkillChaosPanic>();
 		case SC_DEADLYINFECT:
 			return std::make_unique<StatusSkillImpl>(skill_id);
+		case SC_DIMENSIONDOOR:
+			return std::make_unique<SkillDimensionDoor>();
+		case SC_ENERVATION:
+			return std::make_unique<SkillMasqueradeEnervation>();
+		case SC_ESCAPE:
+			return std::make_unique<SkillEmergencyEscape>();
+		case SC_FATALMENACE:
+			return std::make_unique<SkillFatalMenace>();
 		case SC_FEINTBOMB:
-			return std::make_unique<WeaponSkillImpl>(skill_id);
+			return std::make_unique<SkillFeintBomb>();
+		case SC_GROOMY:
+			return std::make_unique<SkillMasqueradeGloomy>();
+		case SC_IGNORANCE:
+			return std::make_unique<SkillMasqueradeIgnorance>();
+		case SC_INVISIBILITY:
+			return std::make_unique<SkillInvisibility>();
+		case SC_LAZINESS:
+			return std::make_unique<SkillMasqueradeLaziness>();
+		case SC_MAELSTROM:
+			return std::make_unique<SkillMaelstrom>();
+		case SC_MANHOLE:
+			return std::make_unique<SkillManHole>();
+		case SC_REPRODUCE:
+			return std::make_unique<SkillReproduce>();
+		case SC_SHADOWFORM:
+			return std::make_unique<SkillShadowForm>();
+		case SC_STRIPACCESSARY:
+			return std::make_unique<SkillStripAccessory>();
 		case SC_TRIANGLESHOT:
-			return std::make_unique<WeaponSkillImpl>(skill_id);
+			return std::make_unique<SkillTriangleShot>();
+		case SC_UNLUCKY:
+			return std::make_unique<SkillMasqueradeUnlucky>();
+		case SC_WEAKNESS:
+			return std::make_unique<SkillMasqueradeWeakness>();
 		case SHC_CROSS_SLASH:
 			return std::make_unique<SkillCrossSlash>();
 		case SHC_DANCING_KNIFE:
