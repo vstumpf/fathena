@@ -1587,6 +1587,13 @@ if(COLLATE_SKILL_SOURCES)
 	file(GENERATE OUTPUT "skill_sources_collated.cpp" CONTENT "${COLLATED}")
 
 	target_sources(map PRIVATE skill_sources_collated.cpp)
+
+	# Windows complains that the object file is too big if we compile all skill sources together,
+	# so we need to use the /bigobj flag.
+	if(WIN32)
+		target_compile_options(map PRIVATE "/bigobj")
+	endif()
+
 else()
 	target_sources(map PRIVATE ${SKILL_SOURCES})
 endif()
