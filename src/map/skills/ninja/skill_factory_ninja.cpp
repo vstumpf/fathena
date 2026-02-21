@@ -5,23 +5,44 @@
 
 #include "../skill_impl.hpp"
 
+#include "coldbloodedcannon.hpp"
 #include "crimsonfireformation.hpp"
 #include "crimsonfirepetal.hpp"
+#include "darkdragonnightmare.hpp"
+#include "darkeningcannon.hpp"
 #include "finalstrike.hpp"
+#include "fourcolorscharm.hpp"
+#include "goldendragoncannon.hpp"
 #include "hiddenwater.hpp"
+#include "huumashurikenconstruct.hpp"
+#include "huumashurikengrasp.hpp"
 #include "icemeteor.hpp"
 #include "improviseddefense.hpp"
+#include "infiltrate.hpp"
 #include "kamaitachi.hpp"
+#include "kunaidistortion.hpp"
+#include "kunainightmare.hpp"
+#include "kunairefraction.hpp"
+#include "kunairotation.hpp"
 #include "lightningstrikeofdestruction.hpp"
+#include "meltaway.hpp"
+#include "mirage.hpp"
 #include "mirrorimage.hpp"
+#include "nightmareerasion.hpp"
 #include "ragingfiredragon.hpp"
+#include "redflamecannon.hpp"
+#include "shadowdance.hpp"
+#include "shadowflash.hpp"
+#include "shadowhunting.hpp"
 #include "shadowleap.hpp"
+#include "shadownightmare.hpp"
 #include "shadowslash.hpp"
 #include "spearofice.hpp"
 #include "throwhuumashuriken.hpp"
 #include "throwkunai.hpp"
 #include "throwshuriken.hpp"
 #include "throwzeny.hpp"
+#include "thunderingcannon.hpp"
 #include "vanishingslash.hpp"
 #include "windblade.hpp"
 
@@ -73,8 +94,48 @@ std::unique_ptr<const SkillImpl> SkillFactoryNinja::create(const e_skill skill_i
 			return std::make_unique<StatusSkillImpl>(skill_id);
 		case NJ_ZENYNAGE:
 			return std::make_unique<SkillThrowZeny>();
+		case SS_AKUMUKESU:
+			return std::make_unique<SkillNightmareErasion>();
+		case SS_ANKOKURYUUAKUMU:
+			return std::make_unique<SkillDarkDragonNightmare>();
+		case SS_ANTENPOU:
+			return std::make_unique<SkillDarkeningCannon>();
+		case SS_FOUR_CHARM:
+			return std::make_unique<SkillFourColorsCharm>();
 		case SS_FUUMAKOUCHIKU:
-			return std::make_unique<WeaponSkillImpl>(skill_id);
+			return std::make_unique<SkillHuumaShurikenConstruct>();
+		case SS_FUUMASHOUAKU:
+			return std::make_unique<SkillHuumaShurikenGrasp>();
+		case SS_HITOUAKUMU:
+			return std::make_unique<SkillKunaiNightmare>();
+		case SS_KAGEAKUMU:
+			return std::make_unique<SkillShadowNightmare>();
+		case SS_KAGEGARI:
+			return std::make_unique<SkillShadowHunting>();
+		case SS_KAGEGISSEN:
+			return std::make_unique<SkillShadowFlash>();
+		case SS_KAGENOMAI:
+			return std::make_unique<SkillShadowDance>();
+		case SS_KINRYUUHOU:
+			return std::make_unique<SkillGoldenDragonCannon>();
+		case SS_KUNAIKAITEN:
+			return std::make_unique<SkillKunaiRotation>();
+		case SS_KUNAIKUSSETSU:
+			return std::make_unique<SkillKunaiRefraction>();
+		case SS_KUNAIWAIKYOKU:
+			return std::make_unique<SkillKunaiDistortion>();
+		case SS_RAIDENPOU:
+			return std::make_unique<SkillThunderingCannon>();
+		case SS_REIKETSUHOU:
+			return std::make_unique<SkillColdBloodedCannon>();
+		case SS_SEKIENHOU:
+			return std::make_unique<SkillRedFlameCannon>();
+		case SS_SHIMIRU:
+			return std::make_unique<SkillInfiltrate>();
+		case SS_SHINKIROU:
+			return std::make_unique<SkillMirage>();
+		case SS_TOKEDASU:
+			return std::make_unique<SkillMeltAway>();
 
 		default:
 			return nullptr;
