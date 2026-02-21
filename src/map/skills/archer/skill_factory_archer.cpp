@@ -7,6 +7,7 @@
 
 #include "acousticrhythm.hpp"
 #include "aimedbolt.hpp"
+#include "ainrhapsody.hpp"
 #include "amp.hpp"
 #include "anklesnare.hpp"
 #include "arrowshower.hpp"
@@ -40,6 +41,7 @@
 #include "focusedarrowstrike.hpp"
 #include "freezingtrap.hpp"
 #include "galestorm.hpp"
+#include "geffenianocturn.hpp"
 #include "gypsyskiss.hpp"
 #include "harmoniclick.hpp"
 #include "hawkboomerang.hpp"
@@ -48,34 +50,52 @@
 #include "hipshaker.hpp"
 #include "iceboundtrap.hpp"
 #include "impressiveriff.hpp"
+#include "jawaiiserenade.hpp"
 #include "ladyluck.hpp"
 #include "landmine.hpp"
+#include "longingforfreedom.hpp"
 #include "lullaby.hpp"
 #include "magentatrap.hpp"
 #include "magicstrings.hpp"
 #include "maizetrap.hpp"
 #include "makingarrow.hpp"
+#include "marionettecontrol.hpp"
 #include "melodystrike.hpp"
 #include "mentalsensing.hpp"
+#include "metallicfury.hpp"
+#include "musicalinterlude.hpp"
+#include "nipelheimrequiem.hpp"
 #include "pangvoice.hpp"
 #include "perfecttablature.hpp"
 #include "phantasmicarrow.hpp"
 #include "powerchord.hpp"
+#include "pronmarch.hpp"
 #include "removetrap.hpp"
+#include "retrospection.hpp"
+#include "rhythmicalwave.hpp"
+#include "rhythmshooting.hpp"
+#include "rokicapriccio.hpp"
+#include "roseblossom.hpp"
 #include "sandman.hpp"
 #include "sensitivekeen.hpp"
+#include "shelteringbliss.hpp"
 #include "shockwavetrap.hpp"
 #include "skidtrap.hpp"
+#include "skilledspecialsinger.hpp"
 #include "slingingarrow.hpp"
 #include "slowgrace.hpp"
 #include "solidtrap.hpp"
 #include "songoflutie.hpp"
+#include "soundblend.hpp"
 #include "springtrap.hpp"
 #include "swifttrap.hpp"
 #include "talkiebox.hpp"
+#include "tarotcardoffate.hpp"
 #include "unbarringoctave.hpp"
 #include "unchainedserenade.hpp"
 #include "verduretrap.hpp"
+#include "vulcanarrow.hpp"
+#include "wandofhermode.hpp"
 #include "wargbite.hpp"
 #include "wargdash.hpp"
 #include "wargmastery.hpp"
@@ -134,7 +154,19 @@ std::unique_ptr<const SkillImpl> SkillFactoryArcher::create(const e_skill skill_
 		case BD_SIEGFRIED:
 			return std::make_unique<SkillAcousticRhythm>();
 		case CG_ARROWVULCAN:
-			return std::make_unique<WeaponSkillImpl>(skill_id);
+			return std::make_unique<SkillVulcanArrow>();
+		case CG_HERMODE:
+			return std::make_unique<SkillWandOfHermode>();
+		case CG_LONGINGFREEDOM:
+			return std::make_unique<SkillLongingForFreedom>();
+		case CG_MARIONETTE:
+			return std::make_unique<SkillMarionetteControl>();
+		case CG_MOONLIT:
+			return std::make_unique<SkillShelteringBliss>();
+		case CG_SPECIALSINGER:
+			return std::make_unique<SkillSkilledSpecialSinger>();
+		case CG_TAROTCARD:
+			return std::make_unique<SkillTarotCardOfFate>();
 		case DC_DONTFORGETME:
 			return std::make_unique<SkillSlowGrace>();
 		case DC_FORTUNEKISS:
@@ -231,10 +263,38 @@ std::unique_ptr<const SkillImpl> SkillFactoryArcher::create(const e_skill skill_
 			return std::make_unique<StatusSkillImpl>(skill_id);
 		case SN_WINDWALK:
 			return std::make_unique<SkillWindWalker>();
+		case TR_AIN_RHAPSODY:
+			return std::make_unique<SkillAinRhapsody>();
+		case TR_GEF_NOCTURN:
+			return std::make_unique<SkillGeffeniaNocturn>();
+		case TR_JAWAII_SERENADE:
+			return std::make_unique<SkillJawaiiSerenade>();
 		case TR_KVASIR_SONATA:
 			return std::make_unique<StatusSkillImpl>(skill_id);
+		case TR_METALIC_FURY:
+			return std::make_unique<SkillMetallicFury>();
+		case TR_MUSICAL_INTERLUDE:
+			return std::make_unique<SkillMusicalInterlude>();
 		case TR_MYSTIC_SYMPHONY:
 			return std::make_unique<StatusSkillImpl>(skill_id);
+		case TR_NIPELHEIM_REQUIEM:
+			return std::make_unique<SkillNipelheimRequiem>();
+		case TR_PRON_MARCH:
+			return std::make_unique<SkillPronMarch>();
+		case TR_RETROSPECTION:
+			return std::make_unique<SkillRetrospection>();
+		case TR_RHYTHMICAL_WAVE:
+			return std::make_unique<SkillRhythmicalWave>();
+		case TR_RHYTHMSHOOTING:
+			return std::make_unique<SkillRhythmShooting>();
+		case TR_ROKI_CAPRICCIO:
+			return std::make_unique<SkillRokiCapriccio>();
+		case TR_ROSEBLOSSOM:
+			return std::make_unique<SkillRoseBlossom>();
+		case TR_ROSEBLOSSOM_ATK:
+			return std::make_unique<SkillRoseBlossomAttack>();
+		case TR_SOUNDBLEND:
+			return std::make_unique<SkillSoundBlend>();
 		case WH_CALAMITYGALE:
 			return std::make_unique<StatusSkillImpl>(skill_id);
 		case WH_CRESCIVE_BOLT:
