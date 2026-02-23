@@ -5,39 +5,63 @@
 
 #include "../skill_impl.hpp"
 
+#include "16thnight.hpp"
+#include "castninjaspell.hpp"
 #include "coldbloodedcannon.hpp"
 #include "crimsonfireformation.hpp"
 #include "crimsonfirepetal.hpp"
 #include "darkdragonnightmare.hpp"
 #include "darkeningcannon.hpp"
+#include "distortedcrescent.hpp"
+#include "earthcharm.hpp"
+#include "emptyshadow.hpp"
 #include "finalstrike.hpp"
+#include "firecharm.hpp"
 #include "fourcolorscharm.hpp"
 #include "goldendragoncannon.hpp"
 #include "hiddenwater.hpp"
 #include "huumashurikenconstruct.hpp"
 #include "huumashurikengrasp.hpp"
+#include "icecharm.hpp"
 #include "icemeteor.hpp"
+#include "illusionbewitch.hpp"
+#include "illusiondeath.hpp"
+#include "illusionshadow.hpp"
+#include "illusionshock.hpp"
 #include "improviseddefense.hpp"
 #include "infiltrate.hpp"
 #include "kamaitachi.hpp"
+#include "kocrossslash.hpp"
 #include "kunaidistortion.hpp"
+#include "kunaiexplosion.hpp"
 #include "kunainightmare.hpp"
 #include "kunairefraction.hpp"
 #include "kunairotation.hpp"
+#include "kunaisplash.hpp"
 #include "lightningstrikeofdestruction.hpp"
+#include "makibishi.hpp"
 #include "meltaway.hpp"
 #include "mirage.hpp"
 #include "mirrorimage.hpp"
+#include "moonlightfantasy.hpp"
 #include "nightmareerasion.hpp"
+#include "ominousmoonlight.hpp"
 #include "ragingfiredragon.hpp"
+#include "rapidthrow.hpp"
 #include "redflamecannon.hpp"
+#include "releaseninjaspell.hpp"
 #include "shadowdance.hpp"
 #include "shadowflash.hpp"
+#include "shadowhiding.hpp"
 #include "shadowhunting.hpp"
 #include "shadowleap.hpp"
 #include "shadownightmare.hpp"
 #include "shadowslash.hpp"
+#include "shadowtrampling.hpp"
+#include "shadowwarrior.hpp"
+#include "soulcutter.hpp"
 #include "spearofice.hpp"
+#include "swirlingpetal.hpp"
 #include "throwhuumashuriken.hpp"
 #include "throwkunai.hpp"
 #include "throwshuriken.hpp"
@@ -45,13 +69,56 @@
 #include "thunderingcannon.hpp"
 #include "vanishingslash.hpp"
 #include "windblade.hpp"
+#include "windcharm.hpp"
 
 std::unique_ptr<const SkillImpl> SkillFactoryNinja::create(const e_skill skill_id) const {
 	switch( skill_id ){
+		case KG_KAGEHUMI:
+			return std::make_unique<SkillShadowTrampling>();
+		case KG_KAGEMUSYA:
+			return std::make_unique<SkillShadowWarrior>();
+		case KG_KYOMU:
+			return std::make_unique<SkillEmptyShadow>();
+		case KO_BAKURETSU:
+			return std::make_unique<SkillKunaiExplosion>();
+		case KO_DOHU_KOUKAI:
+			return std::make_unique<SkillEarthCharm>();
+		case KO_GENWAKU:
+			return std::make_unique<SkillIllusionBewitch>();
+		case KO_HAPPOKUNAI:
+			return std::make_unique<SkillKunaiSplash>();
+		case KO_HUUMARANKA:
+			return std::make_unique<SkillSwirlingPetal>();
+		case KO_HYOUHU_HUBUKI:
+			return std::make_unique<SkillIceCharm>();
+		case KO_IZAYOI:
+			return std::make_unique<Skill16thNight>();
+		case KO_JYUMONJIKIRI:
+			return std::make_unique<SkillKoCrossSlash>();
+		case KO_JYUSATSU:
+			return std::make_unique<SkillIllusionDeath>();
+		case KO_KAHU_ENTEN:
+			return std::make_unique<SkillFireCharm>();
+		case KO_KAIHOU:
+			return std::make_unique<SkillReleaseNinjaSpell>();
+		case KO_KAZEHU_SEIRAN:
+			return std::make_unique<SkillWindCharm>();
+		case KO_KYOUGAKU:
+			return std::make_unique<SkillIllusionShock>();
+		case KO_MAKIBISHI:
+			return std::make_unique<SkillMakibishi>();
 		case KO_MEIKYOUSISUI:
 			return std::make_unique<StatusSkillImpl>(skill_id);
+		case KO_MUCHANAGE:
+			return std::make_unique<SkillRapidThrow>();
 		case KO_SETSUDAN:
-			return std::make_unique<WeaponSkillImpl>(skill_id);
+			return std::make_unique<SkillSoulCutter>();
+		case KO_YAMIKUMO:
+			return std::make_unique<SkillShadowHiding>();
+		case KO_ZANZOU:
+			return std::make_unique<SkillIllusionShadow>();
+		case KO_ZENKAI:
+			return std::make_unique<SkillCastNinjaSpell>();
 		case NJ_BAKUENRYU:
 			return std::make_unique<SkillRagingFireDragon>();
 		case NJ_BUNSINJYUTSU:
@@ -94,6 +161,12 @@ std::unique_ptr<const SkillImpl> SkillFactoryNinja::create(const e_skill skill_i
 			return std::make_unique<StatusSkillImpl>(skill_id);
 		case NJ_ZENYNAGE:
 			return std::make_unique<SkillThrowZeny>();
+		case OB_AKAITSUKI:
+			return std::make_unique<SkillOminousMoonlight>();
+		case OB_OBOROGENSOU:
+			return std::make_unique<SkillMoonlightFantasy>();
+		case OB_ZANGETSU:
+			return std::make_unique<SkillDistortedCrescent>();
 		case SS_AKUMUKESU:
 			return std::make_unique<SkillNightmareErasion>();
 		case SS_ANKOKURYUUAKUMU:
