@@ -6,11 +6,9 @@
 #include "../skill_impl.hpp"
 
 #include "activityburn.hpp"
-#include "ageofice.hpp"
 #include "allbloom.hpp"
 #include "arrullo.hpp"
 #include "astralstrike.hpp"
-#include "avalanche.hpp"
 #include "beastlyhypnosis.hpp"
 #include "blindingmist.hpp"
 #include "castcancel.hpp"
@@ -18,25 +16,20 @@
 #include "classchange.hpp"
 #include "cloudkill.hpp"
 #include "coldbolt.hpp"
-#include "coldforce.hpp"
 #include "coma.hpp"
 #include "comet.hpp"
 #include "conflagration.hpp"
 #include "createelementalconverter.hpp"
 #include "crimsonarrow.hpp"
 #include "crimsonrock.hpp"
-#include "crystalarmor.hpp"
 #include "crystalimpact.hpp"
-#include "deadlypoison.hpp"
 #include "deadlyprojection.hpp"
-#include "deeppoisoning.hpp"
 #include "deluge.hpp"
 #include "destructivehurricane.hpp"
 #include "diamonddust.hpp"
 #include "diamondstorm.hpp"
 #include "dispell.hpp"
 #include "drainlife.hpp"
-#include "earthcare.hpp"
 #include "earthgrave.hpp"
 #include "earthinsignia.hpp"
 #include "earthspike.hpp"
@@ -56,7 +49,6 @@
 #include "endowtsunami.hpp"
 #include "energycoat.hpp"
 #include "energyconversion.hpp"
-#include "eyesofstorm.hpp"
 #include "fiberlock.hpp"
 #include "fireball.hpp"
 #include "firebolt.hpp"
@@ -64,9 +56,6 @@
 #include "firepillar.hpp"
 #include "firewalk.hpp"
 #include "firewall.hpp"
-#include "flamearmor.hpp"
-#include "flamerock.hpp"
-#include "flametechnic.hpp"
 #include "floralflareroad.hpp"
 #include "fourspiritanalysis.hpp"
 #include "frostdiver.hpp"
@@ -75,7 +64,6 @@
 #include "frozenslash.hpp"
 #include "ganbantein.hpp"
 #include "golddigger.hpp"
-#include "gracebreeze.hpp"
 #include "gravitationfield.hpp"
 #include "gravity.hpp"
 #include "grimreaper.hpp"
@@ -102,7 +90,6 @@
 #include "napalmbeat.hpp"
 #include "napalmvulcan.hpp"
 #include "poisonbuster.hpp"
-#include "poisonshield.hpp"
 #include "psychicstream.hpp"
 #include "psychicwave.hpp"
 #include "quagmire.hpp"
@@ -131,10 +118,8 @@
 #include "stonecurse.hpp"
 #include "stormcannon.hpp"
 #include "stormgust.hpp"
-#include "stormwind.hpp"
 #include "strantumtremor.hpp"
 #include "striking.hpp"
-#include "strongprotection.hpp"
 #include "suicide.hpp"
 #include "summonearthspirittera.hpp"
 #include "summonelementalardor.hpp"
@@ -237,36 +222,6 @@ std::unique_ptr<const SkillImpl> SkillFactoryMage::create(const e_skill skill_id
 			return std::make_unique<SkillElementalBusterWind>();
 		case EM_ELEMENTAL_VEIL:
 			return std::make_unique<SkillElementalVeil>();
-		case EM_EL_AGE_OF_ICE:
-			return std::make_unique<SkillAgeOfIce>();
-		case EM_EL_AVALANCHE:
-			return std::make_unique<SkillAvalanche>();
-		case EM_EL_COLD_FORCE:
-			return std::make_unique<SkillColdForce>();
-		case EM_EL_CRYSTAL_ARMOR:
-			return std::make_unique<SkillCrystalArmor>();
-		case EM_EL_DEADLY_POISON:
-			return std::make_unique<SkillDeadlyPoison>();
-		case EM_EL_DEEP_POISONING:
-			return std::make_unique<SkillDeepPoisoning>();
-		case EM_EL_EARTH_CARE:
-			return std::make_unique<SkillEarthCare>();
-		case EM_EL_EYES_OF_STORM:
-			return std::make_unique<SkillEyesOfStorm>();
-		case EM_EL_FLAMEARMOR:
-			return std::make_unique<SkillFlameArmor>();
-		case EM_EL_FLAMEROCK:
-			return std::make_unique<SkillFlameRock>();
-		case EM_EL_FLAMETECHNIC:
-			return std::make_unique<SkillFlameTechnic>();
-		case EM_EL_GRACE_BREEZE:
-			return std::make_unique<SkillGraceBreeze>();
-		case EM_EL_POISON_SHIELD:
-			return std::make_unique<SkillPoisonShield>();
-		case EM_EL_STORM_WIND:
-			return std::make_unique<SkillStormWind>();
-		case EM_EL_STRONG_PROTECTION:
-			return std::make_unique<SkillStrongProtection>();
 		case EM_INCREASING_ACTIVITY:
 			return std::make_unique<SkillIncreasingActivity>();
 		case EM_LIGHTNING_LAND:
