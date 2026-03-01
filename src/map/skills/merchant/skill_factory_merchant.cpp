@@ -12,9 +12,14 @@
 #include "abrinfinity.hpp"
 #include "abrmothernet.hpp"
 #include "aciddemonstration.hpp"
+#include "acidifiedzonefire.hpp"
+#include "acidifiedzoneground.hpp"
+#include "acidifiedzonewater.hpp"
+#include "acidifiedzonewind.hpp"
 #include "acidterror.hpp"
 #include "adrenalinerush.hpp"
 #include "advancedadrenalinerush.hpp"
+#include "advanceprotection.hpp"
 #include "aidberserkpotion.hpp"
 #include "aidcondensedpotion.hpp"
 #include "aidpotion.hpp"
@@ -27,32 +32,51 @@
 #include "axetornado.hpp"
 #include "backsideslide.hpp"
 #include "biochemicalhelm.hpp"
+#include "bionicpharmacy.hpp"
 #include "bomb.hpp"
 #include "boostknuckle.hpp"
 #include "callhomunculus.hpp"
+#include "cartcannon.hpp"
 #include "cartrevolution.hpp"
 #include "carttermination.hpp"
+#include "carttornado.hpp"
 #include "changecart.hpp"
+#include "changematerial.hpp"
 #include "coldslower.hpp"
 #include "crazyuproar.hpp"
+#include "crazyweed.hpp"
+#include "createbomb.hpp"
+#include "creeper.hpp"
 #include "decoratecart.hpp"
+#include "demonicfire.hpp"
+#include "dustexplosion.hpp"
 #include "emergencycool.hpp"
 #include "energycannonade.hpp"
+#include "explosivepowder.hpp"
 #include "fawmagicdecoy.hpp"
 #include "fawremoval.hpp"
 #include "fawsilversniper.hpp"
+#include "fireexpansion.hpp"
 #include "flamelauncher.hpp"
 #include "frontsideslide.hpp"
 #include "fullprotection.hpp"
 #include "greed.hpp"
 #include "hammerfall.hpp"
+#include "hellsplant.hpp"
+#include "helltree.hpp"
+#include "howlingofmandragora.hpp"
+#include "illusiondoping.hpp"
 #include "infraredscan.hpp"
 #include "itemappraisal.hpp"
 #include "magmaeruption.hpp"
 #include "magneticfield.hpp"
 #include "mammonite.hpp"
 #include "manufacturemachine.hpp"
+#include "mayhemicthorns.hpp"
 #include "mightysmash.hpp"
+
+#include "mixcooking.hpp"
+#include "mysterypowder.hpp"
 #include "neutralbarrier.hpp"
 #include "pilebunker.hpp"
 #include "plantcultivation.hpp"
@@ -65,12 +89,17 @@
 #include "rushstrike.hpp"
 #include "selfdestruction.hpp"
 #include "skill_vending.hpp"
+#include "slingitem.hpp"
 #include "sparkblaster.hpp"
+#include "specialpharmacy.hpp"
+#include "sporeexplosion.hpp"
 #include "stealthfield.hpp"
 #include "summonflora.hpp"
 #include "summonmarinesphere.hpp"
 #include "synthesizedshield.hpp"
 #include "syntheticarmor.hpp"
+#include "thewholeprotection.hpp"
+#include "thorntrap.hpp"
 #include "triplelaser.hpp"
 #include "twilightalchemy1.hpp"
 #include "twilightalchemy2.hpp"
@@ -78,8 +107,11 @@
 #include "upgradeweapon.hpp"
 #include "vaporize.hpp"
 #include "vulcanarm.hpp"
+#include "wallofthorns.hpp"
 #include "weaponperfection.hpp"
 #include "weaponrepair.hpp"
+#include "woodenfairy.hpp"
+#include "woodenwarrior.hpp"
 
 std::unique_ptr<const SkillImpl> SkillFactoryMerchant::create(const e_skill skill_id) const {
 	switch (skill_id) {
@@ -115,15 +147,49 @@ std::unique_ptr<const SkillImpl> SkillFactoryMerchant::create(const e_skill skil
 			return std::make_unique<SkillTwilightAlchemy2>();
 		case AM_TWILIGHT3:
 			return std::make_unique<SkillTwilightAlchemy3>();
-		case BO_ACIDIFIED_ZONE_WATER_ATK:
-			return std::make_unique<WeaponSkillImpl>(skill_id);
-		case BO_ACIDIFIED_ZONE_GROUND_ATK:
-			return std::make_unique<WeaponSkillImpl>(skill_id);
-		case BO_ACIDIFIED_ZONE_WIND_ATK:
-			return std::make_unique<WeaponSkillImpl>(skill_id);
+		case BO_ACIDIFIED_ZONE_FIRE:
+			return std::make_unique<SkillAcidifiedZoneFire>();
 		case BO_ACIDIFIED_ZONE_FIRE_ATK:
-			return std::make_unique<WeaponSkillImpl>(skill_id);
+			return std::make_unique<SkillActifiedZoneFireAttack>();
+		case BO_ACIDIFIED_ZONE_GROUND:
+			return std::make_unique<SkillAcidifiedZoneGround>();
+		case BO_ACIDIFIED_ZONE_GROUND_ATK:
+			return std::make_unique<SkillActifiedZoneGroundAttack>();
+		case BO_ACIDIFIED_ZONE_WATER:
+			return std::make_unique<SkillAcidifiedZoneWater>();
+		case BO_ACIDIFIED_ZONE_WATER_ATK:
+			return std::make_unique<SkillActifiedZoneWaterAttack>();
+		case BO_ACIDIFIED_ZONE_WIND:
+			return std::make_unique<SkillAcidifiedZoneWind>();
+		case BO_ACIDIFIED_ZONE_WIND_ATK:
+			return std::make_unique<SkillActifiedZoneWindAttack>();
+		case BO_ADVANCE_PROTECTION:
+			return std::make_unique<SkillAdvanceProtection>();
+		case BO_BIONIC_PHARMACY:
+			return std::make_unique<SkillBionicPharmacy>();
+		case BO_CREEPER:
+			return std::make_unique<SkillCreeper>();
+		case BO_DUST_EXPLOSION:
+			return std::make_unique<SkillDustExplosion>();
+		case BO_EXPLOSIVE_POWDER:
+			return std::make_unique<SkillExplosivePowder>();
+		case BO_HELLTREE:
+			return std::make_unique<SkillHellTree>();
+		case BO_MAYHEMIC_THORNS:
+			return std::make_unique<SkillMayhemicThorns>();
+		case BO_MYSTERY_POWDER:
+			return std::make_unique<SkillMysteryPowder>();
 		case BO_RESEARCHREPORT:
+			return std::make_unique<StatusSkillImpl>(skill_id);
+		case BO_THE_WHOLE_PROTECTION:
+			return std::make_unique<SkillTheWholeProtection>();
+		case BO_WOODENWARRIOR:
+			return std::make_unique<SkillWoodenWarrior>();
+		case BO_WOODEN_ATTACK:
+			return std::make_unique<StatusSkillImpl>(skill_id);
+		case BO_WOODEN_FAIRY:
+			return std::make_unique<SkillWoodenFairy>();
+		case BO_WOODEN_THROWROCK:
 			return std::make_unique<StatusSkillImpl>(skill_id);
 		case BS_ADRENALINE:
 			return std::make_unique<SkillAdrenalineRush>();
@@ -153,10 +219,46 @@ std::unique_ptr<const SkillImpl> SkillFactoryMerchant::create(const e_skill skil
 			return std::make_unique<StatusSkillImpl>(skill_id);
 		case GN_CARTBOOST:
 			return std::make_unique<StatusSkillImpl>(skill_id);
+		case GN_CARTCANNON:
+			return std::make_unique<SkillCartCannon>();
+		case GN_CART_TORNADO:
+			return std::make_unique<SkillCartTornado>();
+		case GN_CHANGEMATERIAL:
+			return std::make_unique<SkillChangeMaterial>();
+		case GN_CRAZYWEED:
+			return std::make_unique<SkillCrazyWeed>();
+		case GN_CRAZYWEED_ATK:
+			return std::make_unique<SkillCrazyWeedAttack>();
+		case GN_DEMONIC_FIRE:
+			return std::make_unique<SkillDemonicFire>();
+		case GN_FIRE_EXPANSION:
+			return std::make_unique<SkillFireExpansion>();
+		case GN_FIRE_EXPANSION_ACID:
+			return std::make_unique<SkillFireExpansionAcid>();
 		case GN_HELLS_PLANT:
-			return std::make_unique<StatusSkillImpl>(skill_id);
+			return std::make_unique<SkillHellsPlant>();
+		case GN_HELLS_PLANT_ATK:
+			return std::make_unique<SkillHellsPlantAttack>();
+		case GN_ILLUSIONDOPING:
+			return std::make_unique<SkillIllusionDoping>();
+		case GN_MAKEBOMB:
+			return std::make_unique<SkillCreateBomb>();
+		case GN_MANDRAGORA:
+			return std::make_unique<SkillHowlingOfMandragora>();
+		case GN_MIX_COOKING:
+			return std::make_unique<SkillMixCooking>();
+		case GN_SLINGITEM:
+			return std::make_unique<SkillSlingItem>();
 		case GN_SLINGITEM_RANGEMELEEATK:
-			return std::make_unique<WeaponSkillImpl>(skill_id);
+			return std::make_unique<SkillSlingItemAttack>();
+		case GN_SPORE_EXPLOSION:
+			return std::make_unique<SkillSporeExplosion>();
+		case GN_S_PHARMACY:
+			return std::make_unique<SkillSpecialPharmacy>();
+		case GN_THORNS_TRAP:
+			return std::make_unique<SkillThornTrap>();
+		case GN_WALLOFTHORN:
+			return std::make_unique<SkillWallOfThorns>();
 		case MC_CARTDECORATE:
 			return std::make_unique<SkillDecorateCart>();
 		case MC_CARTREVOLUTION:

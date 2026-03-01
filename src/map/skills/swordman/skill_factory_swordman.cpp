@@ -5,6 +5,7 @@
 
 #include "../skill_impl.hpp"
 
+#include "abundance.hpp"
 #include "autoberserk.hpp"
 #include "banding.hpp"
 #include "banishingpoint.hpp"
@@ -15,11 +16,17 @@
 #include "cannonspear.hpp"
 #include "counterattack.hpp"
 #include "crossrain.hpp"
+#include "crushstrike.hpp"
+#include "dragonbreath.hpp"
+#include "dragonhowling.hpp"
 #include "dragonicaura.hpp"
 #include "dragonicbreath.hpp"
 #include "dragonicpierce.hpp"
 #include "earthdrive.hpp"
+#include "enchantblade.hpp"
+#include "fightingspirit.hpp"
 #include "forceofvanguard.hpp"
+#include "giantgrowth.hpp"
 #include "gloriadomini.hpp"
 #include "grandcross.hpp"
 #include "grandjudgement.hpp"
@@ -27,16 +34,21 @@
 #include "hackandslasher.hpp"
 #include "hesperuslit.hpp"
 #include "holycross.hpp"
+#include "hundredspear.hpp"
+#include "ignitionbreak.hpp"
 #include "imperialcross.hpp"
 #include "imperialpressure.hpp"
 #include "judgementcross.hpp"
 #include "kingsgrace.hpp"
+#include "luxanima.hpp"
 #include "madnesscrusher.hpp"
 #include "magnum.hpp"
 #include "martyrsreckoning.hpp"
+#include "milleniumshield.hpp"
 #include "moonslasher.hpp"
 #include "overbrand.hpp"
 #include "overslash.hpp"
+#include "phantomthrust.hpp"
 #include "pierce.hpp"
 #include "piety.hpp"
 #include "pinpointattack.hpp"
@@ -44,6 +56,7 @@
 #include "radiantspear.hpp"
 #include "rageburst.hpp"
 #include "rayofgenesis.hpp"
+#include "refresh.hpp"
 #include "relax.hpp"
 #include "resistantsouls.hpp"
 #include "sacrifice.hpp"
@@ -59,14 +72,19 @@
 #include "shieldshooting.hpp"
 #include "shieldspell.hpp"
 #include "smite.hpp"
+#include "sonicwave.hpp"
 #include "spearboomerang.hpp"
 #include "spearstab.hpp"
 #include "spiralpierce.hpp"
+#include "stonehardskin.hpp"
+#include "stormblast.hpp"
 #include "stormslash.hpp"
 #include "trample.hpp"
 #include "traumaticblow.hpp"
 #include "ultimatesacrifice.hpp"
+#include "vitalityactivation.hpp"
 #include "vitalstrike.hpp"
+#include "windcutter.hpp"
 
 std::unique_ptr<const SkillImpl> SkillFactorySwordman::create(const e_skill skill_id) const {
 	switch( skill_id ){
@@ -148,12 +166,12 @@ std::unique_ptr<const SkillImpl> SkillFactorySwordman::create(const e_skill skil
 			return std::make_unique<SkillShieldShooting>();
 		case IG_ULTIMATE_SACRIFICE:
 			return std::make_unique<SkillUltimateSacrifice>();
+		case KN_AUTOCOUNTER:
+			return std::make_unique<SkillCounterAttack>();
 		case KN_BOWLINGBASH:
 			return std::make_unique<SkillBowlingBash>();
 		case KN_BRANDISHSPEAR:
 			return std::make_unique<SkillBrandishSpear>();
-		case KN_AUTOCOUNTER:
-			return std::make_unique<SkillCounterAttack>();
 		case KN_ONEHAND:
 			return std::make_unique<StatusSkillImpl>(skill_id);
 		case KN_PIERCE:
@@ -228,10 +246,46 @@ std::unique_ptr<const SkillImpl> SkillFactorySwordman::create(const e_skill skil
 			return std::make_unique<SkillMartyrsReckoning>();
 		case PA_SHIELDCHAIN:
 			return std::make_unique<SkillShieldChain>();
+		case RK_ABUNDANCE:
+			return std::make_unique<SkillAbundance>();
+		case RK_CRUSHSTRIKE:
+			return std::make_unique<SkillCrushStrike>();
 		case RK_DEATHBOUND:
 			return std::make_unique<StatusSkillImpl>(skill_id);
+		case RK_DRAGONBREATH:
+			return std::make_unique<SkillDragonBreath>();
+		case RK_DRAGONBREATH_WATER:
+			return std::make_unique<SkillDragonBreathWater>();
+		case RK_DRAGONHOWLING:
+			return std::make_unique<SkillDragonHowling>();
+		case RK_ENCHANTBLADE:
+			return std::make_unique<SkillEnchantBlade>();
+		case RK_FIGHTINGSPIRIT:
+			return std::make_unique<SkillFightingSpirit>();
+		case RK_GIANTGROWTH:
+			return std::make_unique<SkillGiantGrowth>();
+		case RK_HUNDREDSPEAR:
+			return std::make_unique<SkillHundredSpear>();
+		case RK_IGNITIONBREAK:
+			return std::make_unique<SkillIgnitionBreak>();
+		case RK_LUXANIMA:
+			return std::make_unique<SkillLuxAnima>();
+		case RK_MILLENNIUMSHIELD:
+			return std::make_unique<SkillMilleniumShield>();
+		case RK_PHANTOMTHRUST:
+			return std::make_unique<SkillPhantomThrust>();
+		case RK_REFRESH:
+			return std::make_unique<SkillRefresh>();
 		case RK_SONICWAVE:
-			return std::make_unique<WeaponSkillImpl>(skill_id);
+			return std::make_unique<SkillSonicWave>();
+		case RK_STONEHARDSKIN:
+			return std::make_unique<SkillStoneHardSkin>();
+		case RK_STORMBLAST:
+			return std::make_unique<SkillStormBlast>();
+		case RK_VITALITYACTIVATION:
+			return std::make_unique<SkillVitalityActivation>();
+		case RK_WINDCUTTER:
+			return std::make_unique<SkillWindCutter>();
 		case SM_AUTOBERSERK:
 			return std::make_unique<SkillAutoBerserk>();
 		case SM_BASH:

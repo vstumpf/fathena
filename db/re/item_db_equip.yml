@@ -9185,6 +9185,7 @@ Body:
     Refineable: true
     Script: |
       .@r = getrefine();
+      bonus bAtkEle,Ele_Earth;
       if (.@r >= 7) {
          bonus2 bAddRace,RC_Brute,10;
          bonus2 bAddRace,RC_Player_Doram,10;
@@ -63222,7 +63223,7 @@ Body:
     SubType: Revolver
     Buy: 20
     Weight: 1000
-    Attack: 55
+    Attack: 60
     Range: 7
     Slots: 2
     Jobs:
@@ -63231,7 +63232,7 @@ Body:
     Locations:
       Both_Hand: true
     WeaponLevel: 3
-    EquipLevelMin: 100
+    EquipLevelMin: 50
     Refineable: true
     Script: |
       .@r = getrefine();
@@ -78868,8 +78869,16 @@ Body:
     Type: Armor
     Locations:
       Costume_Head_Top: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+      NoAuction: true
     ArmorLevel: 1
     View: 2296
+    Script: |
+      hateffect HAT_EF_C_15TH_NOV_HELMET,true;
+    UnEquipScript: |
+      hateffect HAT_EF_C_15TH_NOV_HELMET,false;
   - Id: 15953
     AegisName: C_Somtam
     Name: Costume Somtam
@@ -153912,7 +153921,7 @@ Body:
     View: 755
   - Id: 31176
     AegisName: C_Looking
-    Name: Costumen Always Watching
+    Name: Costume Always Watching
     Type: Armor
     Locations:
       Costume_Head_Top: true
@@ -169529,8 +169538,19 @@ Body:
     Type: Armor
     Locations:
       Costume_Head_Top: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
     ArmorLevel: 1
     View: 2284
+    Script: |
+      hateffect HAT_EF_EFST_C_20TH_ANNIVERSARY_HAT,true;
+    UnEquipScript: |
+      hateffect HAT_EF_EFST_C_20TH_ANNIVERSARY_HAT,false;
   - Id: 400310
     AegisName: C_Indomitable_Crown
     Name: Costume Indomitable Crown    # !todo check english name
@@ -171401,8 +171421,16 @@ Body:
     Type: Armor
     Locations:
       Costume_Head_Top: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+      NoAuction: true
     ArmorLevel: 1
     View: 2344
+    Script: |
+      hateffect HAT_EF_C_1ST_EVT_HAT_MSP,true;
+    UnEquipScript: |
+      hateffect HAT_EF_C_1ST_EVT_HAT_MSP,false;
   - Id: 400403
     AegisName: aegis_400403
     Name: Costume Face Crusher (Middle)
@@ -183939,6 +183967,57 @@ Body:
       Costume_Head_Mid: true
     ArmorLevel: 1
     View: 2536
+  - Id: 410329
+    AegisName: C_Dragon_Green_Aura
+    Name: Costume Green Aura Dragon
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    ArmorLevel: 1
+    View: 2539
+    Script: |
+      hateffect HAT_EF_C_DRAGON_GREEN_AURA,true;
+    UnEquipScript: |
+      hateffect HAT_EF_C_DRAGON_GREEN_AURA,false;
+  - Id: 410330
+    AegisName: C_Dragon_Red_Aura
+    Name: Costume Red Aura Dragon
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    View: 2540
+    Script: |
+      hateffect HAT_EF_C_DRAGON_RED_AURA,true;
+    UnEquipScript: |
+      hateffect HAT_EF_C_DRAGON_RED_AURA,false;
+  - Id: 410331
+    AegisName: C_Dragon_Yellow_Aura
+    Name: Costume Yellow Aura Dragon
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoSell: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    ArmorLevel: 1
+    View: 2541
+    Script: |
+      hateffect HAT_EF_C_DRAGON_YELLOW_AURA,true;
+    UnEquipScript: |
+      hateffect HAT_EF_C_DRAGON_YELLOW_AURA,false;
   - Id: 410332
     AegisName: Karasu_TenguMask
     Name: Karasu Tengu Mask
@@ -184581,6 +184660,38 @@ Body:
       Costume_Head_Mid: true
     ArmorLevel: 1
     View: 2739
+  - Id: 410485
+    AegisName: C_Spot_Mike
+    Name: Costume Idol Standing Mic
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    Trade:
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    ArmorLevel: 1
+    View: 2000
+    Script: |
+      hateffect HAT_EF_C_SPOT_MIKE,true;
+    UnEquipScript: |
+      hateffect HAT_EF_C_SPOT_MIKE,false;
+  - Id: 410487
+    AegisName: C_Spot_Flower
+    Name: Costume Idol's Flower Stage
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    Trade:
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    ArmorLevel: 1
+    View: 1893
+    Script: |
+      hateffect HAT_EF_C_SPOT_FLOWER,true;
+    UnEquipScript: |
+      hateffect HAT_EF_C_SPOT_FLOWER,false;
   - Id: 410491
     AegisName: C_Violet_Starlight
     Name: Costume Violet Starlight
@@ -186360,8 +186471,20 @@ Body:
     Type: Armor
     Locations:
       Costume_Head_Low: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoSell: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
     ArmorLevel: 1
     View: 2345
+    Script: |
+      hateffect HAT_EF_C_1ST_EVT_BALLOON_MSP,true;
+    UnEquipScript: |
+      hateffect HAT_EF_C_1ST_EVT_BALLOON_MSP,false;
   - Id: 420196
     AegisName: C_Sugared_Fruit_Stick
     Name: Costume Fruit Stick
@@ -187577,13 +187700,24 @@ Body:
     ArmorLevel: 1
     View: 2546
   - Id: 420336
-    AegisName: aegis_420336
-    Name: Costume
+    AegisName: C_Queen_of_Calamity
+    Name: Costume Queen of Calamity
     Type: Armor
     Locations:
       Costume_Head_Low: true
     ArmorLevel: 1
     View: 2530
+  - Id: 420337
+    AegisName: C_Ancient_Rune
+    Name: Costume Ancient Runes
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    Script: |
+      hateffect HAT_EF_C_ANCIENT_RUNE,true;
+    UnEquipScript: |
+      hateffect HAT_EF_C_ANCIENT_RUNE,false;
   - Id: 420338
     AegisName: C_CLB_SS_LL
     Name: Costume Shiba Says Luke
@@ -227582,7 +227716,7 @@ Body:
       bonus2 bSkillAtk,"GN_CART_TORNADO",BaseLevel/2;
       bonus2 bSkillAtk,"BO_EXPLOSIVE_POWDER",BaseLevel/10;
   - Id: 490658
-    AegisName: aegis_490658
+    AegisName: Memento_ME_IQ
     Name: Memento Memory (Inquisitor)
     Type: Armor
     Weight: 100
@@ -227602,7 +227736,7 @@ Body:
       bonus bMaxHPrate,10;
       bonus2 bAddRace,RC_All,15;
   - Id: 490659
-    AegisName: aegis_490659
+    AegisName: Comp_Memento_ME_IQ
     Name: "[Not For Sale] Memento Memory (Inquisitor)"
     Type: Armor
     Weight: 100
@@ -227649,7 +227783,7 @@ Body:
       bonus bCritical,10;
       bonus2 bAddRace,RC_All,10;
   - Id: 490661
-    AegisName: aegis_490661
+    AegisName: Comp_Memento_MI_WH
     Name: "[Not For Sale] Memento Mind (Wind Hawk)"
     Type: Armor
     Weight: 100
@@ -227801,7 +227935,7 @@ Body:
       bonus2 bMagicAtkEle,Ele_All,15;
       bonus bDelayrate,-5;
   - Id: 490670
-    AegisName: aegis_490670
+    AegisName: Memento_ME_CD
     Name: Memento Memory (Cardinal)
     Type: Armor
     Weight: 100
@@ -227821,7 +227955,7 @@ Body:
       bonus bCritical,15;
       bonus2 bAddRace,RC_All,15;
   - Id: 490671
-    AegisName: aegis_490671
+    AegisName: Comp_Memento_ME_CD
     Name: "[Not For Sale] Memento Memory (Cardinal)"
     Type: Armor
     Weight: 100
@@ -227848,7 +227982,7 @@ Body:
       bonus bCritical,15;
       bonus2 bAddRace,RC_All,15;
   - Id: 490672
-    AegisName: aegis_490672
+    AegisName: Memento_MI_EM
     Name: Memento Mind (Elemental Master)
     Type: Armor
     Weight: 100
@@ -227868,7 +228002,7 @@ Body:
       bonus bSpl,5;
       bonus2 bMagicAddRace,RC_All,10;
   - Id: 490673
-    AegisName: aegis_490673
+    AegisName: Comp_Memento_MI_EM
     Name: "[Not For Sale] Memento Mind (Elemental Master)"
     Type: Armor
     Weight: 100
@@ -227895,7 +228029,7 @@ Body:
       bonus bSpl,5;
       bonus2 bMagicAddRace,RC_All,10;
   - Id: 490674
-    AegisName: aegis_490674
+    AegisName: Memento_ME_EM
     Name: Memento Memory (Elemental Master)
     Type: Armor
     Weight: 100
@@ -227915,7 +228049,7 @@ Body:
       bonus bSpl,10;
       bonus2 bMagicAddRace,RC_All,15;
   - Id: 490675
-    AegisName: aegis_490675
+    AegisName: Comp_Memento_ME_EM
     Name: "[Not for Sale] Memento Memory (Elemental Master)"
     Type: Armor
     Weight: 100
@@ -227942,7 +228076,7 @@ Body:
       bonus bSpl,10;
       bonus2 bMagicAddRace,RC_All,15;
   - Id: 490676
-    AegisName: aegis_490676
+    AegisName: Memento_MI_CD
     Name: Memento Mind (Cardinal)
     Type: Armor
     Weight: 100
@@ -227962,7 +228096,7 @@ Body:
       bonus bCritical,10;
       bonus2 bAddRace,RC_All,10;
   - Id: 490677
-    AegisName: aegis_490677
+    AegisName: Comp_Memento_MI_CD
     Name: "[Not for Sale] Memento Mind (Cardinal)"
     Type: Armor
     Weight: 100
