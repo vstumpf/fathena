@@ -10,8 +10,6 @@
 // This will save compile time
 #ifndef MAP_GENERATOR
 
-// Include .hpp files into the TU to optimize compile time
-// For reference see unity builds or amalgamated builds
 #include "./skill_impl.hpp"
 #include "./acolyte/skill_factory_acolyte.hpp"
 #include "./archer/skill_factory_archer.hpp"
