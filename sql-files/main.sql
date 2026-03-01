@@ -851,7 +851,11 @@ CREATE TABLE IF NOT EXISTS `mail_attachments` (
   `unique_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   `bound` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `enchantgrade` tinyint unsigned NOT NULL default '0',
-    PRIMARY KEY (`id`,`index`)
+    PRIMARY KEY (`id`,`index`),
+    FOREIGN KEY (`id`)
+        REFERENCES `mail`(`id`)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
 --

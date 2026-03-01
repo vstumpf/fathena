@@ -64,6 +64,7 @@
 #include "hammerfall.hpp"
 #include "hellsplant.hpp"
 #include "helltree.hpp"
+#include "homunculusresurrection.hpp"
 #include "howlingofmandragora.hpp"
 #include "illusiondoping.hpp"
 #include "infraredscan.hpp"
@@ -74,7 +75,6 @@
 #include "manufacturemachine.hpp"
 #include "mayhemicthorns.hpp"
 #include "mightysmash.hpp"
-
 #include "mixcooking.hpp"
 #include "mysterypowder.hpp"
 #include "neutralbarrier.hpp"
@@ -133,6 +133,8 @@ std::unique_ptr<const SkillImpl> SkillFactoryMerchant::create(const e_skill skil
 			return std::make_unique<SkillAlchemicalWeapon>();
 		case AM_DEMONSTRATION:
 			return std::make_unique<SkillBomb>();
+		case AM_RESURRECTHOMUN:
+			return std::make_unique<SkillHomunculusResurrection>();
 		case AM_PHARMACY:
 			return std::make_unique<SkillPreparePotion>();
 		case AM_POTIONPITCHER:

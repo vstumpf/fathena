@@ -6,6 +6,7 @@
 #include "../skill_impl.hpp"
 
 #include "doublebowlingbash.hpp"
+#include "firstaid.hpp"
 #include "groundgravitation.hpp"
 #include "hellsdrive.hpp"
 #include "helpangel.hpp"
@@ -46,6 +47,8 @@ std::unique_ptr<const SkillImpl> SkillFactoryNovice::create(const e_skill skill_
 			return std::make_unique<SkillShieldChainRush>();
 		case HN_SPIRAL_PIERCE_MAX:
 			return std::make_unique<SkillSpiralPierceMax>();
+		case NV_FIRSTAID:
+			return std::make_unique<SkillFirstAid>();
 		case NV_HELPANGEL:
 			return std::make_unique<SkillHelpAngel>();
 		case NV_TRICKDEAD:
