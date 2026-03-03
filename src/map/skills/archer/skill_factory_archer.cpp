@@ -18,20 +18,24 @@
 #include "blitzbeat.hpp"
 #include "camouflage.hpp"
 #include "chargearrow.hpp"
+#include "circleofnaturessound.hpp"
 #include "classicalpluck.hpp"
 #include "claymoretrap.hpp"
 #include "clusterbomb.hpp"
 #include "cobalttrap.hpp"
 #include "concentration.hpp"
 #include "crescivebolt.hpp"
+#include "dancewithawarg.hpp"
 #include "dazzler.hpp"
 #include "deepblindtrap.hpp"
+#include "deepsleeplullaby.hpp"
 #include "detect.hpp"
 #include "detonator.hpp"
+#include "dominionimpulse.hpp"
 #include "doublestrafe.hpp"
 #include "downtempo.hpp"
-#include "electricshocker.hpp"
 #include "echosong.hpp"
+#include "electricshocker.hpp"
 #include "encore.hpp"
 #include "falconassault.hpp"
 #include "fearbreeze.hpp"
@@ -41,8 +45,11 @@
 #include "focusballet.hpp"
 #include "focusedarrowstrike.hpp"
 #include "freezingtrap.hpp"
+#include "friggssong.hpp"
 #include "galestorm.hpp"
 #include "geffenianocturn.hpp"
+#include "gloomyday.hpp"
+#include "greatecho.hpp"
 #include "gypsyskiss.hpp"
 #include "harmoniclick.hpp"
 #include "harmonize.hpp"
@@ -52,9 +59,11 @@
 #include "hipshaker.hpp"
 #include "iceboundtrap.hpp"
 #include "impressiveriff.hpp"
+#include "improvisedsong.hpp"
 #include "jawaiiserenade.hpp"
 #include "ladyluck.hpp"
 #include "landmine.hpp"
+#include "leradsdew.hpp"
 #include "longingforfreedom.hpp"
 #include "lullaby.hpp"
 #include "magentatrap.hpp"
@@ -62,25 +71,31 @@
 #include "maizetrap.hpp"
 #include "makingarrow.hpp"
 #include "marionettecontrol.hpp"
+#include "melodyofsink.hpp"
 #include "melodystrike.hpp"
 #include "mentalsensing.hpp"
 #include "metallicfury.hpp"
+#include "metallicsound.hpp"
 #include "moonlitserenade.hpp"
 #include "musicalinterlude.hpp"
 #include "nipelheimrequiem.hpp"
 #include "pangvoice.hpp"
 #include "perfecttablature.hpp"
 #include "phantasmicarrow.hpp"
+#include "poemofthenetherworld.hpp"
 #include "powerchord.hpp"
 #include "pronmarch.hpp"
 #include "removetrap.hpp"
 #include "retrospection.hpp"
+#include "reverberation.hpp"
 #include "rhythmicalwave.hpp"
 #include "rhythmshooting.hpp"
 #include "rokicapriccio.hpp"
 #include "roseblossom.hpp"
 #include "sandman.hpp"
+#include "saturdaynightfever.hpp"
 #include "sensitivekeen.hpp"
+#include "severerainstorm.hpp"
 #include "shelteringbliss.hpp"
 #include "shockwavetrap.hpp"
 #include "skidtrap.hpp"
@@ -89,7 +104,9 @@
 #include "slowgrace.hpp"
 #include "solidtrap.hpp"
 #include "songoflutie.hpp"
+#include "songofmana.hpp"
 #include "soundblend.hpp"
+#include "soundofdestruction.hpp"
 #include "springtrap.hpp"
 #include "swifttrap.hpp"
 #include "swingdance.hpp"
@@ -98,9 +115,13 @@
 #include "tarotcardoffate.hpp"
 #include "unbarringoctave.hpp"
 #include "unchainedserenade.hpp"
+#include "unlimitedhummingvoice.hpp"
+#include "valleyofdeath.hpp"
 #include "verduretrap.hpp"
+#include "voiceofsiren.hpp"
 #include "vulcanarrow.hpp"
 #include "wandofhermode.hpp"
+#include "warcryofbeyond.hpp"
 #include "wargbite.hpp"
 #include "wargdash.hpp"
 #include "wargmastery.hpp"
@@ -221,6 +242,12 @@ std::unique_ptr<const SkillImpl> SkillFactoryArcher::create(const e_skill skill_
 			return std::make_unique<SkillSpringTrap>();
 		case HT_TALKIEBOX:
 			return std::make_unique<SkillTalkieBox>();
+		case MI_ECHOSONG:
+			return std::make_unique<SkillEchoSong>();
+		case MI_HARMONIZE:
+			return std::make_unique<SkillHarmonize>();
+		case MI_RUSH_WINDMILL:
+			return std::make_unique<SkillWindmillRushAttack>();
 		case RA_AIMEDBOLT:
 			return std::make_unique<SkillAimedBolt>();
 		case RA_ARROWSTORM:
@@ -301,6 +328,12 @@ std::unique_ptr<const SkillImpl> SkillFactoryArcher::create(const e_skill skill_
 			return std::make_unique<SkillRoseBlossomAttack>();
 		case TR_SOUNDBLEND:
 			return std::make_unique<SkillSoundBlend>();
+		case WA_MOONLIT_SERENADE:
+			return std::make_unique<SkillMoonlitSerenade>();
+		case WA_SWING_DANCE:
+			return std::make_unique<SkillSwingDance>();
+		case WA_SYMPHONY_OF_LOVER:
+			return std::make_unique<SkillSymphonyOfLovers>();
 		case WH_CALAMITYGALE:
 			return std::make_unique<StatusSkillImpl>(skill_id);
 		case WH_CRESCIVE_BOLT:
@@ -325,22 +358,50 @@ std::unique_ptr<const SkillImpl> SkillFactoryArcher::create(const e_skill skill_
 			return std::make_unique<SkillWildWalk>();
 		case WH_WIND_SIGN:
 			return std::make_unique<StatusSkillImpl>(skill_id);
-		case WA_SWING_DANCE:
-			return std::make_unique<SkillSwingDance>();
-		case WA_SYMPHONY_OF_LOVER:
-			return std::make_unique<SkillSymphonyOfLovers>();
-		case WA_MOONLIT_SERENADE:
-			return std::make_unique<SkillMoonlitSerenade>();
+		case WM_BEYOND_OF_WARCRY:
+			return std::make_unique<SkillWarcryOfBeyond>();
+		case WM_DANCE_WITH_WUG:
+			return std::make_unique<SkillDanceWithAWarg>();
+		case WM_DEADHILLHERE:
+			return std::make_unique<SkillValleyOfDeath>();
+		case WM_DOMINION_IMPULSE:
+			return std::make_unique<SkillDominionImpulse>();
+		case WM_FRIGG_SONG:
+			return std::make_unique<SkillFriggsSong>();
+		case WM_GLOOMYDAY:
+			return std::make_unique<SkillGloomyDay>();
 		case WM_GREAT_ECHO:
-			return std::make_unique<WeaponSkillImpl>(skill_id);
-		case MI_ECHOSONG:
-			return std::make_unique<SkillEchoSong>();
-		case MI_HARMONIZE:
-			return std::make_unique<SkillHarmonize>();
-		case MI_RUSH_WINDMILL:
-			return std::make_unique<SkillWindmillRushAttack>();
+			return std::make_unique<SkillGreatEcho>();
+		case WM_LERADS_DEW:
+			return std::make_unique<SkillLeradsDew>();
+		case WM_LULLABY_DEEPSLEEP:
+			return std::make_unique<SkillDeepSleepLullaby>();
+		case WM_MELODYOFSINK:
+			return std::make_unique<SkillMelodyOfSink>();
+		case WM_METALICSOUND:
+			return std::make_unique<SkillMetallicSound>();
+		case WM_POEMOFNETHERWORLD:
+			return std::make_unique<SkillPoemOfTheNetherworld>();
+		case WM_RANDOMIZESPELL:
+			return std::make_unique<SkillImprovisedSong>();
+		case WM_REVERBERATION:
+			return std::make_unique<SkillReverberation>();
+		case WM_SATURDAY_NIGHT_FEVER:
+			return std::make_unique<SkillSaturdayNightFever>();
+		case WM_SEVERE_RAINSTORM:
+			return std::make_unique<SkillSevereRainstorm>();
 		case WM_SEVERE_RAINSTORM_MELEE:
-			return std::make_unique<WeaponSkillImpl>(skill_id);
+			return std::make_unique<SkillSevereRainstormMelee>();
+		case WM_SIRCLEOFNATURE:
+			return std::make_unique<SkillCircleOfNaturesSound>();
+		case WM_SONG_OF_MANA:
+			return std::make_unique<SkillSongOfMana>();
+		case WM_SOUND_OF_DESTRUCTION:
+			return std::make_unique<SkillSoundOfDestruction>();
+		case WM_UNLIMITED_HUMMING_VOICE:
+			return std::make_unique<SkillUnlimitedHummingVoice>();
+		case WM_VOICEOFSIREN:
+			return std::make_unique<SkillVoiceOfSiren>();
 
 		default:
 			return nullptr;

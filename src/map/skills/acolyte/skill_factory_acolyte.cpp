@@ -13,6 +13,7 @@
 #include "angelus.hpp"
 #include "arbitrium.hpp"
 #include "aspersio.hpp"
+#include "assimilatepower.hpp"
 #include "assumptio.hpp"
 #include "asurastrike.hpp"
 #include "basilica.hpp"
@@ -28,26 +29,36 @@
 #include "crementia.hpp"
 #include "crucis.hpp"
 #include "cure.hpp"
+#include "cursedcircle.hpp"
 #include "decagi.hpp"
 #include "dilectioheal.hpp"
 #include "divinusflos.hpp"
+#include "dragoncombo.hpp"
 #include "duplelight.hpp"
+#include "earthshaker.hpp"
 #include "effligo.hpp"
 #include "epiclesis.hpp"
 #include "explosionblaster.hpp"
+#include "fallenempire.hpp"
 #include "firstbrand.hpp"
+#include "flashcombo.hpp"
 #include "framen.hpp"
+#include "gateofhell.hpp"
+#include "gentletouchcure.hpp"
+#include "gentletouchquiet.hpp"
 #include "glacierfist.hpp"
 #include "gloria.hpp"
 #include "heal.hpp"
 #include "highnessheal.hpp"
 #include "holylight.hpp"
 #include "holywater.hpp"
+#include "howlingoflion.hpp"
 #include "impositiomanus.hpp"
 #include "incagi.hpp"
 #include "judex.hpp"
 #include "kiexplosion.hpp"
 #include "kitranslation.hpp"
+#include "knucklearrow.hpp"
 #include "kyrieeleison.hpp"
 #include "laudaagnus.hpp"
 #include "laudaramus.hpp"
@@ -62,29 +73,39 @@
 #include "petitio.hpp"
 #include "pneuma.hpp"
 #include "pneumaticusprocella.hpp"
+#include "powervelocity.hpp"
 #include "praefatio.hpp"
 #include "ragingpalmstrike.hpp"
 #include "ragingquadrupleblow.hpp"
 #include "ragingthrust.hpp"
 #include "ragingtrifectablow.hpp"
+#include "raisingdragon.hpp"
+#include "rampageblaster.hpp"
+#include "redemptio.hpp"
 #include "renovatio.hpp"
 #include "reparatio.hpp"
+#include "rideinlightening.hpp"
 #include "ruwach.hpp"
 #include "sanctuary.hpp"
 #include "secondfaith.hpp"
 #include "secondflame.hpp"
 #include "secondjudgement.hpp"
 #include "silentium.hpp"
+#include "skynetblow.hpp"
 #include "snap.hpp"
 #include "statusrecovery.hpp"
 #include "suffragium.hpp"
 #include "summonspiritsphere.hpp"
+#include "teleport.hpp"
 #include "thirdconsecration.hpp"
 #include "thirdflamebomb.hpp"
 #include "thirdpunish.hpp"
 #include "throwspiritsphere.hpp"
+#include "tigercannon.hpp"
 #include "turnundead.hpp"
 #include "vituperatum.hpp"
+#include "warpportal.hpp"
+#include "windmill.hpp"
 #include "zen.hpp"
 
 std::unique_ptr<const SkillImpl> SkillFactoryAcolyte::create(const e_skill skill_id) const {
@@ -157,6 +178,10 @@ std::unique_ptr<const SkillImpl> SkillFactoryAcolyte::create(const e_skill skill
 			return std::make_unique<SkillPneuma>();
 		case AL_RUWACH:
 			return std::make_unique<SkillRuwach>();
+		case AL_TELEPORT:
+			return std::make_unique<SkillTeleport>();
+		case AL_WARP:
+			return std::make_unique<SkillWarpPortal>();
 		case CD_ARBITRIUM:
 			return std::make_unique<SkillArbitrium>();
 		case CD_ARBITRIUM_ATK:
@@ -281,6 +306,8 @@ std::unique_ptr<const SkillImpl> SkillFactoryAcolyte::create(const e_skill skill
 			return std::make_unique<SkillMagnificat>();
 		case PR_MAGNUS:
 			return std::make_unique<SkillMagnusExorcismus>();
+		case PR_REDEMPTIO:
+			return std::make_unique<SkillRedemptio>();
 		case PR_SANCTUARY:
 			return std::make_unique<SkillSanctuary>();
 		case PR_SLOWPOISON:
@@ -291,26 +318,54 @@ std::unique_ptr<const SkillImpl> SkillFactoryAcolyte::create(const e_skill skill
 			return std::make_unique<SkillSuffragium>();
 		case PR_TURNUNDEAD:
 			return std::make_unique<SkillTurnUndead>();
+		case SR_ASSIMILATEPOWER:
+			return std::make_unique<SkillAssimilatePower>();
 		case SR_CRESCENTELBOW:
 			return std::make_unique<StatusSkillImpl>(skill_id);
 		case SR_CRESCENTELBOW_AUTOSPELL:
 			return std::make_unique<WeaponSkillImpl>(skill_id);
+		case SR_CURSEDCIRCLE:
+			return std::make_unique<SkillCursedCircle>();
 		case SR_DRAGONCOMBO:
-			return std::make_unique<WeaponSkillImpl>(skill_id);
+			return std::make_unique<SkillDragonCombo>();
+		case SR_EARTHSHAKER:
+			return std::make_unique<SkillEarthShaker>();
 		case SR_FALLENEMPIRE:
-			return std::make_unique<WeaponSkillImpl>(skill_id);
+			return std::make_unique<SkillFallenEmpire>();
+		case SR_FLASHCOMBO:
+			return std::make_unique<SkillFlashCombo>();
 		case SR_GATEOFHELL:
-			return std::make_unique<WeaponSkillImpl>(skill_id);
+			return std::make_unique<SkillGateOfHell>();
 		case SR_GENTLETOUCH_CHANGE:
 			return std::make_unique<StatusSkillImpl>(skill_id);
+		case SR_GENTLETOUCH_CURE:
+			return std::make_unique<SkillGentleTouchCure>();
 		case SR_GENTLETOUCH_ENERGYGAIN:
 			return std::make_unique<StatusSkillImpl>(skill_id);
 		case SR_GENTLETOUCH_QUIET:
-			return std::make_unique<WeaponSkillImpl>(skill_id);
+			return std::make_unique<SkillGentleTouchQuiet>();
 		case SR_GENTLETOUCH_REVITALIZE:
 			return std::make_unique<StatusSkillImpl>(skill_id);
+		case SR_HOWLINGOFLION:
+			return std::make_unique<SkillHowlingOfLion>();
+		case SR_KNUCKLEARROW:
+			return std::make_unique<SkillKnuckleArrow>();
 		case SR_LIGHTNINGWALK:
 			return std::make_unique<StatusSkillImpl>(skill_id);
+		case SR_POWERVELOCITY:
+			return std::make_unique<SkillPowerVelocity>();
+		case SR_RAISINGDRAGON:
+			return std::make_unique<SkillRaisingDragon>();
+		case SR_RAMPAGEBLASTER:
+			return std::make_unique<SkillRampageBlaster>();
+		case SR_RIDEINLIGHTNING:
+			return std::make_unique<SkillRideInLightening>();
+		case SR_SKYNETBLOW:
+			return std::make_unique<SkillSkyNetBlow>();
+		case SR_TIGERCANNON:
+			return std::make_unique<SkillTigerCannon>();
+		case SR_WINDMILL:
+			return std::make_unique<SkillWindmill>();
 
 		default:
 			return nullptr;

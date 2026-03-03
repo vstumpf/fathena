@@ -95098,15 +95098,17 @@ Body:
     Slots: 1
     Locations:
       Head_Top: true
+    Trade:
+      NoDrop: true
+      NoSell: true
+      NoAuction: true
     ArmorLevel: 1
     EquipLevelMin: 1
     View: 1527
     Script: |
       bonus bHPGainValue,500;
-      bonus bLongHPGainValue,500;
       bonus bMagicHPGainValue,500;
       bonus bSPGainValue,50;
-      bonus bLongSPGainValue,50;
       bonus bMagicSPGainValue,50;
       if (getpetinfo(PETINFO_EGGID) == 9055) {
          if (getpetinfo(PETINFO_INTIMATE) >= PET_INTIMATE_LOYAL)
@@ -180188,6 +180190,14 @@ Body:
             }
          }
       }
+  - Id: 401148
+    AegisName: aegis_401148
+    Name: Costume Blue Poring Hairpin
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    View: 789
   - Id: 401194
     AegisName: aegis_401194
     Name: Costume Passion Rabbit Ribbon    # !todo check english name
@@ -180196,6 +180206,14 @@ Body:
       Costume_Head_Top: true
     ArmorLevel: 1
     View: 2484
+  - Id: 401196
+    AegisName: aegis_401196
+    Name: Costume Striped Ribbon Hat
+    Type: Armor
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    View: 2425
   - Id: 401207
     AegisName: C_CLB_GAT_button
     Name: Costume Honor Eagle Five Brothers    # !todo check english name
@@ -184700,6 +184718,22 @@ Body:
       Costume_Head_Mid: true
     ArmorLevel: 1
     View: 2748
+  - Id: 410556
+    AegisName: C_Emperor_Penguin
+    Name: Costume Emperor Penguin
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    View: 2790
+  - Id: 410574
+    AegisName: C_Blink_Eyes_Chocolate
+    Name: Costume Blink Eyes Chocolate
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    View: 2795
   - Id: 420000
     AegisName: Isabella_Carrot
     Name: Isabella Carrot
@@ -188652,6 +188686,46 @@ Body:
       Costume_Head_Low: true
     ArmorLevel: 1
     View: 2716
+  - Id: 420702
+    AegisName: aegis_420702
+    Name: Costume Eclipse Scarf    # !todo check english name
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    View: 2688
+  - Id: 420703
+    AegisName: C_Aurelie_Hair
+    Name: Costume Aurelie Hair
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    View: 2789
+  - Id: 420726
+    AegisName: aegis_420726
+    Name: Costume Orange Rear Ribbon
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    View: 2704
+  - Id: 420727
+    AegisName: C_Lots_Braided_Hair
+    Name: Costume Lots Braided Hair
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    View: 2794
+  - Id: 420728
+    AegisName: C_Love_Piece_BL
+    Name: Costume Heart Chocolate in Mouth    # !todo check english name
+    Type: Armor
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    View: 2796
   - Id: 420729
     AegisName: C_CLB_GAT_bye
     Name: Costume Goodbye Five Eagle Brothers    # !todo check english name
@@ -189548,9 +189622,6 @@ Body:
     Type: Armor
     Defense: 100
     Slots: 1
-    Classes:
-      All_Third: true
-      Fourth: true
     Locations:
       Armor: true
     Trade:
@@ -203789,6 +203860,7 @@ Body:
       .@r = getrefine();
       bonus bMdef,15;
       bonus bMatkRate,15;
+      bonus2 bSubClass,Class_Normal,5;
       bonus2 bSubClass,Class_Boss,5;
       bonus bMaxHPrate,4*.@r;
       if (.@r>=7) {
@@ -218320,6 +218392,30 @@ Body:
             }
          }
       }
+  - Id: 480699
+    AegisName: C_Scepter_SV
+    Name: Costume Silver Scepter
+    Type: Armor
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    View: 296
+  - Id: 480717
+    AegisName: C_Giant_Chained_Bear
+    Name: Costume Giant Chained Bear
+    Type: Armor
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    View: 297
+  - Id: 480718
+    AegisName: C_Sweet_Folk
+    Name: Costume Sweet Folk
+    Type: Armor
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    View: 298
   - Id: 490004
     AegisName: Atker_Ring
     Name: Attacker Booster Ring

@@ -7,12 +7,21 @@
 
 #include "../skill_impl.hpp"
 
+#include "antimaterialblast.hpp"
+#include "banishingbuster.hpp"
 #include "basicgrenade.hpp"
+#include "bindtrap.hpp"
 #include "bullseye.hpp"
 #include "cracker.hpp"
+#include "crimsonmarker.hpp"
 #include "desperado.hpp"
 #include "disarm.hpp"
+#include "dragontail.hpp"
 #include "dust.hpp"
+#include "fallenangel.hpp"
+#include "firedance.hpp"
+#include "firerain.hpp"
+#include "flicker.hpp"
 #include "fling.hpp"
 #include "fullbuster.hpp"
 #include "gatlingfever.hpp"
@@ -20,14 +29,22 @@
 #include "grenadefragment.hpp"
 #include "grenadesdropping.hpp"
 #include "grounddrift.hpp"
+#include "hammerofgod.hpp"
 #include "hastyfireinthehole.hpp"
+#include "howlingmine.hpp"
 #include "intensiveaim.hpp"
 #include "magazineforone.hpp"
+#include "massspiral.hpp"
 #include "midnightfallen.hpp"
 #include "missionbombard.hpp"
 #include "onlyonebullet.hpp"
 #include "piercingshot.hpp"
+#include "quickdrawshot.hpp"
 #include "rapidshower.hpp"
+#include "richscoin.hpp"
+#include "roundtrip.hpp"
+#include "shatterstorm.hpp"
+#include "slugshot.hpp"
 #include "spiralshooting.hpp"
 #include "spreadattack.hpp"
 #include "thevigilanteatnight.hpp"
@@ -86,10 +103,10 @@ std::unique_ptr<const SkillImpl> SkillFactoryGunslinger::create(const e_skill sk
 			return std::make_unique<StatusSkillImpl>(skill_id);
 		case NW_BASIC_GRENADE:
 			return std::make_unique<SkillBasicGrenade>();
-		case NW_GRENADE_FRAGMENT:
-			return std::make_unique<SkillGrenadeFragment>();
 		case NW_GRENADES_DROPPING:
 			return std::make_unique<SkillGrenadesDropping>();
+		case NW_GRENADE_FRAGMENT:
+			return std::make_unique<SkillGrenadeFragment>();
 		case NW_HASTY_FIRE_IN_THE_HOLE:
 			return std::make_unique<SkillHastyFireInTheHole>();
 		case NW_HIDDEN_CARD:
@@ -113,19 +130,47 @@ std::unique_ptr<const SkillImpl> SkillFactoryGunslinger::create(const e_skill sk
 		case NW_WILD_SHOT:
 			return std::make_unique<SkillWildShot>();
 		case RL_AM_BLAST:
-			return std::make_unique<WeaponSkillImpl>(skill_id);
+			return std::make_unique<SkillAntiMaterialBlast>();
 		case RL_BANISHING_BUSTER:
-			return std::make_unique<WeaponSkillImpl>(skill_id);
+			return std::make_unique<SkillBanishingBuster>();
+		case RL_B_TRAP:
+			return std::make_unique<SkillBindTrap>();
+		case RL_C_MARKER:
+			return std::make_unique<SkillCrimsonMarker>();
+		case RL_D_TAIL:
+			return std::make_unique<SkillDragonTail>();
 		case RL_E_CHAIN:
 			return std::make_unique<StatusSkillImpl>(skill_id);
+		case RL_FALLEN_ANGEL:
+			return std::make_unique<SkillFallenAngel>();
+		case RL_FIREDANCE:
+			return std::make_unique<SkillFireDance>();
+		case RL_FIRE_RAIN:
+			return std::make_unique<SkillFireRain>();
+		case RL_FLICKER:
+			return std::make_unique<SkillFlicker>();
+		case RL_HAMMER_OF_GOD:
+			return std::make_unique<SkillHammerOfGod>();
 		case RL_HEAT_BARREL:
 			return std::make_unique<StatusSkillImpl>(skill_id);
+		case RL_H_MINE:
+			return std::make_unique<SkillHowlingMine>();
 		case RL_MASS_SPIRAL:
-			return std::make_unique<WeaponSkillImpl>(skill_id);
+			return std::make_unique<SkillMassSpiral>();
 		case RL_P_ALTER:
 			return std::make_unique<StatusSkillImpl>(skill_id);
+		case RL_QD_SHOT:
+			return std::make_unique<SkillQuickDrawShot>();
+		case RL_RICHS_COIN:
+			return std::make_unique<SkillRichsCoin>();
+		case RL_R_TRIP:
+			return std::make_unique<SkillRoundTrip>();
+		case RL_R_TRIP_PLUSATK:
+			return std::make_unique<SkillRoundTripPlusAttack>();
+		case RL_S_STORM:
+			return std::make_unique<SkillShatterStorm>();
 		case RL_SLUGSHOT:
-			return std::make_unique<WeaponSkillImpl>(skill_id);
+			return std::make_unique<SkillSlugShot>();
 
 		default:
 			return nullptr;
