@@ -39,6 +39,7 @@
 #include "divesthelm.hpp"
 #include "divestshield.hpp"
 #include "divestweapon.hpp"
+#include "doubleattack.hpp"
 #include "emergencyescape.hpp"
 #include "enchantdeadlypoison.hpp"
 #include "enchantpoison.hpp"
@@ -288,7 +289,7 @@ std::unique_ptr<const SkillImpl> SkillFactoryThief::create(const e_skill skill_i
 		case TF_DETOXIFY:
 			return std::make_unique<SkillDetoxify>();
 		case TF_DOUBLE:
-			return std::make_unique<WeaponSkillImpl>(skill_id);
+			return std::make_unique<SkillDoubleAttack>();
 		case TF_HIDING:
 			return std::make_unique<SkillHiding>();
 		case TF_PICKSTONE:
