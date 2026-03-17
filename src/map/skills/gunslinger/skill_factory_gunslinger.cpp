@@ -12,6 +12,7 @@
 #include "basicgrenade.hpp"
 #include "bindtrap.hpp"
 #include "bullseye.hpp"
+#include "chainaction.hpp"
 #include "cracker.hpp"
 #include "crimsonmarker.hpp"
 #include "desperado.hpp"
@@ -60,7 +61,7 @@ std::unique_ptr<const SkillImpl> SkillFactoryGunslinger::create(const e_skill sk
 		case GS_BULLSEYE:
 			return std::make_unique<SkillBullseye>();
 		case GS_CHAINACTION:
-			return std::make_unique<WeaponSkillImpl>(skill_id);
+			return std::make_unique<SkillChainAction>();
 		case GS_CRACKER:
 			return std::make_unique<SkillCracker>();
 		case GS_DESPERADO:
