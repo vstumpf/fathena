@@ -1200,7 +1200,7 @@ struct s_skill_unit_layout *skill_get_unit_layout(uint16 skill_id, uint16 skill_
 int32 skill_area_temp[8];
 
 /*==========================================
- * Add effect to skill when hit succesfully target
+ * Add effect to skill when hit successfully target
  *------------------------------------------*/
 int32 skill_additional_effect( block_list* src, block_list *bl, uint16 skill_id, uint16 skill_lv, int32 attack_type, enum damage_lv dmg_lv, t_tick tick ){
 	nullpo_ret(src);
@@ -4662,6 +4662,11 @@ static int8 skill_castend_id_check(block_list *src, block_list *target, uint16 s
 				if (check_distance_bl(src, target, 0))
 					return USESKILL_FAIL_MAX;
 			}
+			break;
+		case RG_STEALCOIN:
+			// Does not work on non-monsters, bosses and targets already mugged
+			if (target->type != BL_MOB || status_bl_has_mode(target, MD_STATUSIMMUNE) || ((TBL_MOB*)target)->state.steal_coin_flag)
+				return USESKILL_FAIL;
 			break;
 		case PR_TURNUNDEAD:
 			{
@@ -9558,7 +9563,7 @@ bool skill_check_condition_castend( map_session_data& sd, uint16 skill_id, uint1
 			else if( require.itemid[i] == ITEMID_BLUE_GEMSTONE )
 				clif_skill_fail( sd, skill_id, USESKILL_FAIL_BLUEJAMSTONE ); //Blue gemstone is required.
 			else if( require.itemid[i] == ITEMID_PAINT_BRUSH )
-				clif_skill_fail( sd, skill_id, USESKILL_FAIL_PAINTBRUSH ); //Paint32 brush is required.
+				clif_skill_fail( sd, skill_id, USESKILL_FAIL_PAINTBRUSH ); //Paint brush is required.
 			else if( require.itemid[i] == ITEMID_ANCILLA )
 				clif_skill_fail( sd, skill_id, USESKILL_FAIL_ANCILLA ); //Ancilla is required.
 			else
