@@ -90602,6 +90602,15 @@ Body:
          bonus2 bExpAddRace,RC_All,5;
          bonus2 bDropAddRace,RC_All,5;
       }
+  - Id: 315055
+    AegisName: aegis_315055
+    Name: Flower Garden
+    Type: Card
+    SubType: Enchant
+    Script: |
+      hateffect FOOTPRINT_EF_FLOWER_GARDEN,true;
+    UnEquipScript: |
+      hateffect FOOTPRINT_EF_FLOWER_GARDEN,false;
   - Id: 1000000
     AegisName: IDTest_event
     Name: IDTest event
@@ -100461,6 +100470,169 @@ Body:
       NoMail: true
       NoAuction: true
       NoGuildStorage: true
+  - Id: 1002123
+    AegisName: 5th_Enc_Ticket_A
+    Name: "[5th] Angel Spirit A Ticket"
+    Type: Etc
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoSell: true
+      NoMail: true
+      NoAuction: true
+      NoGuildStorage: true
+  - Id: 1002124
+    AegisName: 5th_Enc_Ticket_B
+    Name: "[5th] Angel Spirit B Ticket"
+    Type: Etc
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoSell: true
+      NoMail: true
+      NoAuction: true
+      NoGuildStorage: true
+  - Id: 1002125
+    AegisName: 5th_Enc_Ticket_C
+    Name: "[5th] Angel Spirit C Ticket"
+    Type: Etc
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoSell: true
+      NoMail: true
+      NoAuction: true
+      NoGuildStorage: true
+  - Id: 1002126
+    AegisName: 5th_Enc_Ticket_D
+    Name: "[5th] Angel Spirit D Ticket"
+    Type: Etc
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoSell: true
+      NoMail: true
+      NoAuction: true
+      NoGuildStorage: true
+  - Id: 1002127
+    AegisName: 5th_Enc_Ticket_E
+    Name: "[5th] Angel Spirit E Ticket"
+    Type: Etc
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoSell: true
+      NoMail: true
+      NoAuction: true
+      NoGuildStorage: true
+  - Id: 1002128
+    AegisName: 5th_Enc_Ticket_F
+    Name: "[5th] Angel Spirit F Ticket"
+    Type: Etc
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoSell: true
+      NoMail: true
+      NoAuction: true
+      NoGuildStorage: true
+  - Id: 1002129
+    AegisName: 5th_MDC_Pass
+    Name: "[5th] MD Challenge Ticket"
+    Type: Etc
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoSell: true
+      NoMail: true
+      NoAuction: true
+      NoGuildStorage: true
+  - Id: 1002130
+    AegisName: 5th_Hunt_Horor_Pass
+    Name: "[5th] Hunting Horror Ticket"
+    Type: Etc
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoSell: true
+      NoMail: true
+      NoAuction: true
+      NoGuildStorage: true
+  - Id: 1002131
+    AegisName: 5th_MML_Pass
+    Name: "[5th] Monopoly Midgard Ticket"
+    Type: Etc
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoSell: true
+      NoMail: true
+      NoAuction: true
+      NoGuildStorage: true
+  - Id: 1002132
+    AegisName: 5th_MML_Coin
+    Name: "[5th] Monopoly Midgard Coin"
+    Type: Etc
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoSell: true
+      NoMail: true
+      NoAuction: true
+      NoGuildStorage: true
+  - Id: 1002133
+    AegisName: 5th_MML_Shop_Pass
+    Name: "[5th] Monopoly Midgard Shop Ticket"
+    Type: Etc
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoSell: true
+      NoMail: true
+      NoAuction: true
+      NoGuildStorage: true
+  - Id: 1002134
+    AegisName: 5th_Enc_Mat
+    Name: Legendary Fur
+    Type: Etc
+    Trade:
+      NoMail: true
+      NoAuction: true
+  - Id: 1002135
+    AegisName: Anni_Jumping_Ticket
+    Name: New Year Jumping Ticket
+    Type: Etc
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoSell: true
+      NoMail: true
+      NoAuction: true
+      NoGuildStorage: true
+  - Id: 1002136
+    AegisName: 5th_Enc_Ticket_Z
+    Name: "[5th] Angel Spirit Z Ticket"
+    Type: Etc
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoCart: true
+      NoSell: true
+      NoMail: true
+      NoAuction: true
+      NoGuildStorage: true
   - Id: 1002137
     AegisName: Pow_Meteor_Extract
     Name: Power Meteorite Extract    # !todo check english name
@@ -101846,6 +102018,11 @@ Body:
       NoDrop: true
       NoMail: true
       NoAuction: true
+  - Id: 1002822
+    AegisName: aegis_1002822
+    Name: "[Footprints] Flower Garden"
+    Type: Etc
+    Weight: 100
   - Id: 1002827
     AegisName: Energy_Xtal_RR_TW
     Name: Energy Crystal (Ring of Restoration)    # !todo check english name
@@ -101853,6 +102030,51 @@ Body:
     Weight: 10
     Trade:
       NoDrop: true
+  - Id: 1002834
+    AegisName: ABI_Ground_Essence
+    Name: Ground Essence of the Rift    # !todo check english name
+    Type: Etc
+    Weight: 10
+  - Id: 1002835
+    AegisName: ABI_Ground_Rune_Ore
+    Name: Ground Rune Ore Shard    # !todo check english name
+    Type: Etc
+    Weight: 1
+  - Id: 1002836
+    AegisName: ABI_Ground_Rune
+    Name: Ground Rune of Rift    # !todo check english name
+    Type: Etc
+    Weight: 10
+  - Id: 1002837
+    AegisName: ABI_Lava_Essence
+    Name: Rift Volcanic Essence    # !todo check english name
+    Type: Etc
+    Weight: 10
+  - Id: 1002838
+    AegisName: ABI_Lava_Rune_Ore
+    Name: Rift Volcano Rune Shard    # !todo check english name
+    Type: Etc
+    Weight: 1
+  - Id: 1002839
+    AegisName: ABI_Lava_Rune
+    Name: Rift Volcano Rune    # !todo check english name
+    Type: Etc
+    Weight: 10
+  - Id: 1002840
+    AegisName: ABI_Fixed_Crack
+    Name: Fixed Crack    # !todo check english name
+    Type: Etc
+    Weight: 10
+  - Id: 1002841
+    AegisName: aegis_1002841
+    Name: Dimensional Land Card Shard    # !todo check english name
+    Type: Etc
+    Weight: 10
+  - Id: 1002842
+    AegisName: aegis_1002842
+    Name: Dimensional Volcano Card Shard    # !todo check english name
+    Type: Etc
+    Weight: 10
   - Id: 1200000
     AegisName: IDTest_arrow
     Name: IDTest arrow
