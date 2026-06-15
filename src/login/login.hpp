@@ -13,6 +13,7 @@
 #include <config/core.hpp>
 
 #include "accountdb/AccountDb.hpp"
+#include "ipbandb/IpBanDb.hpp"
 
 using rathena::server_core::Core;
 using rathena::server_core::e_core_type;
@@ -29,10 +30,13 @@ public:
 	}
 
 	AccountDb* getAccountDb();
+	IpBanDb* getIpBanDb();
+
 	void displayHelpScreen(bool exit) override;
 	int32_t parseConsole(const char* buf) override;
 private:
 	std::unique_ptr<AccountDb> accountDb_{nullptr};
+	std::unique_ptr<IpBanDb> ipbanDb_{nullptr};
 };
 }
 
@@ -163,6 +167,7 @@ struct auth_node {
 };
 
 AccountDb* getAccountDb();
+IpBanDb* getIpBanDb();
 
 struct online_login_data* login_get_online_user( uint32 account_id );
 
